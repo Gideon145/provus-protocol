@@ -1,0 +1,22 @@
+{
+  "name": "provus-protocol",
+  "version": "0.1.0",
+  "description": "Provus - Verified AI Strategy Marketplace on 0G",
+  "private": true,
+  "scripts": {
+    "probe:compute": "npx ts-node scripts/probe-compute.ts",
+    "probe:storage": "npx ts-node scripts/probe-storage.ts",
+    "agent:dev": "npx ts-node agent/src/index.ts"
+  },
+  "dependencies": {
+    "@0glabs/0g-serving-broker": "^1.0.0-beta.8",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.11.1",
+    "openai": "^4.52.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}

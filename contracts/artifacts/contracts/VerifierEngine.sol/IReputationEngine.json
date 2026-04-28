@@ -1,0 +1,45 @@
+{
+  "_format": "hh3-artifact-1",
+  "contractName": "IReputationEngine",
+  "sourceName": "contracts/VerifierEngine.sol",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "strategyId",
+          "type": "uint256"
+        }
+      ],
+      "name": "initStrategy",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "strategyId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "int256",
+          "name": "pnlBps",
+          "type": "int256"
+        }
+      ],
+      "name": "updateScore",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {},
+  "immutableReferences": {},
+  "inputSourceName": "project/contracts/VerifierEngine.sol",
+  "buildInfoId": "solc-0_8_24-11cf6a76c1be4d1567e5bfcd0bb4993e3c7d8b2b"
+}
