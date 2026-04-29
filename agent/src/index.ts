@@ -1,5 +1,5 @@
 /**
- * index.ts — PROVUS Agent Loop
+ * index.ts â€” PROVUS Agent Loop
  *
  * Parry-style tx accumulation pattern:
  *   Every 15s iteration:
@@ -11,7 +11,7 @@
  *   6. Sync wallet nonce every 5 iterations ? onChainTxCount (= proof of work)
  *
  * The longer the agent runs, the more on-chain attestations accumulate.
- * Wallet nonce is the permanent proof — survives process restarts.
+ * Wallet nonce is the permanent proof â€” survives process restarts.
  *
  * Run: npx ts-node agent/src/index.ts
  */
@@ -26,9 +26,9 @@ import { logger } from "./logger";
 // --- ABIs ---------------------------------------------------------------------
 
 const VERIFIER_ABI = [
-  // Lightweight heartbeat — fires every iteration
+  // Lightweight heartbeat â€” fires every iteration
   "function recordVolatility(uint256 strategyId, uint256 taskId, uint256 volBps, string regime) external",
-  // Full TEE attestation — fires every iteration after AI signal
+  // Full TEE attestation â€” fires every iteration after AI signal
   "function attest(uint256 strategyId, uint256 taskId, bytes32 attestationHash, bytes32 storageRoot, string signal, uint256 confidence, bool isValid) external",
   "event DecisionVerified(uint256 indexed strategyId, uint256 indexed taskId, bytes32 attestationHash, bytes32 storageRoot, string signal, uint256 confidence, bool verified, uint256 timestamp)",
   "event VolatilityRecorded(uint256 indexed strategyId, uint256 indexed taskId, uint256 volBps, string regime, uint256 timestamp)",
@@ -52,7 +52,7 @@ const CONFIG = {
   strategyId: parseInt(process.env.STRATEGY_ID ?? "1"),
   symbol: process.env.TRADE_SYMBOL ?? "ETHUSDT",
 
-  // 15s like Parry — faster accumulation of on-chain txns
+  // 15s like Parry â€” faster accumulation of on-chain txns
   loopIntervalMs: parseInt(process.env.LOOP_INTERVAL_MS ?? "15000"),
 
   statusPort: parseInt(process.env.STATUS_PORT ?? "3001"),
@@ -142,7 +142,7 @@ function startStatusServer(): void {
       res.writeHead(200);
       res.end(JSON.stringify({
         ...state,
-        onChainTxNote: "Wallet nonce on 0G Chain Testnet — lifetime tx count, accumulates across restarts.",
+        onChainTxNote: "Wallet nonce on 0G Chain Testnet â€” lifetime tx count, accumulates across restarts.",
         startNote: `Agent started ${state.startTimestamp}. Every 15s: recordVolatility() + attest().`,
       }));
       return;
@@ -209,7 +209,7 @@ async function runLoop(
     `${CONFIG.symbol} $${vol.latestPrice.toFixed(2)} | vol=${(vol.realizedVolBps / 100).toFixed(1)}% | regime=${vol.regime}`
   );
 
-  // -- Step 2: recordVolatility() — fires EVERY iteration --------------------
+  // -- Step 2: recordVolatility() â€” fires EVERY iteration --------------------
   if (verifier && !CONFIG.demoMode) {
     try {
       const tx = await verifier.recordVolatility(
@@ -234,7 +234,7 @@ async function runLoop(
   }
 
   if (vol.latestPrice === 0) {
-    logger.warn("No price data — skipping AI signal this iteration");
+    logger.warn("No price data â€” skipping AI signal this iteration");
     return;
   }
 
@@ -257,11 +257,11 @@ async function runLoop(
   } catch (err) {
     logger.error(`0G Compute query failed: ${err}`);
     addLog(`[0G-ERR] ${String(err).slice(0, 80)}`);
-    // recordVolatility already fired — still got a tx this iteration
+    // recordVolatility already fired â€” still got a tx this iteration
     return;
   }
 
-  // -- Step 4: VerifierEngine.attest() — fires on EVERY signal ----------------
+  // -- Step 4: VerifierEngine.attest() â€” fires on EVERY signal ----------------
   const storageRoot = buildStorageRoot(taskId, attestResult.chatId, attestResult.signal);
 
   if (verifier && !CONFIG.demoMode) {
@@ -337,7 +337,7 @@ async function main(): Promise<void> {
 
   logger.info(`Wallet   : ${wallet.address}`);
   logger.info(`Network  : ${CONFIG.rpcUrl}`);
-  logger.info(`Strategy : #${CONFIG.strategyId} — YZ-Delta v1`);
+  logger.info(`Strategy : #${CONFIG.strategyId} â€” YZ-Delta v1`);
   logger.info(`Symbol   : ${CONFIG.symbol}`);
   logger.info(`Interval : ${CONFIG.loopIntervalMs / 1000}s`);
   logger.info(`Demo mode: ${CONFIG.demoMode}`);
@@ -353,7 +353,7 @@ async function main(): Promise<void> {
     verifier = new ethers.Contract(CONFIG.verifierAddress, VERIFIER_ABI, wallet);
     logger.success(`VerifierEngine : ${CONFIG.verifierAddress}`);
   } else if (!CONFIG.demoMode) {
-    logger.warn("VERIFIER_ENGINE_ADDRESS not set — deploy contracts first");
+    logger.warn("VERIFIER_ENGINE_ADDRESS not set â€” deploy contracts first");
   }
 
   if (CONFIG.vaultAddress && !CONFIG.demoMode) {
@@ -364,7 +364,7 @@ async function main(): Promise<void> {
   startStatusServer();
   state.running = true;
 
-  logger.success(`Agent running — ${CONFIG.loopIntervalMs / 1000}s loop`);
+  logger.success(`Agent running â€” ${CONFIG.loopIntervalMs / 1000}s loop`);
   logger.success(`Every iteration: recordVolatility() + attest() = 2 on-chain txns`);
   addLog(`Agent started. Strategy #${CONFIG.strategyId} on ${CONFIG.symbol}`);
 
