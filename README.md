@@ -963,7 +963,7 @@ Watch live transactions: https://chainscan.0g.ai/address/0x94A4365E6B7E79791258A
 ## 📊 Live Dashboard
 
 **Features**:
-- **TX Counter**: Real-time accumulation (currently 66+)
+- **TX Counter**: Real-time accumulation (currently 432+ on 0G Chain)
 - **Volatility Gauge**: Yang-Zhang volatility % + regime badge
 - **AI Confidence**: DeepSeek signal confidence (0-100%)
 - **Contract Links**: Clickable 0G Explorer links
@@ -1168,7 +1168,7 @@ provus-protocol/
 - **RPC**: `https://evmrpc.0g.ai`
 - **Explorer**: https://chainscan.0g.ai
 - **Contracts deployed**: 4/4 active
-- **Proof accumulation**: 66+ transactions, 2/15s rate = **5,760 txns/day capacity**
+- **Proof accumulation**: 432 transactions, 2/15s rate = **5,760 txns/day capacity**
 
 **On-Chain Data Locations**:
 - All VerifierEngine attestations: https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0
@@ -1302,7 +1302,7 @@ Open browser: http://localhost:3000
 - Iteration counter (incrementing every 15s)
 - Live volatility gauge
 - AI confidence score
-- Transaction counter (should show 66+ already on 0G Chain)
+- Transaction counter (should show 432+ already on 0G Chain)
 - Live log terminal
 - 4 clickable contract links to 0G Explorer
 
