@@ -1,10 +1,10 @@
-# PROVUS Protocol
+﻿# PROVUS Protocol
 
 **Autonomous AI Trading Agent with Cryptographic Attestation on 0G Chain**
 
 > *"Every decision sealed. Every signature verified. Every trade permanent."*
 
-[![Live Dashboard](https://img.shields.io/badge/Live%20Dashboard-Vercel-cyan)](https://frontend-mu-three-93.vercel.app)
+[![Live Dashboard](https://img.shields.io/badge/Live%20Dashboard-Vercel-cyan)](https://provus-protocol-frontend.vercel.app)
 [![Agent API](https://img.shields.io/badge/Agent%20Status-On--Chain-green)](https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0)
 [![0G ChainScan](https://img.shields.io/badge/VerifierEngine-0x911E87629...-brightgreen)](https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0)
 [![ReputationEngine](https://img.shields.io/badge/Reputation-ELO%20847-blue)](https://chainscan.0g.ai/address/0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e)
@@ -15,9 +15,9 @@
 
 ## What Is PROVUS Protocol?
 
-PROVUS is the **first autonomous AI trading agent with real-time cryptographic attestation on 0G Chain**. Every trading decision is processed through DeepSeek V3.1 TEE, signed cryptographically, and permanently recorded on-chain within 15 seconds — proving the decision was made BEFORE execution, not backdated or manipulated.
+PROVUS is the **first autonomous AI trading agent with real-time cryptographic attestation on 0G Chain**. Every trading decision is processed through DeepSeek V3.1 TEE, signed cryptographically, and permanently recorded on-chain within 15 seconds â€” proving the decision was made BEFORE execution, not backdated or manipulated.
 
-The system runs fully autonomous every 15 seconds: fetch market data → calculate volatility → query AI → attest on-chain → update reputation → broadcast proof. 439+ transactions verified. 340+ iterations completed. 99.7% uptime. No manual intervention.
+The system runs fully autonomous every 15 seconds: fetch market data â†’ calculate volatility â†’ query AI â†’ attest on-chain â†’ update reputation â†’ broadcast proof. 439+ transactions verified. 340+ iterations completed. 99.7% uptime. No manual intervention.
 
 ---
 
@@ -25,10 +25,10 @@ The system runs fully autonomous every 15 seconds: fetch market data → calcula
 
 AI trading systems are **inherently unverifiable**:
 
-- **Traders claim** *"79% win rate"* but provide **no on-chain proof** — easily fabricated
-- **Regulators can't audit** real-time decision logic — black box inference, invisible to compliance
-- **Investors can't verify** if AI is outperforming luck — no cryptographic commitment to decisions
-- **Markets suffer** from information asymmetry — no transparent, auditable trading signals
+- **Traders claim** *"79% win rate"* but provide **no on-chain proof** â€” easily fabricated
+- **Regulators can't audit** real-time decision logic â€” black box inference, invisible to compliance
+- **Investors can't verify** if AI is outperforming luck â€” no cryptographic commitment to decisions
+- **Markets suffer** from information asymmetry â€” no transparent, auditable trading signals
 
 **Current "solutions" fail**:
 1. **Backtests** are overfitted, cherry-picked, tested only on historical data
@@ -45,13 +45,13 @@ AI trading systems are **inherently unverifiable**:
 PROVUS runs an autonomous agent loop **every 15 seconds** that creates cryptographically verifiable proof of every trade decision:
 
 1. **Fetch** current ETH/USDT spot price from Binance API
-2. **Calculate** Yang-Zhang realized volatility using 144 × 5-minute candles (12-hour window)
+2. **Calculate** Yang-Zhang realized volatility using 144 Ã— 5-minute candles (12-hour window)
 3. **Query** DeepSeek V3.1 via 0G Compute TEE with market context (encrypted end-to-end)
 4. **Receive** signed inference result: `signal (BUY/HOLD/SELL) + confidence (0-100)`
-5. **Record** volatility on-chain: `recordVolatility()` → VerifierEngine → 0G Chain
-6. **Attest** decision on-chain: `attest(strategyId, signal, confidence, teeProof)` → VerifierEngine → 0G Chain
-7. **Update** on-chain ELO reputation: `updateElo()` → ReputationEngine (based on signal accuracy)
-8. **Verify** cryptographic signatures: TEE provider → attestation → on-chain state
+5. **Record** volatility on-chain: `recordVolatility()` â†’ VerifierEngine â†’ 0G Chain
+6. **Attest** decision on-chain: `attest(strategyId, signal, confidence, teeProof)` â†’ VerifierEngine â†’ 0G Chain
+7. **Update** on-chain ELO reputation: `updateElo()` â†’ ReputationEngine (based on signal accuracy)
+8. **Verify** cryptographic signatures: TEE provider â†’ attestation â†’ on-chain state
 9. **Broadcast** proof to frontend: Iteration #N complete, 439+ total attestations, 847 ELO
 10. **Sleep** until next 15-second cycle begins
 
@@ -63,7 +63,7 @@ PROVUS runs an autonomous agent loop **every 15 seconds** that creates cryptogra
 
 | Service | URL | Status |
 |---|---|---|
-| Frontend Dashboard | https://frontend-mu-three-93.vercel.app | **Live** |
+| Frontend Dashboard | https://provus-protocol-frontend.vercel.app | **Live** |
 | Agent Status API | https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0 | On-Chain |
 | VerifierEngine Contract | https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0 | **439+ TXs** |
 | ReputationEngine Contract | https://chainscan.0g.ai/address/0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e | ELO 847 |
@@ -79,25 +79,25 @@ PROVUS runs an autonomous agent loop **every 15 seconds** that creates cryptogra
 
 # 2. View recent attestations on 0G ChainScan
 # Visit: https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0
-# Click "Transactions" tab → see recordVolatility() and attest() calls
+# Click "Transactions" tab â†’ see recordVolatility() and attest() calls
 
 # 3. Verify timestamp - decision made BEFORE execution
-# In ChainScan, expand any attest() transaction → input data shows:
+# In ChainScan, expand any attest() transaction â†’ input data shows:
 # strategyId, signal, confidence, timestamp, teeProofHash
 
 # 4. Check ReputationEngine ELO
 curl https://chainscan.0g.ai/api/v1/addresses/0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e
 
 # 5. See all 439+ verified attestations
-# Total TX count = iterations × 2 (recordVolatility + attest)
-# 216 iterations × 2 = 439+ TXs
+# Total TX count = iterations Ã— 2 (recordVolatility + attest)
+# 216 iterations Ã— 2 = 439+ TXs
 ```
 
 ### About the On-Chain TX Count
 
 `onChainTxCount` reported in agent `/status` endpoint is the **lifetime transaction count** from the Agent Wallet on 0G Mainnet (ChainID 16661). This counter:
 - Is read directly from the chain via `provider.getTransactionCount(agentWallet)`
-- **Does not reset on agent restarts** — it accumulates across all runs since first deployment
+- **Does not reset on agent restarts** â€” it accumulates across all runs since first deployment
 - Currently **439+ confirmed transactions** on 0G Mainnet (ChainID 16661)
 - Every transaction is cryptographically signed and verifiable on ChainScan
 
@@ -105,7 +105,7 @@ curl https://chainscan.0g.ai/api/v1/addresses/0x57C7f2F3051928E2cc7C871Bac590bF1
 
 ---
 
-## 📊 Quantified Performance Metrics
+## ðŸ“Š Quantified Performance Metrics
 
 PROVUS has **340+ consecutive iterations** of proven execution. Metrics are **live and auditable on 0G Chain**.
 
@@ -113,15 +113,15 @@ PROVUS has **340+ consecutive iterations** of proven execution. Metrics are **li
 |----------|--------|-------|----------|
 | **On-Chain Proof** | Total Attestations | 439+ | ChainScan: VerifierEngine Tx history |
 | **On-Chain Proof** | Iterations Completed | 340+ | Iteration counter in frontend dashboard |
-| **Performance** | Execution Latency | 247ms avg | Agent tx submission → mempool entry |
+| **Performance** | Execution Latency | 247ms avg | Agent tx submission â†’ mempool entry |
 | **Performance** | Gas per Attestation | 0.004 OG | ~$0.04 USD (0G @ $10 peg) |
 | **Reliability** | Uptime | 99.7% | No manual restarts in 340+ loops |
-| **Reliability** | Loop Consistency | 15s ±200ms | Blockchain timestamp proof |
+| **Reliability** | Loop Consistency | 15s Â±200ms | Blockchain timestamp proof |
 | **AI Quality** | Signal Accuracy | 79% | High-confidence HOLD/BUY vs realized move |
 | **AI Quality** | Avg Confidence | 78% | DeepSeek V3.1 calibration |
 | **Reputation** | ELO Score | 847 | ReputationEngine contract state |
 | **Reputation** | Percentile | 51st | Among 0G trading agents |
-| **Scalability** | TX/Day Capacity | 5,760 | (15s loop × 86,400s / day) = 5,760 attestations |
+| **Scalability** | TX/Day Capacity | 5,760 | (15s loop Ã— 86,400s / day) = 5,760 attestations |
 | **Composability** | Integration Points | 4 contracts | StrategyRegistry, VerifierEngine, StrategyVault, ReputationEngine |
 
 **Key Point**: These are NOT simulated metrics. Every number above is **backed by on-chain data** you can verify yourself on 0G ChainScan.
@@ -130,146 +130,146 @@ PROVUS has **340+ consecutive iterations** of proven execution. Metrics are **li
 
 ---
 
-## 🏗️ Architecture & Integration
+## ðŸ—ï¸ Architecture & Integration
 
 ### System Design
 ```
-┌──────────────────────────────────────────────────────────────┐
-│                 FRONTEND LAYER (Next.js React)               │
-│     frontend-mu-three-93.vercel.app (Sci-Fi HUD)             │
-│  • Live iteration counter (updates every 15s)               │
-│  • Real-time TX accumulation display                        │
-│  • Volatility regime visualization                          │
-│  • AI confidence gauge                                       │
-│  • ELO reputation leaderboard                               │
-│  • 0G Explorer links (clickable contract addresses)         │
-└────────────────────┬─────────────────────────────────────────┘
-                     │ HTTP polling
-                     │ GET /status (agent broadcast)
-                     │
-┌────────────────────▼─────────────────────────────────────────┐
-│              AGENT SERVICE LAYER (Node.js)                   │
-│         Agent Service (15-second loop, runs locally)         │
-│  ┌─────────────────────────────────────────────────────┐    │
-│  │ EVERY 15 SECONDS:                                   │    │
-│  │ 1. fetch current price (Binance)                   │    │
-│  │ 2. calculate Yang-Zhang volatility (144 candles)   │    │
-│  │ 3. query DeepSeek V3.1 via 0G TEE                 │    │
-│  │ 4. get trading signal + confidence score           │    │
-│  │ 5. attest on-chain (2 txns):                       │    │
-│  │    - recordVolatility() → VerifierEngine           │    │
-│  │    - attest() → VerifierEngine                     │    │
-│  │ 6. broadcast updated state                         │    │
-│  │ 7. update ELO reputation on ReputationEngine       │    │
-│  └─────────────────────────────────────────────────────┘    │
-│  Status server broadcasts:                                   │
-│  • iteration count                                           │
-│  • current volatility (%)                                   │
-│  • signal (BUY/HOLD/SELL)                                   │
-│  • confidence (0-100)                                        │
-│  • TX hash (most recent)                                     │
-└────────────────────┬─────────────────────────────────────────┘
-                     │ ethers.js
-                     │ signed transactions
-                     │
-┌────────────────────▼─────────────────────────────────────────┐
-│              0G BLOCKCHAIN LAYER (ChainID 16661)             │
-│              Mainnet RPC: https://evmrpc.0g.ai             │
-│                                                              │
-│  4 CORE CONTRACTS (all deployed):                           │
-│  ┌──────────────────────────────────────────────────┐      │
-│  │ StrategyRegistry (ERC-721)                       │      │
-│  │ 0x87E3D9fcfA4eff229A65d045A7C741E49b581187    │      │
-│  │ • Mints ERC-721 tokens representing strategies  │      │
-│  │ • Each strategy = unique trading profile        │      │
-│  │ • Transferable, composable primitive            │      │
-│  └──────────────────────────────────────────────────┘      │
-│  ┌──────────────────────────────────────────────────┐      │
-│  │ VerifierEngine (Attestation Hub)                 │      │
-│  │ 0x911E87629756F34190DF34162806f00b35521FD0    │      │
-│  │ • recordVolatility(strategyId, vol, regime)    │      │
-│  │ • attest(signal, confidence, hash, isValid)    │      │
-│  │ • emits DecisionVerified events                 │      │
-│  │ • 439+ transactions logged                       │      │
-│  └──────────────────────────────────────────────────┘      │
-│  ┌──────────────────────────────────────────────────┐      │
-│  │ StrategyVault (Position Management)              │      │
-│  │ 0x2B9366b7fea6a1C6279edbC7B87CCB91CdCc1014    │      │
-│  │ • executeTrade(signal, amount, dexRouter)      │      │
-│  │ • Holds capital, executes hedges                │      │
-│  │ • Delta-neutral positioning                     │      │
-│  │ • Slippage protection (95% threshold)           │      │
-│  └──────────────────────────────────────────────────┘      │
-│  ┌──────────────────────────────────────────────────┐      │
-│  │ ReputationEngine (ELO Scoring)                   │      │
-│  │ 0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e    │      │
-│  │ • recordStrategy(signal, confidence)            │      │
-│  │ • updateElo(strategyId, delta)                  │      │
-│  │ • getAgentReputation(strategyId) → 847          │      │
-│  │ • ELO K-factor = 32 (standard)                  │      │
-│  └──────────────────────────────────────────────────┘      │
-└────────────────────┬─────────────────────────────────────────┘
-                     │ 0G Compute API calls
-                     │ (DeepSeek inference)
-                     │
-┌────────────────────▼─────────────────────────────────────────┐
-│         0G COMPUTE NETWORK (TEE Inference Layer)            │
-│        Provider: DeepSeek V3.1                              │
-│        Address: 0xd9966e13a6026Fcca4b13E7ff95c94DE268C471C │
-│                                                              │
-│  • Agent sends encrypted query (ETH/USD momentum)           │
-│  • DeepSeek runs inside TEE (no key exposure)              │
-│  • Returns signed attestation hash                         │
-│  • Hash verified before on-chain recording                 │
-│  • Privacy: input query encrypted, output verified         │
-└──────────────────────────────────────────────────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                 FRONTEND LAYER (Next.js React)               â”‚
+â”‚     provus-protocol-frontend.vercel.app (Sci-Fi HUD)             â”‚
+â”‚  â€¢ Live iteration counter (updates every 15s)               â”‚
+â”‚  â€¢ Real-time TX accumulation display                        â”‚
+â”‚  â€¢ Volatility regime visualization                          â”‚
+â”‚  â€¢ AI confidence gauge                                       â”‚
+â”‚  â€¢ ELO reputation leaderboard                               â”‚
+â”‚  â€¢ 0G Explorer links (clickable contract addresses)         â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                     â”‚ HTTP polling
+                     â”‚ GET /status (agent broadcast)
+                     â”‚
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚              AGENT SERVICE LAYER (Node.js)                   â”‚
+â”‚         Agent Service (15-second loop, runs locally)         â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â”‚
+â”‚  â”‚ EVERY 15 SECONDS:                                   â”‚    â”‚
+â”‚  â”‚ 1. fetch current price (Binance)                   â”‚    â”‚
+â”‚  â”‚ 2. calculate Yang-Zhang volatility (144 candles)   â”‚    â”‚
+â”‚  â”‚ 3. query DeepSeek V3.1 via 0G TEE                 â”‚    â”‚
+â”‚  â”‚ 4. get trading signal + confidence score           â”‚    â”‚
+â”‚  â”‚ 5. attest on-chain (2 txns):                       â”‚    â”‚
+â”‚  â”‚    - recordVolatility() â†’ VerifierEngine           â”‚    â”‚
+â”‚  â”‚    - attest() â†’ VerifierEngine                     â”‚    â”‚
+â”‚  â”‚ 6. broadcast updated state                         â”‚    â”‚
+â”‚  â”‚ 7. update ELO reputation on ReputationEngine       â”‚    â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜    â”‚
+â”‚  Status server broadcasts:                                   â”‚
+â”‚  â€¢ iteration count                                           â”‚
+â”‚  â€¢ current volatility (%)                                   â”‚
+â”‚  â€¢ signal (BUY/HOLD/SELL)                                   â”‚
+â”‚  â€¢ confidence (0-100)                                        â”‚
+â”‚  â€¢ TX hash (most recent)                                     â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                     â”‚ ethers.js
+                     â”‚ signed transactions
+                     â”‚
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚              0G BLOCKCHAIN LAYER (ChainID 16661)             â”‚
+â”‚              Mainnet RPC: https://evmrpc.0g.ai             â”‚
+â”‚                                                              â”‚
+â”‚  4 CORE CONTRACTS (all deployed):                           â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”      â”‚
+â”‚  â”‚ StrategyRegistry (ERC-721)                       â”‚      â”‚
+â”‚  â”‚ 0x87E3D9fcfA4eff229A65d045A7C741E49b581187    â”‚      â”‚
+â”‚  â”‚ â€¢ Mints ERC-721 tokens representing strategies  â”‚      â”‚
+â”‚  â”‚ â€¢ Each strategy = unique trading profile        â”‚      â”‚
+â”‚  â”‚ â€¢ Transferable, composable primitive            â”‚      â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜      â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”      â”‚
+â”‚  â”‚ VerifierEngine (Attestation Hub)                 â”‚      â”‚
+â”‚  â”‚ 0x911E87629756F34190DF34162806f00b35521FD0    â”‚      â”‚
+â”‚  â”‚ â€¢ recordVolatility(strategyId, vol, regime)    â”‚      â”‚
+â”‚  â”‚ â€¢ attest(signal, confidence, hash, isValid)    â”‚      â”‚
+â”‚  â”‚ â€¢ emits DecisionVerified events                 â”‚      â”‚
+â”‚  â”‚ â€¢ 439+ transactions logged                       â”‚      â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜      â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”      â”‚
+â”‚  â”‚ StrategyVault (Position Management)              â”‚      â”‚
+â”‚  â”‚ 0x2B9366b7fea6a1C6279edbC7B87CCB91CdCc1014    â”‚      â”‚
+â”‚  â”‚ â€¢ executeTrade(signal, amount, dexRouter)      â”‚      â”‚
+â”‚  â”‚ â€¢ Holds capital, executes hedges                â”‚      â”‚
+â”‚  â”‚ â€¢ Delta-neutral positioning                     â”‚      â”‚
+â”‚  â”‚ â€¢ Slippage protection (95% threshold)           â”‚      â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜      â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”      â”‚
+â”‚  â”‚ ReputationEngine (ELO Scoring)                   â”‚      â”‚
+â”‚  â”‚ 0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e    â”‚      â”‚
+â”‚  â”‚ â€¢ recordStrategy(signal, confidence)            â”‚      â”‚
+â”‚  â”‚ â€¢ updateElo(strategyId, delta)                  â”‚      â”‚
+â”‚  â”‚ â€¢ getAgentReputation(strategyId) â†’ 847          â”‚      â”‚
+â”‚  â”‚ â€¢ ELO K-factor = 32 (standard)                  â”‚      â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜      â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                     â”‚ 0G Compute API calls
+                     â”‚ (DeepSeek inference)
+                     â”‚
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚         0G COMPUTE NETWORK (TEE Inference Layer)            â”‚
+â”‚        Provider: DeepSeek V3.1                              â”‚
+â”‚        Address: 0xd9966e13a6026Fcca4b13E7ff95c94DE268C471C â”‚
+â”‚                                                              â”‚
+â”‚  â€¢ Agent sends encrypted query (ETH/USD momentum)           â”‚
+â”‚  â€¢ DeepSeek runs inside TEE (no key exposure)              â”‚
+â”‚  â€¢ Returns signed attestation hash                         â”‚
+â”‚  â€¢ Hash verified before on-chain recording                 â”‚
+â”‚  â€¢ Privacy: input query encrypted, output verified         â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
 ### Data Flow: One Complete 15-Second Cycle
 
 ```
 [T=0s] Agent Loop Starts
-  ├─ Fetch Binance ETHUSDT klines (last 144 × 5-min = 12 hours)
-  ├─ Calculate Yang-Zhang volatility
-  │  └─ Current vol: 42.5% (MEDIUM regime)
-  │
-  ├─ Query 0G Compute: "Market momentum? Vol=42.5%, Trend=up"
-  │  └─ DeepSeek V3.1 TEE processes (encrypted)
-  │  └─ Response: "BUY, confidence=0.78" + attestationHash
-  │
-  ├─ Pre-sign transactions (prepare 2 txns)
-  │  ├─ TX#1: recordVolatility(strategyId=1, vol=4250bps, regime="MEDIUM")
-  │  └─ TX#2: attest(signal="BUY", confidence=78, hash=0xf4d2c1...)
-  │
+  â”œâ”€ Fetch Binance ETHUSDT klines (last 144 Ã— 5-min = 12 hours)
+  â”œâ”€ Calculate Yang-Zhang volatility
+  â”‚  â””â”€ Current vol: 42.5% (MEDIUM regime)
+  â”‚
+  â”œâ”€ Query 0G Compute: "Market momentum? Vol=42.5%, Trend=up"
+  â”‚  â””â”€ DeepSeek V3.1 TEE processes (encrypted)
+  â”‚  â””â”€ Response: "BUY, confidence=0.78" + attestationHash
+  â”‚
+  â”œâ”€ Pre-sign transactions (prepare 2 txns)
+  â”‚  â”œâ”€ TX#1: recordVolatility(strategyId=1, vol=4250bps, regime="MEDIUM")
+  â”‚  â””â”€ TX#2: attest(signal="BUY", confidence=78, hash=0xf4d2c1...)
+  â”‚
 [T=0.2s] Broadcast TX#1
-  ├─ Transaction enters 0G mempool
-  ├─ Event emitted: VolatilityRecorded(strategyId=1, vol=4250)
-  └─ Frontend sees: vol gauge updates to 42.5%
+  â”œâ”€ Transaction enters 0G mempool
+  â”œâ”€ Event emitted: VolatilityRecorded(strategyId=1, vol=4250)
+  â””â”€ Frontend sees: vol gauge updates to 42.5%
   
 [T=8s] TX#1 Confirmed (8 blocks @ ~1s/block on 0G)
-  ├─ Nonce incremented: 340 → 341
-  ├─ onChainTxCount += 1
-  └─ VerifierEngine state updated
+  â”œâ”€ Nonce incremented: 340 â†’ 341
+  â”œâ”€ onChainTxCount += 1
+  â””â”€ VerifierEngine state updated
   
 [T=8.1s] Broadcast TX#2
-  ├─ attest() call signed with confidence=78
-  ├─ Event emitted: DecisionVerified(signal="BUY", confidence=78)
-  ├─ Frontend shows: green "BUY" badge, confidence meter = 78%
-  └─ ELO system queues update
+  â”œâ”€ attest() call signed with confidence=78
+  â”œâ”€ Event emitted: DecisionVerified(signal="BUY", confidence=78)
+  â”œâ”€ Frontend shows: green "BUY" badge, confidence meter = 78%
+  â””â”€ ELO system queues update
   
 [T=16s] TX#2 Confirmed
-  ├─ ReputationEngine ELO updates (if signal was profitable: +5 ELO, else -2)
-  ├─ Frontend shows: reputation=847
-  ├─ Dashboard log shows: "[04:32:16 PM] TRADE - Attestation on-chain (tx #439+)"
-  └─ cumTxCount = 433
+  â”œâ”€ ReputationEngine ELO updates (if signal was profitable: +5 ELO, else -2)
+  â”œâ”€ Frontend shows: reputation=847
+  â”œâ”€ Dashboard log shows: "[04:32:16 PM] TRADE - Attestation on-chain (tx #439+)"
+  â””â”€ cumTxCount = 433
   
 [T=15.1s] Agent broadcasts /status endpoint
-  ├─ iteration: 341
-  ├─ vol: 42.5
-  ├─ signal: "BUY"
-  ├─ confidence: 78
-  ├─ eloScore: 847
-  └─ totalTx: 67
+  â”œâ”€ iteration: 341
+  â”œâ”€ vol: 42.5
+  â”œâ”€ signal: "BUY"
+  â”œâ”€ confidence: 78
+  â”œâ”€ eloScore: 847
+  â””â”€ totalTx: 67
 
 [T=30s] Next cycle begins...
 ```
@@ -297,14 +297,14 @@ if (agentElo > 800) {
 ```
 
 **Composable primitives**:
-1. **StrategyRegistry** → Query active strategies (ERC-721 enumerable)
-2. **VerifierEngine** → Subscribe to signal events (smart contract listeners)
-3. **ReputationEngine** → Whitelist high-ELO agents automatically
-4. **StrategyVault** → Delegate execution to proven agents
+1. **StrategyRegistry** â†’ Query active strategies (ERC-721 enumerable)
+2. **VerifierEngine** â†’ Subscribe to signal events (smart contract listeners)
+3. **ReputationEngine** â†’ Whitelist high-ELO agents automatically
+4. **StrategyVault** â†’ Delegate execution to proven agents
 
 ---
 
-## 📝 Smart Contracts (Solidity 0.8.24)
+## ðŸ“ Smart Contracts (Solidity 0.8.24)
 
 ### 1. StrategyRegistry.sol (ERC-721)
 
@@ -419,7 +419,7 @@ struct Attestation {
 }
 
 mapping(bytes32 => Attestation) public attestations;
-mapping(uint256 => bytes32[]) public strategyAttestations; // strategyId → attestation IDs
+mapping(uint256 => bytes32[]) public strategyAttestations; // strategyId â†’ attestation IDs
 uint256 public totalAttestations; // 439+ and growing
 ```
 
@@ -526,11 +526,11 @@ function getLeaderboard(uint256 limit)
 **ELO Algorithm**:
 ```
 If decision was CORRECT (profitable):
-  eloGain = K × (confidence / 100)
+  eloGain = K Ã— (confidence / 100)
   newElo = currentElo + eloGain
   
 If decision was WRONG (loss):
-  eloLoss = K × (1 - confidence / 100) × 0.5
+  eloLoss = K Ã— (1 - confidence / 100) Ã— 0.5
   newElo = currentElo - eloLoss
 
 K-factor = 32 (standard chess rating)
@@ -556,130 +556,130 @@ mapping(uint256 => AgentRating) public ratings;
 
 ---
 
-## 📊 Data Flow: One Complete 15-Second Cycle
+## ðŸ“Š Data Flow: One Complete 15-Second Cycle
 
 ### Visual Timeline
 ```
 [T=0s] Agent Loop Starts
-├─ 1. Binance: GET klines(ETHUSDT, 5m, 144 bars)
-│  └─ Response: OHLCV array, most recent bar = T-5m
-│
-├─ 2. Calculate Yang-Zhang volatility
-│  ├─ Input: 144 × 5-min candles
-│  ├─ Formula: YZ = sqrt(sum of log-high-low ranges)
-│  ├─ Output: 42.5% (MEDIUM regime)
-│  └─ Cache: TTL 5 minutes
-│
-├─ 3. Query DeepSeek V3.1 via 0G Compute TEE
-│  ├─ Prepare encrypted query:
-│  │  "Market ETHUSDT | Volatility 42.5% MEDIUM | Trend uptrend"
-│  ├─ 0G broker encrypts end-to-end
-│  ├─ TEE processes (DeepSeek model in trusted execution)
-│  ├─ TEE generates response: "BUY, confidence 0.78"
-│  ├─ TEE signs with private key (no exposure)
-│  └─ Returns: (signal="BUY", confidence=78, teeSig=0x...)
-│
-├─ 4. Verify attestation hash
-│  ├─ Compare TEE signature against known provider pubkey
-│  ├─ Result: ✓ Valid (signature matches provider)
-│  └─ Proceed to attestation
-│
-├─ 5. BATCH TRANSACTION #1: recordVolatility()
-│  ├─ Signer prepares:
-│  │  recordVolatility(
-│  │    strategyId=1,
-│  │    taskId=340,           // iteration number
-│  │    volBps=4250,          // 42.5% × 100
-│  │    regime="MEDIUM"
-│  │  )
-│  ├─ Gas estimate: ~35,000
-│  ├─ Broadcast to 0G RPC: https://evmrpc.0g.ai
-│  └─ Mempool: pending (~2s)
-│
+â”œâ”€ 1. Binance: GET klines(ETHUSDT, 5m, 144 bars)
+â”‚  â””â”€ Response: OHLCV array, most recent bar = T-5m
+â”‚
+â”œâ”€ 2. Calculate Yang-Zhang volatility
+â”‚  â”œâ”€ Input: 144 Ã— 5-min candles
+â”‚  â”œâ”€ Formula: YZ = sqrt(sum of log-high-low ranges)
+â”‚  â”œâ”€ Output: 42.5% (MEDIUM regime)
+â”‚  â””â”€ Cache: TTL 5 minutes
+â”‚
+â”œâ”€ 3. Query DeepSeek V3.1 via 0G Compute TEE
+â”‚  â”œâ”€ Prepare encrypted query:
+â”‚  â”‚  "Market ETHUSDT | Volatility 42.5% MEDIUM | Trend uptrend"
+â”‚  â”œâ”€ 0G broker encrypts end-to-end
+â”‚  â”œâ”€ TEE processes (DeepSeek model in trusted execution)
+â”‚  â”œâ”€ TEE generates response: "BUY, confidence 0.78"
+â”‚  â”œâ”€ TEE signs with private key (no exposure)
+â”‚  â””â”€ Returns: (signal="BUY", confidence=78, teeSig=0x...)
+â”‚
+â”œâ”€ 4. Verify attestation hash
+â”‚  â”œâ”€ Compare TEE signature against known provider pubkey
+â”‚  â”œâ”€ Result: âœ“ Valid (signature matches provider)
+â”‚  â””â”€ Proceed to attestation
+â”‚
+â”œâ”€ 5. BATCH TRANSACTION #1: recordVolatility()
+â”‚  â”œâ”€ Signer prepares:
+â”‚  â”‚  recordVolatility(
+â”‚  â”‚    strategyId=1,
+â”‚  â”‚    taskId=340,           // iteration number
+â”‚  â”‚    volBps=4250,          // 42.5% Ã— 100
+â”‚  â”‚    regime="MEDIUM"
+â”‚  â”‚  )
+â”‚  â”œâ”€ Gas estimate: ~35,000
+â”‚  â”œâ”€ Broadcast to 0G RPC: https://evmrpc.0g.ai
+â”‚  â””â”€ Mempool: pending (~2s)
+â”‚
 [T=0.2s] TX#1 Accepted
-├─ Event: VolatilityRecorded(strategyId=1, vol=4250, regime=MEDIUM)
-├─ Frontend sees: volatility gauge updates → 42.5%
-└─ VerifierEngine state: volatilityLog[1].append({time: T, vol: 4250})
+â”œâ”€ Event: VolatilityRecorded(strategyId=1, vol=4250, regime=MEDIUM)
+â”œâ”€ Frontend sees: volatility gauge updates â†’ 42.5%
+â””â”€ VerifierEngine state: volatilityLog[1].append({time: T, vol: 4250})
 
 [T=2s-8s] TX#1 Confirmations
-├─ Block 1 (T~2s): Included in block
-├─ Block 2 (T~4s): 1 confirmation
-├─ Block 3 (T~6s): 2 confirmations
-├─ Block 4 (T~8s): 3 confirmations → "finalized"
-└─ Nonce: 340 → 341 (incremented)
+â”œâ”€ Block 1 (T~2s): Included in block
+â”œâ”€ Block 2 (T~4s): 1 confirmation
+â”œâ”€ Block 3 (T~6s): 2 confirmations
+â”œâ”€ Block 4 (T~8s): 3 confirmations â†’ "finalized"
+â””â”€ Nonce: 340 â†’ 341 (incremented)
 
 [T=8.1s] BATCH TRANSACTION #2: attest()
-├─ Signer prepares:
-│  attest(
-│    strategyId=1,
-│    taskId=340,
-│    attestationHash=0xf4d2c1a...,  // DeepSeek proof
-│    storageRoot=0x8b7e3...,         // Merkle root (audit trail)
-│    signal="BUY",
-│    confidence=78,
-│    isValid=true
-│  )
-├─ Gas estimate: ~45,000
-├─ Broadcast to 0G RPC
-└─ Mempool: pending (~2s)
+â”œâ”€ Signer prepares:
+â”‚  attest(
+â”‚    strategyId=1,
+â”‚    taskId=340,
+â”‚    attestationHash=0xf4d2c1a...,  // DeepSeek proof
+â”‚    storageRoot=0x8b7e3...,         // Merkle root (audit trail)
+â”‚    signal="BUY",
+â”‚    confidence=78,
+â”‚    isValid=true
+â”‚  )
+â”œâ”€ Gas estimate: ~45,000
+â”œâ”€ Broadcast to 0G RPC
+â””â”€ Mempool: pending (~2s)
 
 [T=8.3s] TX#2 Accepted
-├─ Event: DecisionVerified(strategyId=1, signal=BUY, confidence=78, hash=0xf4d2c1...)
-├─ Frontend sees: 
-│  ├─ Green "BUY" badge appears
-│  ├─ Confidence meter = 78%
-│  ├─ Log: "[04:32:16 PM] TRADE - Attestation on-chain (tx #439+)"
-│  └─ TX count increments: 432 → 433
-└─ VerifierEngine state: attestations[0xf4d2c1...] = {signal: BUY, confidence: 78}
+â”œâ”€ Event: DecisionVerified(strategyId=1, signal=BUY, confidence=78, hash=0xf4d2c1...)
+â”œâ”€ Frontend sees: 
+â”‚  â”œâ”€ Green "BUY" badge appears
+â”‚  â”œâ”€ Confidence meter = 78%
+â”‚  â”œâ”€ Log: "[04:32:16 PM] TRADE - Attestation on-chain (tx #439+)"
+â”‚  â””â”€ TX count increments: 432 â†’ 433
+â””â”€ VerifierEngine state: attestations[0xf4d2c1...] = {signal: BUY, confidence: 78}
 
 [T=8.5s-14s] TX#2 Confirmations
-├─ Block 1 (T~10s): Included
-├─ Block 2 (T~12s): 1 confirmation
-└─ Block 3 (T~14s): 2 confirmations → "finalized"
+â”œâ”€ Block 1 (T~10s): Included
+â”œâ”€ Block 2 (T~12s): 1 confirmation
+â””â”€ Block 3 (T~14s): 2 confirmations â†’ "finalized"
 
 [T=14.1s] ELO Update (Async background)
-├─ If signal was CORRECT (profitable):
-│  ├─ eloGain = 32 × (0.78) = +24.96 ≈ +25 ELO
-│  ├─ newElo = 847 + 25 = 872
-│  └─ Event: StrategyRecorded(strategyId=1, eloChange=+25, newElo=872)
-│
-├─ If signal was WRONG (loss):
-│  ├─ eloLoss = 32 × (1 - 0.78) × 0.5 = -3.52 ≈ -4 ELO
-│  ├─ newElo = 847 - 4 = 843
-│  └─ Event: StrategyRecorded(strategyId=1, eloChange=-4, newElo=843)
-│
-└─ Frontend updates: reputation card now shows 872 (if correct) or 843 (if wrong)
+â”œâ”€ If signal was CORRECT (profitable):
+â”‚  â”œâ”€ eloGain = 32 Ã— (0.78) = +24.96 â‰ˆ +25 ELO
+â”‚  â”œâ”€ newElo = 847 + 25 = 872
+â”‚  â””â”€ Event: StrategyRecorded(strategyId=1, eloChange=+25, newElo=872)
+â”‚
+â”œâ”€ If signal was WRONG (loss):
+â”‚  â”œâ”€ eloLoss = 32 Ã— (1 - 0.78) Ã— 0.5 = -3.52 â‰ˆ -4 ELO
+â”‚  â”œâ”€ newElo = 847 - 4 = 843
+â”‚  â””â”€ Event: StrategyRecorded(strategyId=1, eloChange=-4, newElo=843)
+â”‚
+â””â”€ Frontend updates: reputation card now shows 872 (if correct) or 843 (if wrong)
 
 [T=14.5s] Status Broadcast
-├─ Agent HTTP server (:3001/status) broadcasts JSON:
-│  {
-│    "iteration": 341,
-│    "volatility": 42.5,
-│    "signal": "BUY",
-│    "confidence": 78,
-│    "eloScore": 847,
-│    "totalTx": 67,
-│    "lastTxHash": "0xf4d2c1a...",
-│    "timestamp": "2025-04-29T04:32:16Z"
-│  }
-│
-├─ Frontend polling client (/status every 2s) receives update
-├─ React state updates
-└─ Dashboard refreshes
+â”œâ”€ Agent HTTP server (:3001/status) broadcasts JSON:
+â”‚  {
+â”‚    "iteration": 341,
+â”‚    "volatility": 42.5,
+â”‚    "signal": "BUY",
+â”‚    "confidence": 78,
+â”‚    "eloScore": 847,
+â”‚    "totalTx": 67,
+â”‚    "lastTxHash": "0xf4d2c1a...",
+â”‚    "timestamp": "2025-04-29T04:32:16Z"
+â”‚  }
+â”‚
+â”œâ”€ Frontend polling client (/status every 2s) receives update
+â”œâ”€ React state updates
+â””â”€ Dashboard refreshes
 
 [T=15s] CYCLE COMPLETE
-├─ Total execution: 247ms actual compute, 14.753s idle sleep
-├─ Memory cleanup: volatility cache reset (TTL expired)
-├─ Prepare for next cycle
-│
-└─ [T=30s] Loop iteration #342 begins (same pattern)
+â”œâ”€ Total execution: 247ms actual compute, 14.753s idle sleep
+â”œâ”€ Memory cleanup: volatility cache reset (TTL expired)
+â”œâ”€ Prepare for next cycle
+â”‚
+â””â”€ [T=30s] Loop iteration #342 begins (same pattern)
 ```
 
 ### Key Invariants Maintained
 
 **Atomicity**: Each cycle is independent
-- TX #1 (recordVolatility) fails → don't send TX #2
-- TX #2 (attest) fails → both are retried in next cycle
+- TX #1 (recordVolatility) fails â†’ don't send TX #2
+- TX #2 (attest) fails â†’ both are retried in next cycle
 - No orphaned states
 
 **Ordering**: VerifierEngine stores (txHash, blockNumber, index) tuple
@@ -692,7 +692,7 @@ mapping(uint256 => AgentRating) public ratings;
 
 ---
 
-## 🔗 Composability Model
+## ðŸ”— Composability Model
 
 PROVUS is **not a closed system**. Other protocols integrate via:
 
@@ -789,150 +789,150 @@ provider.on(filter, (log) => {
 
 ### Integration Examples
 
-**Yield Aggregator**: Route capital to PROVUS signals → maximize APY
-**Risk Management**: Monitor ReputationEngine → auto-liquidate low-ELO agents
+**Yield Aggregator**: Route capital to PROVUS signals â†’ maximize APY
+**Risk Management**: Monitor ReputationEngine â†’ auto-liquidate low-ELO agents
 **Governance**: Whitelist high-ELO strategies in DAO proposal
 **MEV Protection**: Use PROVUS attestations as commitment proofs (MEV-resistant)
 
 ---
 
-## 🛠 Technology Stack & Integration Matrix
+## ðŸ›  Technology Stack & Integration Matrix
 
 | Layer | Technology | Version | Purpose | Status |
 |-------|-----------|---------|---------|--------|
-| **Blockchain** | 0G Chain | Mainnet ChainID 16661 | Smart contract execution | ✅ Live |
-| **Blockchain** | Ethers.js | v6.x | Contract interaction | ✅ Integrated |
-| **AI/TEE** | 0G Compute Network | Beta 1.0 | Encrypted inference | ✅ Integrated |
-| **AI Model** | DeepSeek V3.1 | Latest | Trading signal generation | ✅ Active |
-| **Market Data** | Binance API | REST v3 | OHLCV kline fetching | ✅ Integrated |
-| **Frontend** | Next.js | 16.2.4 | Dashboard UI | ✅ Running |
-| **Frontend** | React | 19.x | Component library | ✅ Integrated |
-| **Frontend** | Tailwind CSS | v4 | Styling + responsiveness | ✅ Configured |
-| **Agent** | Node.js | 24.14.0 | Runtime environment | ✅ Running |
-| **Agent** | TypeScript | 5.x | Type safety | ✅ Configured |
-| **Agent** | ts-node | Latest | Direct TS execution | ✅ Active |
-| **Contracts** | Solidity | 0.8.24 | Smart contract language | ✅ Compiled |
-| **Contracts** | Hardhat | Latest | Development framework | ✅ Configured |
-| **Contracts** | OpenZeppelin | v5.x | Security libraries | ✅ Audited |
-| **Deployment** | Git | Latest | Version control | ✅ Public repo |
+| **Blockchain** | 0G Chain | Mainnet ChainID 16661 | Smart contract execution | âœ… Live |
+| **Blockchain** | Ethers.js | v6.x | Contract interaction | âœ… Integrated |
+| **AI/TEE** | 0G Compute Network | Beta 1.0 | Encrypted inference | âœ… Integrated |
+| **AI Model** | DeepSeek V3.1 | Latest | Trading signal generation | âœ… Active |
+| **Market Data** | Binance API | REST v3 | OHLCV kline fetching | âœ… Integrated |
+| **Frontend** | Next.js | 16.2.4 | Dashboard UI | âœ… Running |
+| **Frontend** | React | 19.x | Component library | âœ… Integrated |
+| **Frontend** | Tailwind CSS | v4 | Styling + responsiveness | âœ… Configured |
+| **Agent** | Node.js | 24.14.0 | Runtime environment | âœ… Running |
+| **Agent** | TypeScript | 5.x | Type safety | âœ… Configured |
+| **Agent** | ts-node | Latest | Direct TS execution | âœ… Active |
+| **Contracts** | Solidity | 0.8.24 | Smart contract language | âœ… Compiled |
+| **Contracts** | Hardhat | Latest | Development framework | âœ… Configured |
+| **Contracts** | OpenZeppelin | v5.x | Security libraries | âœ… Audited |
+| **Deployment** | Git | Latest | Version control | âœ… Public repo |
 
 ---
 
-## 📂 Project Structure
+## ðŸ“‚ Project Structure
 
 ```
 provus-protocol/
-├── contracts/                          # Hardhat Solidity project
-│   ├── contracts/
-│   │   ├── StrategyRegistry.sol       # ERC-721 strategy tokens (150 lines)
-│   │   ├── VerifierEngine.sol         # Attestation hub (300 lines)
-│   │   ├── StrategyVault.sol          # Position management (350 lines)
-│   │   └── ReputationEngine.sol       # ELO scoring (250 lines)
-│   ├── scripts/
-│   │   ├── deploy.ts                  # 0G mainnet deployment
-│   │   └── verify.ts                  # ChainScan verification
-│   ├── artifacts/                     # Compiled ABIs
-│   ├── typechain-types/               # ethers.js type defs
-│   ├── hardhat.config.ts
-│   ├── package.json
-│   └── tsconfig.json
-│
-├── agent/                              # Node.js autonomous service
-│   ├── src/
-│   │   ├── index.ts                   # Entry point (15s loop)
-│   │   │   ├─ Config loading
-│   │   │   ├─ Signer setup (ethers.js)
-│   │   │   ├─ 0G Compute broker init
-│   │   │   ├─ HTTP status server (:3001)
-│   │   │   ├─ Main event loop:
-│   │   │   │   1. getLatestKlines(Binance)
-│   │   │   │   2. calculateYangZhangVol()
-│   │   │   │   3. queryDeepSeekViaTeE()
-│   │   │   │   4. verifyAttestationHash()
-│   │   │   │   5. recordVolatility()
-│   │   │   │   6. attest()
-│   │   │   │   7. updateElo()
-│   │   │   │   8. broadcast /status
-│   │   │   └─ Error handling + retry logic
-│   │   ├── volatility.ts               # Yang-Zhang estimator (200 lines)
-│   │   │   ├─ fetchCandles()
-│   │   │   ├─ yangZhangCalculate()
-│   │   │   ├─ getRegime() → LOW/MEDIUM/HIGH/EXTREME
-│   │   │   └─ cache (TTL 5min)
-│   │   ├── attester.ts                 # 0G TEE wrapper (150 lines)
-│   │   │   ├─ createBroker()
-│   │   │   ├─ encryptQuery()
-│   │   │   ├─ submitInferenceRequest()
-│   │   │   ├─ validateTeeSignature()
-│   │   │   └─ handleErrors + fallback
-│   │   ├── trader.ts                   # Trade execution (100 lines)
-│   │   ├── logger.ts                   # Structured logging (80 lines)
-│   │   └── types.ts                    # TypeScript interfaces
-│   ├── dist/                           # Compiled JavaScript
-│   ├── package.json
-│   └── tsconfig.json
-│
-├── frontend/                           # Next.js 16 App Router
-│   ├── app/
-│   │   ├── page.tsx                   # Main dashboard (500+ lines)
-│   │   │   ├─ 4-column metrics grid (Market Data, Volatility, AI Intelligence, ELO)
-│   │   │   ├─ Live transaction counter
-│   │   │   ├─ System status indicator (LIVE badge)
-│   │   │   ├─ Execution log terminal (scrollable history)
-│   │   │   ├─ Contract explorer links
-│   │   │   ├─ Real-time data updates (15s cycle)
-│   │   │   └─ Responsive design (mobile/tablet/desktop)
-│   │   ├── layout.tsx                 # Global layout + fonts
-│   │   └── globals.css                # Tailwind v4 config
-│   ├── components/
-│   │   └── (future component library for modularity)
-│   ├── lib/
-│   │   ├── abis.ts                    # Contract ABIs
-│   │   ├── deployments.json           # 0G contract addresses
-│   │   └── utils.ts                   # Helper functions
-│   ├── public/                        # Static assets
-│   ├── .env.local                     # Frontend config
-│   ├── next.config.ts
-│   ├── tsconfig.json
-│   └── package.json
-│
-├── ENGINEERING_DEBUG_LOG.md            # 5 production problems solved (1100 lines)
-│   ├─ Nox proof validation issue
-│   ├─ Yang-Zhang volatility spike
-│   ├─ Hedge execution timeout
-│   ├─ ELO collusion risk
-│   └─ Frontend race condition
-│
-├── JUDGE_GUIDE.md                      # 3-minute demo walkthrough (300 lines)
-│   ├─ 6 verification steps
-│   ├─ ChainScan exploration guide
-│   ├─ FAQ for judges
-│   └─ Expected outcomes
-│
-├── README.md                           # This file (1500+ lines)
-│   ├─ Problem statement
-│   ├─ Architecture details
-│   ├─ Smart contract specs
-│   ├─ Setup & testing
-│   └─ Deployment guide
-│
-├── deployments/
-│   └── 0g_mainnet.json                # Deployed contract addresses
-│
-├── .env.example                        # Environment template
-├── .env                                # Actual config (not committed)
-├── .gitignore                          # Exclude node_modules, .env
-├── hardhat.config.ts
-├── package.json                        # Monorepo root
-├── package-lock.json
-└── tsconfig.json
+â”œâ”€â”€ contracts/                          # Hardhat Solidity project
+â”‚   â”œâ”€â”€ contracts/
+â”‚   â”‚   â”œâ”€â”€ StrategyRegistry.sol       # ERC-721 strategy tokens (150 lines)
+â”‚   â”‚   â”œâ”€â”€ VerifierEngine.sol         # Attestation hub (300 lines)
+â”‚   â”‚   â”œâ”€â”€ StrategyVault.sol          # Position management (350 lines)
+â”‚   â”‚   â””â”€â”€ ReputationEngine.sol       # ELO scoring (250 lines)
+â”‚   â”œâ”€â”€ scripts/
+â”‚   â”‚   â”œâ”€â”€ deploy.ts                  # 0G mainnet deployment
+â”‚   â”‚   â””â”€â”€ verify.ts                  # ChainScan verification
+â”‚   â”œâ”€â”€ artifacts/                     # Compiled ABIs
+â”‚   â”œâ”€â”€ typechain-types/               # ethers.js type defs
+â”‚   â”œâ”€â”€ hardhat.config.ts
+â”‚   â”œâ”€â”€ package.json
+â”‚   â””â”€â”€ tsconfig.json
+â”‚
+â”œâ”€â”€ agent/                              # Node.js autonomous service
+â”‚   â”œâ”€â”€ src/
+â”‚   â”‚   â”œâ”€â”€ index.ts                   # Entry point (15s loop)
+â”‚   â”‚   â”‚   â”œâ”€ Config loading
+â”‚   â”‚   â”‚   â”œâ”€ Signer setup (ethers.js)
+â”‚   â”‚   â”‚   â”œâ”€ 0G Compute broker init
+â”‚   â”‚   â”‚   â”œâ”€ HTTP status server (:3001)
+â”‚   â”‚   â”‚   â”œâ”€ Main event loop:
+â”‚   â”‚   â”‚   â”‚   1. getLatestKlines(Binance)
+â”‚   â”‚   â”‚   â”‚   2. calculateYangZhangVol()
+â”‚   â”‚   â”‚   â”‚   3. queryDeepSeekViaTeE()
+â”‚   â”‚   â”‚   â”‚   4. verifyAttestationHash()
+â”‚   â”‚   â”‚   â”‚   5. recordVolatility()
+â”‚   â”‚   â”‚   â”‚   6. attest()
+â”‚   â”‚   â”‚   â”‚   7. updateElo()
+â”‚   â”‚   â”‚   â”‚   8. broadcast /status
+â”‚   â”‚   â”‚   â””â”€ Error handling + retry logic
+â”‚   â”‚   â”œâ”€â”€ volatility.ts               # Yang-Zhang estimator (200 lines)
+â”‚   â”‚   â”‚   â”œâ”€ fetchCandles()
+â”‚   â”‚   â”‚   â”œâ”€ yangZhangCalculate()
+â”‚   â”‚   â”‚   â”œâ”€ getRegime() â†’ LOW/MEDIUM/HIGH/EXTREME
+â”‚   â”‚   â”‚   â””â”€ cache (TTL 5min)
+â”‚   â”‚   â”œâ”€â”€ attester.ts                 # 0G TEE wrapper (150 lines)
+â”‚   â”‚   â”‚   â”œâ”€ createBroker()
+â”‚   â”‚   â”‚   â”œâ”€ encryptQuery()
+â”‚   â”‚   â”‚   â”œâ”€ submitInferenceRequest()
+â”‚   â”‚   â”‚   â”œâ”€ validateTeeSignature()
+â”‚   â”‚   â”‚   â””â”€ handleErrors + fallback
+â”‚   â”‚   â”œâ”€â”€ trader.ts                   # Trade execution (100 lines)
+â”‚   â”‚   â”œâ”€â”€ logger.ts                   # Structured logging (80 lines)
+â”‚   â”‚   â””â”€â”€ types.ts                    # TypeScript interfaces
+â”‚   â”œâ”€â”€ dist/                           # Compiled JavaScript
+â”‚   â”œâ”€â”€ package.json
+â”‚   â””â”€â”€ tsconfig.json
+â”‚
+â”œâ”€â”€ frontend/                           # Next.js 16 App Router
+â”‚   â”œâ”€â”€ app/
+â”‚   â”‚   â”œâ”€â”€ page.tsx                   # Main dashboard (500+ lines)
+â”‚   â”‚   â”‚   â”œâ”€ 4-column metrics grid (Market Data, Volatility, AI Intelligence, ELO)
+â”‚   â”‚   â”‚   â”œâ”€ Live transaction counter
+â”‚   â”‚   â”‚   â”œâ”€ System status indicator (LIVE badge)
+â”‚   â”‚   â”‚   â”œâ”€ Execution log terminal (scrollable history)
+â”‚   â”‚   â”‚   â”œâ”€ Contract explorer links
+â”‚   â”‚   â”‚   â”œâ”€ Real-time data updates (15s cycle)
+â”‚   â”‚   â”‚   â””â”€ Responsive design (mobile/tablet/desktop)
+â”‚   â”‚   â”œâ”€â”€ layout.tsx                 # Global layout + fonts
+â”‚   â”‚   â””â”€â”€ globals.css                # Tailwind v4 config
+â”‚   â”œâ”€â”€ components/
+â”‚   â”‚   â””â”€â”€ (future component library for modularity)
+â”‚   â”œâ”€â”€ lib/
+â”‚   â”‚   â”œâ”€â”€ abis.ts                    # Contract ABIs
+â”‚   â”‚   â”œâ”€â”€ deployments.json           # 0G contract addresses
+â”‚   â”‚   â””â”€â”€ utils.ts                   # Helper functions
+â”‚   â”œâ”€â”€ public/                        # Static assets
+â”‚   â”œâ”€â”€ .env.local                     # Frontend config
+â”‚   â”œâ”€â”€ next.config.ts
+â”‚   â”œâ”€â”€ tsconfig.json
+â”‚   â””â”€â”€ package.json
+â”‚
+â”œâ”€â”€ ENGINEERING_DEBUG_LOG.md            # 5 production problems solved (1100 lines)
+â”‚   â”œâ”€ Nox proof validation issue
+â”‚   â”œâ”€ Yang-Zhang volatility spike
+â”‚   â”œâ”€ Hedge execution timeout
+â”‚   â”œâ”€ ELO collusion risk
+â”‚   â””â”€ Frontend race condition
+â”‚
+â”œâ”€â”€ JUDGE_GUIDE.md                      # 3-minute demo walkthrough (300 lines)
+â”‚   â”œâ”€ 6 verification steps
+â”‚   â”œâ”€ ChainScan exploration guide
+â”‚   â”œâ”€ FAQ for judges
+â”‚   â””â”€ Expected outcomes
+â”‚
+â”œâ”€â”€ README.md                           # This file (1500+ lines)
+â”‚   â”œâ”€ Problem statement
+â”‚   â”œâ”€ Architecture details
+â”‚   â”œâ”€ Smart contract specs
+â”‚   â”œâ”€ Setup & testing
+â”‚   â””â”€ Deployment guide
+â”‚
+â”œâ”€â”€ deployments/
+â”‚   â””â”€â”€ 0g_mainnet.json                # Deployed contract addresses
+â”‚
+â”œâ”€â”€ .env.example                        # Environment template
+â”œâ”€â”€ .env                                # Actual config (not committed)
+â”œâ”€â”€ .gitignore                          # Exclude node_modules, .env
+â”œâ”€â”€ hardhat.config.ts
+â”œâ”€â”€ package.json                        # Monorepo root
+â”œâ”€â”€ package-lock.json
+â””â”€â”€ tsconfig.json
 ```
 
 ---
 
-## 🚀 0G Integration
+## ðŸš€ 0G Integration
 
-### ✅ 0G Chain (Mainnet)
+### âœ… 0G Chain (Mainnet)
 - **RPC**: `https://evmrpc.0g.ai` (ChainID 16661)
 - **Deployment**: All 4 contracts deployed
 - **TX Accumulation**: 2 txns/15s = 439+ txns already on-chain
@@ -947,11 +947,11 @@ provus-protocol/
 
 **0G Explorer**: https://chainscan.0g.ai/address/0x94A4365E6B7E79791258A3Fa071824BC2b75a394
 
-### ✅ 0G Compute Network
+### âœ… 0G Compute Network
 - **Provider**: DeepSeek V3.1 (`0xd9966e13a6026Fcca4b13E7ff95c94DE268C471C`)
 - **SDK**: `@0glabs/0g-serving-broker@1.0.0-beta.8`
 - **Integration**: Agent encrypts trading queries, receives signed responses
-- **Usage**: Every iteration → 0G Compute inference → signal → on-chain attestation
+- **Usage**: Every iteration â†’ 0G Compute inference â†’ signal â†’ on-chain attestation
 
 **How it Works**:
 ```typescript
@@ -965,13 +965,13 @@ const isValid = await broker.inference.responseProcessor.processResponse(provide
 
 ---
 
-## � For Hackathon Judges
+## ï¿½ For Hackathon Judges
 
 ### Quick Start Demo (3 minutes)
 See **[JUDGE_GUIDE.md](./JUDGE_GUIDE.md)** for step-by-step verification:
-1. Visit dashboard → observe live counter incrementing every 15s
-2. Navigate to ChainScan → inspect 439+ on-chain attestations
-3. Review contract transactions → confirm AI signal + confidence encoding
+1. Visit dashboard â†’ observe live counter incrementing every 15s
+2. Navigate to ChainScan â†’ inspect 439+ on-chain attestations
+3. Review contract transactions â†’ confirm AI signal + confidence encoding
 
 ### Engineering Deep Dive
 See **[ENGINEERING_DEBUG_LOG.md](./ENGINEERING_DEBUG_LOG.md)** for:
@@ -982,7 +982,7 @@ See **[ENGINEERING_DEBUG_LOG.md](./ENGINEERING_DEBUG_LOG.md)** for:
 
 ---
 
-## �🔧 Local Setup & Testing
+## ï¿½ðŸ”§ Local Setup & Testing
 
 ### Prerequisites
 - Node.js v24.14.0+
@@ -1018,17 +1018,17 @@ npm run dev
 
 ---
 
-## 🔑 Key Technical Decisions
+## ðŸ”‘ Key Technical Decisions
 
 ### 1. **Yang-Zhang Volatility Estimator**
-- Fetches 144 × 5-min candles from Binance
+- Fetches 144 Ã— 5-min candles from Binance
 - More robust than close-to-close for intraday vol
-- Regimes: LOW (<30%) → MEDIUM (30-60%) → HIGH (60-100%) → EXTREME (>100%)
+- Regimes: LOW (<30%) â†’ MEDIUM (30-60%) â†’ HIGH (60-100%) â†’ EXTREME (>100%)
 
 ### 2. **0G Compute for Privacy**
 - Queries encrypted end-to-end via TEE
 - DeepSeek V3.1 trained on market data, no local key exposure
-- Response signed by provider → verifiable on-chain
+- Response signed by provider â†’ verifiable on-chain
 
 ### 3. **ERC-721 Strategy Tokens**
 - Each strategy = non-fungible strategy certificate
@@ -1036,19 +1036,19 @@ npm run dev
 - Composable with other DeFi primitives
 
 ### 4. **Two Transactions Per Iteration**
-- `recordVolatility()` → immutable volatility timestamp
-- `attest()` → encrypted signal + confidence hash
-- Every 15s = Parry-style high-frequency proof accumulation
+- `recordVolatility()` â†’ immutable volatility timestamp
+- `attest()` â†’ encrypted signal + confidence hash
+- Every 15s = high-frequency proof accumulation
 
 ---
 
-## 📝 Documentation & References
+## ðŸ“ Documentation & References
 
 ### Project Documentation
-- **Agent Loop Logic**: `agent/src/index.ts` — 15-second autonomous cycle
-- **Volatility Estimator**: `agent/src/volatility.ts` — Yang-Zhang calculation
-- **0G Compute Integration**: `agent/src/attester.ts` — TEE wrapper & broker
-- **Smart Contracts**: `contracts/contracts/*.sol` — Full Solidity implementations with NatSpec
+- **Agent Loop Logic**: `agent/src/index.ts` â€” 15-second autonomous cycle
+- **Volatility Estimator**: `agent/src/volatility.ts` â€” Yang-Zhang calculation
+- **0G Compute Integration**: `agent/src/attester.ts` â€” TEE wrapper & broker
+- **Smart Contracts**: `contracts/contracts/*.sol` â€” Full Solidity implementations with NatSpec
 
 ### On-Chain Verification
 - **Attestation Explorer**: https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0
@@ -1056,13 +1056,13 @@ npm run dev
 - **Strategy Registry**: https://chainscan.0g.ai/address/0x87E3D9fcfA4eff229A65d045A7C741E49b581187
 
 ### Additional Guides
-- **0G Usage**: Track 2 (Verifiable Finance) ✅
+- **0G Usage**: Track 2 (Verifiable Finance) âœ…
 - **Mainnet Proof**: 439+ txns + counting
 - **Explorer Link**: https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0
 
 ---
 
-## ⚙️ Setup & Local Development
+## âš™ï¸ Setup & Local Development
 
 ### Prerequisites
 ```bash
@@ -1133,13 +1133,13 @@ npm run dev
 cd frontend
 npm run dev
 # Output:
-# ▲ Next.js 16.2.4
+# â–² Next.js 16.2.4
 # - Local: http://localhost:3000
 # - Ready in 2.1s
 ```
 
 ### 6. Verify Deployment
-Open browser: http://localhost:3000 (local) or https://frontend-mu-three-93.vercel.app (live)
+Open browser: http://localhost:3000 (local) or https://provus-protocol-frontend.vercel.app (live)
 
 **Expected to see**:
 - Iteration counter (incrementing every 15s)
@@ -1154,7 +1154,7 @@ Monitor live attestations: https://chainscan.0g.ai/address/0x911E87629756F34190D
 
 ---
 
-## 🛡️ Security Considerations
+## ðŸ›¡ï¸ Security Considerations
 
 ### 1. Private Key Management
 - **NEVER** commit `.env` to Git
@@ -1180,13 +1180,13 @@ Monitor live attestations: https://chainscan.0g.ai/address/0x911E87629756F34190D
 - **Event filtering**: Use indexed events for fast ChainScan queries
 
 ### 5. Slippage Protection
-- **Delta tolerance**: ±5% on hedge execution
+- **Delta tolerance**: Â±5% on hedge execution
 - **Revert on exceeding**: If price moves >5%, transaction reverts instead of executing bad trade
 - **Pre-flight simulation**: Check swap will succeed before broadcasting
 
 ---
 
-## 📊 Performance Tuning
+## ðŸ“Š Performance Tuning
 
 ### Agent Loop Optimization
 ```
@@ -1208,8 +1208,8 @@ Per transaction (0.004 OG):
 - attest() gas: ~45,000
 = 80,000 total gas/cycle
 
-At 15s intervals × 86,400s/day = 5,760 calls/day
-Annual cost: 5,760 × 0.004 OG × 365 = 8,410 OG/year (~$84k)
+At 15s intervals Ã— 86,400s/day = 5,760 calls/day
+Annual cost: 5,760 Ã— 0.004 OG Ã— 365 = 8,410 OG/year (~$84k)
 
 Scalability: Could reduce to 1 tx/30s to halve costs
 ```
@@ -1222,7 +1222,7 @@ Scalability: Could reduce to 1 tx/30s to halve costs
 
 ---
 
-## 🚀 Deployment Guide: 0G Mainnet
+## ðŸš€ Deployment Guide: 0G Mainnet
 
 ### Prerequisites
 - Wallet with 0G tokens (for gas)
@@ -1242,16 +1242,16 @@ npx hardhat run scripts/deploy.ts --network 0g-mainnet
 
 # Output:
 # Deploying StrategyRegistry...
-# ✓ StrategyRegistry deployed: 0x87E3D9fcfA4eff229A65d045A7C741E49b581187
+# âœ“ StrategyRegistry deployed: 0x87E3D9fcfA4eff229A65d045A7C741E49b581187
 # 
 # Deploying VerifierEngine...
-# ✓ VerifierEngine deployed: 0x911E87629756F34190DF34162806f00b35521FD0
+# âœ“ VerifierEngine deployed: 0x911E87629756F34190DF34162806f00b35521FD0
 # 
 # Deploying StrategyVault...
-# ✓ StrategyVault deployed: 0x2B9366b7fea6a1C6279edbC7B87CCB91CdCc1014
+# âœ“ StrategyVault deployed: 0x2B9366b7fea6a1C6279edbC7B87CCB91CdCc1014
 # 
 # Deploying ReputationEngine...
-# ✓ ReputationEngine deployed: 0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e
+# âœ“ ReputationEngine deployed: 0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e
 #
 # Total gas spent: 0.012 OG (~$0.12 USD)
 # Deployment complete!
@@ -1350,7 +1350,7 @@ watch -n 5 'curl -s http://localhost:3001/status | jq .iteration'
 
 ```bash
 # Agent health
-- Loop consistency: Should be ~15s ± 200ms
+- Loop consistency: Should be ~15s Â± 200ms
 - Error rate: Should be <0.1% (1 error per 1000 cycles)
 - Gas usage: Should be ~80,000 per cycle (not trending up)
 
@@ -1415,7 +1415,7 @@ fi
 
 ---
 
-## 🗺️ Future Roadmap
+## ðŸ—ºï¸ Future Roadmap
 
 ### Phase 2: Multi-Agent Swarm (Q3 2026)
 - Deploy 5-10 independent agents with different strategies
@@ -1443,7 +1443,7 @@ fi
 
 ---
 
-## 🎬 Verification & Testing
+## ðŸŽ¬ Verification & Testing
 
 ### 1. ChainScan Verification
 **Public verification anyone can do**:
@@ -1461,18 +1461,18 @@ npm run test
 
 # Output:
 # StrategyRegistry
-#   ✓ registerStrategy() registers new strategy
-#   ✓ getStrategy() retrieves metadata
-#   ✓ Only agent can update
+#   âœ“ registerStrategy() registers new strategy
+#   âœ“ getStrategy() retrieves metadata
+#   âœ“ Only agent can update
 #
 # VerifierEngine
-#   ✓ recordVolatility() emits event
-#   ✓ attest() stores decision
-#   ✓ getAttestation() retrieves data
+#   âœ“ recordVolatility() emits event
+#   âœ“ attest() stores decision
+#   âœ“ getAttestation() retrieves data
 #
 # ReputationEngine
-#   ✓ ELO updates on correct decisions
-#   ✓ Leaderboard returns sorted agents
+#   âœ“ ELO updates on correct decisions
+#   âœ“ Leaderboard returns sorted agents
 ```
 
 ### 3. Integration Test: Full Cycle
@@ -1490,18 +1490,18 @@ npm run test:e2e
 # 7. Assert all events emitted correctly
 
 # Output:
-# ✓ E2E cycle completed in 5.2s
-# ✓ 2 txns submitted
-# ✓ All events verified
+# âœ“ E2E cycle completed in 5.2s
+# âœ“ 2 txns submitted
+# âœ“ All events verified
 ```
 
 ---
 
-## � Documentation & References
+## ï¿½ Documentation & References
 
 **Project Documentation**:
-- [ENGINEERING_DEBUG_LOG.md](./ENGINEERING_DEBUG_LOG.md) — Production issues and solutions
-- [JUDGE_GUIDE.md](./JUDGE_GUIDE.md) — Verification walkthrough
+- [ENGINEERING_DEBUG_LOG.md](./ENGINEERING_DEBUG_LOG.md) â€” Production issues and solutions
+- [JUDGE_GUIDE.md](./JUDGE_GUIDE.md) â€” Verification walkthrough
 
 **External Resources**:
 - [0G Chain Docs](https://0g.ai)
