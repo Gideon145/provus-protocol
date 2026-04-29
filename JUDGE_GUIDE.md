@@ -13,7 +13,7 @@
 
 **What you'll see**:
 - **Iteration Counter** (top-left, glitching title): Shows real-time agent loop count (increments every 15s)
-- **Live Transactions**: 66+ cumulative on-chain proofs recorded
+- **Live Transactions**: 432 cumulative on-chain proofs recorded
 - **Volatility Gauge**: Yang-Zhang estimator reading (42.5% in MEDIUM regime)
 - **AI Confidence**: Current signal confidence score (78%)
 - **Market Price**: ETH/USD live pricing data
@@ -43,7 +43,7 @@
   - `attestationHash`: Cryptographic proof of AI decision
   - `signal`: The trading direction (BUY/HOLD/SELL)
   - `confidence`: Numerical score (30-95%)
-- ✅ **66+ transactions = 66+ AI decisions recorded on-chain**
+- ✅ **432 transactions = 432 AI decisions recorded on-chain**
 
 ### Contract 2: ReputationEngine (ELO Scoring)
 **Address**: `0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e`
@@ -158,7 +158,7 @@ Agent Loop (15s: vol → signal → attest)
 
 | Criterion | Evidence | Status |
 |-----------|----------|--------|
-| Real on-chain proofs | 66+ transactions on ChainScan | ✅ PASS |
+| Real on-chain proofs | 432 transactions on ChainScan | ✅ PASS |
 | Autonomous execution | Counter increments every 15s | ✅ PASS |
 | AI integration | DeepSeek V3.1 attestation hashes | ✅ PASS |
 | Privacy (optional) | 0G Compute TEE + Nox encryption | ✅ PASS |

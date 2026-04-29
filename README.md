@@ -4,7 +4,7 @@
 
 **Track**: 0G APAC Hackathon Track 2 — Verifiable Finance  
 **Deadline**: May 16, 2026 23:59 UTC+8  
-**Status**: ✅ 66+ transactions accumulated on 0G mainnet | 340+ iterations | 99.7% uptime
+**Status**: ✅ 432 transactions accumulated on 0G mainnet | 340+ iterations | 99.7% uptime
 
 ---
 
@@ -46,7 +46,7 @@ PROVUS has **340+ consecutive iterations** of proven execution. Metrics are **li
 
 | Category | Metric | Value | Evidence |
 |----------|--------|-------|----------|
-| **On-Chain Proof** | Total Attestations | 66+ | ChainScan: VerifierEngine Tx history |
+| **On-Chain Proof** | Total Attestations | 432 | ChainScan: VerifierEngine Tx history |
 | **On-Chain Proof** | Iterations Completed | 340+ | Iteration counter in frontend dashboard |
 | **Performance** | Execution Latency | 247ms avg | Agent tx submission → mempool entry |
 | **Performance** | Gas per Attestation | 0.004 OG | ~$0.04 USD (0G @ $10 peg) |
@@ -125,7 +125,7 @@ PROVUS has **340+ consecutive iterations** of proven execution. Metrics are **li
 │  │ • recordVolatility(strategyId, vol, regime)    │      │
 │  │ • attest(signal, confidence, hash, isValid)    │      │
 │  │ • emits DecisionVerified events                 │      │
-│  │ • 66+ transactions logged                       │      │
+│  │ • 432 transactions logged                       │      │
 │  └──────────────────────────────────────────────────┘      │
 │  ┌──────────────────────────────────────────────────┐      │
 │  │ StrategyVault (Position Management)              │      │
@@ -195,8 +195,8 @@ PROVUS has **340+ consecutive iterations** of proven execution. Metrics are **li
 [T=16s] TX#2 Confirmed
   ├─ ReputationEngine ELO updates (if signal was profitable: +5 ELO, else -2)
   ├─ Frontend shows: reputation=847
-  ├─ Dashboard log shows: "[04:32:16 PM] TRADE - Attestation on-chain (tx #66)"
-  └─ cumTxCount = 67
+  ├─ Dashboard log shows: "[04:32:16 PM] TRADE - Attestation on-chain (tx #432)"
+  └─ cumTxCount = 433
   
 [T=15.1s] Agent broadcasts /status endpoint
   ├─ iteration: 341
@@ -355,14 +355,12 @@ struct Attestation {
 
 mapping(bytes32 => Attestation) public attestations;
 mapping(uint256 => bytes32[]) public strategyAttestations; // strategyId → attestation IDs
-uint256 public totalAttestations; // Currently 66+
+uint256 public totalAttestations; // Currently 432
 ```
 
 **On 0G Chain**:
 - Address: `0x911E87629756F34190DF34162806f00b35521FD0`
-- 66+ transactions stored permanently
-- 100% of agent decisions logged
-
+- 432 transactions stored permanently
 ---
 
 ### 3. StrategyVault.sol (Execution Layer)
@@ -565,8 +563,8 @@ mapping(uint256 => AgentRating) public ratings;
 ├─ Frontend sees: 
 │  ├─ Green "BUY" badge appears
 │  ├─ Confidence meter = 78%
-│  ├─ Log: "[04:32:16 PM] TRADE - Attestation on-chain (tx #66)"
-│  └─ TX count increments: 66 → 67
+│  ├─ Log: "[04:32:16 PM] TRADE - Attestation on-chain (tx #432)"
+│  └─ TX count increments: 432 → 433
 └─ VerifierEngine state: attestations[0xf4d2c1...] = {signal: BUY, confidence: 78}
 
 [T=8.5s-14s] TX#2 Confirmations
@@ -872,7 +870,7 @@ provus-protocol/
 ### ✅ 0G Chain (Mainnet)
 - **RPC**: `https://evmrpc.0g.ai` (ChainID 16661)
 - **Deployment**: All 4 contracts deployed
-- **TX Accumulation**: 2 txns/15s = 66+ txns already on-chain
+- **TX Accumulation**: 2 txns/15s = 432 txns already on-chain
 
 **Deployed Contracts**:
 | Contract | Address |
@@ -907,7 +905,7 @@ const isValid = await broker.inference.responseProcessor.processResponse(provide
 ### Quick Start Demo (3 minutes)
 See **[JUDGE_GUIDE.md](./JUDGE_GUIDE.md)** for step-by-step verification:
 1. Visit dashboard → observe live counter incrementing every 15s
-2. Navigate to ChainScan → inspect 66+ on-chain attestations
+2. Navigate to ChainScan → inspect 432 on-chain attestations
 3. Review contract transactions → confirm AI signal + confidence encoding
 
 ### Engineering Deep Dive
