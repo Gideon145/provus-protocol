@@ -1,19 +1,11 @@
 [phases.setup]
-nixPkgs = ["nodejs_20", "curl", "bash"]
+nixPkgs = ["nodejs_20"]
 
 [phases.install]
-cmds = [
-  "cd agent && npm ci",
-  "cd mcp-server && npm ci",
-  "cd x402-server && npm ci"
-]
+cmds = ["npm install"]
 
 [phases.build]
-cmds = [
-  "cd agent && npm run build",
-  "cd mcp-server && npm run build",
-  "cd x402-server && npm run build"
-]
+cmds = ["npx tsc -p agent/tsconfig.json"]
 
 [start]
 cmd = "node agent/dist/index.js"
