@@ -42,9 +42,9 @@ const VAULT_ABI = [
 // --- Config -------------------------------------------------------------------
 
 const CONFIG = {
-  rpcUrl: process.env.ZG_RPC_URL ?? "https://evmrpc-testnet.0g.ai",
-  chainId: parseInt(process.env.ZG_CHAIN_ID ?? "16602"),
-  privateKey: process.env.ZG_PRIVATE_KEY ?? "",
+  rpcUrl: (process.env.ZG_RPC_URL ?? "https://evmrpc-testnet.0g.ai").trim(),
+  chainId: parseInt((process.env.ZG_CHAIN_ID ?? "16602").trim()),
+  privateKey: (process.env.ZG_PRIVATE_KEY ?? "").trim(),
 
   verifierAddress: process.env.VERIFIER_ENGINE_ADDRESS ?? "",
   vaultAddress: process.env.STRATEGY_VAULT_ADDRESS ?? "",
