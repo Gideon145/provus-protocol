@@ -4,8 +4,8 @@
 
 > *"Every decision sealed. Every signature verified. Every trade permanent."*
 
-[![Live Dashboard](https://img.shields.io/badge/Live%20Dashboard-localhost:3000-cyan)](http://localhost:3000)
-[![Agent API](https://img.shields.io/badge/Agent%20Status-localhost:3001/status-green)](http://localhost:3001/status)
+[![Live Dashboard](https://img.shields.io/badge/Live%20Dashboard-Vercel-cyan)](https://frontend-mu-three-93.vercel.app)
+[![Agent API](https://img.shields.io/badge/Agent%20Status-On--Chain-green)](https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0)
 [![0G ChainScan](https://img.shields.io/badge/VerifierEngine-0x911E87629...-brightgreen)](https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0)
 [![ReputationEngine](https://img.shields.io/badge/Reputation-ELO%20847-blue)](https://chainscan.0g.ai/address/0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e)
 [![0G Chain Mainnet](https://img.shields.io/badge/Chain-0G%20Mainnet%2016661-purple)](https://chainscan.0g.ai)
@@ -63,8 +63,8 @@ PROVUS runs an autonomous agent loop **every 15 seconds** that creates cryptogra
 
 | Service | URL | Status |
 |---|---|---|
-| Frontend Dashboard | http://localhost:3000 | Live |
-| Agent Status API | http://localhost:3001/status | Live |
+| Frontend Dashboard | https://frontend-mu-three-93.vercel.app | **Live** |
+| Agent Status API | https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0 | On-Chain |
 | VerifierEngine Contract | https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0 | **432 TXs** |
 | ReputationEngine Contract | https://chainscan.0g.ai/address/0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e | ELO 847 |
 | StrategyRegistry Contract | https://chainscan.0g.ai/address/0x87E3D9fcfA4eff229A65d045A7C741E49b581187 | Live |
@@ -74,8 +74,8 @@ PROVUS runs an autonomous agent loop **every 15 seconds** that creates cryptogra
 ### Live Verification Commands
 
 ```bash
-# 1. Check agent is running in LIVE mode
-curl http://localhost:3001/status | jq '.iteration, .volatility, .signal, .confidence'
+# 1. Check agent is running in LIVE mode (requires local agent)
+# curl http://localhost:3001/status | jq '.iteration, .volatility, .signal, .confidence'
 
 # 2. View recent attestations on 0G ChainScan
 # Visit: https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0
@@ -136,7 +136,7 @@ PROVUS has **340+ consecutive iterations** of proven execution. Metrics are **li
 ```
 ┌──────────────────────────────────────────────────────────────┐
 │                 FRONTEND LAYER (Next.js React)               │
-│            localhost:3000 (Sci-Fi HUD Dashboard)             │
+│     frontend-mu-three-93.vercel.app (Sci-Fi HUD)             │
 │  • Live iteration counter (updates every 15s)               │
 │  • Real-time TX accumulation display                        │
 │  • Volatility regime visualization                          │
@@ -149,7 +149,7 @@ PROVUS has **340+ consecutive iterations** of proven execution. Metrics are **li
                      │
 ┌────────────────────▼─────────────────────────────────────────┐
 │              AGENT SERVICE LAYER (Node.js)                   │
-│             localhost:3001 (15-second loop)                  │
+│         Agent Service (15-second loop, runs locally)         │
 │  ┌─────────────────────────────────────────────────────┐    │
 │  │ EVERY 15 SECONDS:                                   │    │
 │  │ 1. fetch current price (Binance)                   │    │
@@ -1139,7 +1139,7 @@ npm run dev
 ```
 
 ### 6. Verify Deployment
-Open browser: http://localhost:3000
+Open browser: http://localhost:3000 (local) or https://frontend-mu-three-93.vercel.app (live)
 
 **Expected to see**:
 - Iteration counter (incrementing every 15s)
