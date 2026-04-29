@@ -2,14 +2,14 @@
 
 **Objective**: See autonomous AI trading attestation in action on 0G mainnet.  
 **Time**: ~3 minutes  
-**Live Dashboard**: http://localhost:3000 (or hosted URL)  
+**Live Dashboard**: https://frontend-mu-three-93.vercel.app (or hosted URL)  
 **Explorer**: https://chainscan.0g.ai
 
 ---
 
 ## Step 1: Dashboard Overview (30 seconds)
 
-**Navigate to**: http://localhost:3000
+**Navigate to**: https://frontend-mu-three-93.vercel.app
 
 **What you'll see**:
 - **Iteration Counter** (top-left, glitching title): Shows real-time agent loop count (increments every 15s)
@@ -92,7 +92,7 @@ Example values:
 
 ## Step 4: Check Live Agent Behavior in Dashboard (30 seconds)
 
-**Back in frontend** (http://localhost:3000):
+**Back in frontend** (https://frontend-mu-three-93.vercel.app):
 
 **Watch for 15 seconds**:
 - Iteration counter increments by 1
