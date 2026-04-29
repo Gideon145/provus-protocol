@@ -1016,20 +1016,9 @@ npm run dev
 # Broadcasts to http://localhost:3001/status
 ```
 
-### 4. Start Frontend (in new terminal)
-```bash
-cd frontend
-npm run dev
-# Next.js on http://localhost:3000
-# Polls agent every 2 seconds
-```
-
-### 5. Verify on Explorer
-Watch live transactions: https://chainscan.0g.ai/address/0x94A4365E6B7E79791258A3Fa071824BC2b75a394
-
 ---
 
-##  Key Technical Decisions
+## 🔑 Key Technical Decisions
 
 ### 1. **Yang-Zhang Volatility Estimator**
 - Fetches 144 × 5-min candles from Binance
