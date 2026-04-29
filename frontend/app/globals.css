@@ -1,0 +1,242 @@
+﻿@import "tailwindcss";
+
+/* -- PROVUS Protocol Sci-Fi Theme ------------------------------------------ */
+
+:root {
+  --bg-void:        #040209;
+  --bg-deep:        #07030f;
+  --bg-card:        #0c0718;
+  --bg-card-hover:  #130a22;
+  --border:         #1f1035;
+  --border-glow:    #2d1555;
+
+  /* Primary accent is violet, not cyan */
+  --cyan:           #a259ff;
+  --cyan-dim:       #6b27cc;
+  --cyan-glow:      rgba(162, 89, 255, 0.15);
+  --purple:         #ff6b9d;
+  --purple-dim:     #cc3366;
+  --purple-glow:    rgba(255, 107, 157, 0.15);
+  --green:          #00ff88;
+  --green-dim:      #00aa5a;
+  --green-glow:     rgba(0, 255, 136, 0.15);
+  --amber:          #ff9500;
+  --amber-glow:     rgba(255, 149, 0, 0.15);
+  --red:            #ff3366;
+  --red-glow:       rgba(255, 51, 102, 0.15);
+  --text-primary:   #c8d6e5;
+  --text-dim:       #6a7a9a;
+  --text-faint:     #2a3050;
+
+  /* --font-orbitron and --font-hud injected by Next.js font system */
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-void);
+  color: var(--text-primary);
+  font-family: var(--font-hud), monospace;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* -- Scrollbar -------------------------------------------------------------- */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--border-glow); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--cyan-dim); }
+
+/* -- HUD Grid Background ---------------------------------------------------- */
+.hud-grid {
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-position: center center;
+}
+
+/* -- Scan Line effect ------------------------------------------------------- */
+.scanlines::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.03) 2px,
+    rgba(0,0,0,0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* -- Glow text -------------------------------------------------------------- */
+.text-glow-cyan   { text-shadow: 0 0 20px var(--cyan), 0 0 40px var(--cyan-dim); }
+.text-glow-green  { text-shadow: 0 0 20px var(--green), 0 0 40px var(--green-dim); }
+.text-glow-amber  { text-shadow: 0 0 20px var(--amber); }
+.text-glow-red    { text-shadow: 0 0 20px var(--red); }
+.text-glow-purple { text-shadow: 0 0 20px var(--purple); }
+
+/* -- Cards ------------------------------------------------------------------ */
+.card-hud {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.card-hud:hover {
+  border-color: var(--border-glow);
+  box-shadow: 0 0 30px rgba(0, 212, 255, 0.05);
+}
+.card-hud::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyan-dim), var(--amber), transparent);
+  opacity: 0.6;
+}
+
+.hover-card {
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+.hover-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--cyan);
+  box-shadow: 0 14px 32px rgba(0, 212, 255, 0.12), 0 0 26px rgba(0, 212, 255, 0.12);
+}
+
+.evidence-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-glow);
+  border-radius: 4px;
+  background: linear-gradient(180deg, rgba(0, 212, 255, 0.08), rgba(0, 212, 255, 0.02));
+  color: var(--text-primary);
+  text-decoration: none;
+  font-family: var(--font-hud), monospace;
+  font-size: 14px;
+  letter-spacing: 0.03em;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+.evidence-btn:hover {
+  transform: translateY(-2px) scale(1.01);
+  border-color: var(--cyan);
+  background: linear-gradient(180deg, rgba(0, 212, 255, 0.16), rgba(0, 212, 255, 0.06));
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.25);
+}
+
+.terminal-watch {
+  margin-bottom: 12px;
+  color: var(--text-dim);
+  font-size: 13px;
+  line-height: 1.5;
+  transition: color 0.18s ease, font-weight 0.18s ease;
+}
+.terminal-panel:hover .terminal-watch {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.animate-in {
+  animation: fadeUpIn 420ms ease-out both;
+}
+
+.intro-hover {
+  transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+}
+.intro-hover:hover {
+  transform: translateY(-2px);
+  border-color: rgba(162, 89, 255, 0.5);
+  box-shadow: 0 16px 48px rgba(162, 89, 255, 0.12), 0 0 40px rgba(255, 107, 157, 0.08);
+}
+
+.carousel-btn {
+  background: rgba(0, 212, 255, 0.08);
+  border: 1px solid var(--cyan);
+  color: var(--cyan);
+  font-family: var(--font-hud), monospace;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  padding: 8px 20px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.18s ease, box-shadow 0.18s ease;
+}
+.carousel-btn:hover {
+  background: rgba(0, 212, 255, 0.18);
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.25);
+}
+
+.live-demo-blink {
+  animation: liveTextBlink 2.8s ease-in-out infinite;
+}
+@keyframes liveTextBlink {
+  0%, 100% { opacity: 1; text-shadow: 0 0 20px var(--cyan), 0 0 40px var(--cyan-dim), 0 0 60px rgba(162,89,255,0.3); }
+  50% { opacity: 0.5; text-shadow: none; }
+}
+
+/* -- PROVUS-specific: hexagonal attestation stamp ----------------------- */
+.attest-hex {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 1;
+  animation: hexRotate 40s linear infinite;
+}
+@keyframes hexRotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* -- Attestation badge -------------------------------------------------- */
+.attest-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border: 1px solid rgba(162, 89, 255, 0.4);
+  border-radius: 2px;
+  background: rgba(162, 89, 255, 0.06);
+  font-family: var(--font-hud), monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--cyan);
+}
+
+@keyframes fadeUpIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes orb-pulse-green {
+  0%, 100% { box-shadow: 0 0 8px var(--green), 0 0 16px var(--green-dim); }
+  50% { box-shadow: 0 0 16px var(--green), 0 0 32px var(--green-dim); }
+}
+@keyframes orb-pulse-amber {
+  0%, 100% { box-shadow: 0 0 8px var(--amber); }
+  50% { box-shadow: 0 0 20px var(--amber); }
+}
+@keyframes orb-pulse-red {
+  0%, 100% { box-shadow: 0 0 8px var(--red); }
+  50% { box-shadow: 0 0 20px var(--red); }
+}
+
+.status-text-blink {
+  animation: statusBlink 2s ease-in-out infinite;
+}
+@keyframes statusBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
