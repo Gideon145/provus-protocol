@@ -1,10 +1,6 @@
 # PROVUS Protocol — Cryptographically Verified AI Trading Intelligence
 
-**Tagline**: Prove Your Trading Edge with Autonomous Attestation
-
-**Track**: 0G APAC Hackathon Track 2 — Verifiable Finance  
-**Deadline**: May 16, 2026 23:59 UTC+8  
-**Status**: ✅ 432 transactions accumulated on 0G mainnet | 340+ iterations | 99.7% uptime
+**Status**: 432 transactions on 0G mainnet | 340+ iterations | 99.7% uptime
 
 ---
 
@@ -974,8 +970,6 @@ Watch live transactions: https://chainscan.0g.ai/address/0x94A4365E6B7E79791258A
 - **Activity Log**: Recent iteration events
 - **Status Indicator**: Agent online/offline
 
-**Design**: Sci-fi HUD inspired by Parry Protocol, optimized for monitoring 24/7 autonomous operations.
-
 ---
 
 ## 🔑 Key Technical Decisions
@@ -1010,8 +1004,6 @@ Watch live transactions: https://chainscan.0g.ai/address/0x94A4365E6B7E79791258A
 3. AI confidence oscillating with market signal strength
 4. TX accumulation counter (2 per 15s)
 5. Live links to 0G Explorer showing on-chain attestations
-
-*(To create demo video, open browser to localhost:3000 and record 60-90 seconds)*
 
 ---
 
@@ -1422,6 +1414,11 @@ npx hardhat run scripts/deploy.ts --network 0g-mainnet
 # Deployment complete!
 ```
 
+---
+
+**Built for 0G APAC Hackathon 2026**  
+*"Every AI trading decision. Sealed. Attested. Permanent."*
+
 ### Step 2: Verify on ChainScan
 
 ```bash
@@ -1504,61 +1501,7 @@ watch -n 5 'curl -s http://localhost:3001/status | jq .iteration'
 
 ---
 
-## 📋 Cost Analysis & Economics
-
-### Operational Costs
-
-**Per 15-Second Cycle**:
-| Item | Cost |
-|------|------|
-| recordVolatility() tx | 0.0014 OG (~$0.014) |
-| attest() tx | 0.0026 OG (~$0.026) |
-| **Subtotal** | **0.004 OG** |
-
-**Monthly Costs** (30 days):
-```
-86,400 seconds/day ÷ 15s/cycle = 5,760 cycles/day
-5,760 × 30 days × 0.004 OG = 691.2 OG/month
-@ $10 OG/token = $6,912/month
-```
-
-**Annual Operational Cost**:
-```
-691.2 OG/month × 12 = 8,294.4 OG/year
-@ $10 OG/token = ~$83K USD/year
-```
-
-### Revenue Models
-
-**Option 1: Subscription Model**
-- Users pay: $99/month for signal access
-- Break-even: 84 subscribers @ $99/month
-- Target: 500+ subscribers = $594K/year revenue
-
-**Option 2: Winning Trades Fee**
-- On profitable signals: charge 5% of profits
-- Assumes 79% accuracy, avg 2% profit/trade
-- Potential: $500K+/year with $1M AUM
-
-**Option 3: Enterprise Integration**
-- Hedge funds: $10K/month for API access
-- Target: 5-10 enterprise clients
-- Potential: $600K-1.2M/year revenue
-
-### Scaling Economics
-
-| Cycles/Day | Annual Cost | Breakeven Subs | Revenue @ 500 subs |
-|---|---|---|---|
-| 5,760 (15s) | $83K | 84 | $594K |
-| 2,880 (30s) | $41.5K | 42 | $594K |
-| 1,440 (60s) | $20.75K | 21 | $594K |
-| 288 (5min) | $4.15K | 5 | $594K |
-
-**Key insight**: Can reduce cycle time (lower cost) without hurting revenue if user value stays same.
-
----
-
-## 🔍 Monitoring & Operations
+##  Monitoring & Operations
 
 ### Key Metrics to Track
 
@@ -1657,30 +1600,9 @@ fi
 
 ---
 
-## 🎬 Demo & Testing
+## 🎬 Verification & Testing
 
-### 1. Live Dashboard Demo (60-90 seconds)
-Record a browser screen capture showing:
-1. Iteration counter incrementing every 15s
-2. Volatility gauge responding to market data
-3. AI confidence changing with signals
-4. Transaction counter growing
-5. Live log terminal showing events
-6. Clicking contract links to 0G Explorer
-
-**Quick demo script**:
-```bash
-# Terminal 1: Start agent
-cd agent && npm run dev
-
-# Terminal 2: Start frontend
-cd frontend && npm run dev
-
-# Browser: Open http://localhost:3000
-# Record 90 seconds, showing iteration updates every 15s
-```
-
-### 2. ChainScan Verification
+### 1. ChainScan Verification
 **Public verification anyone can do**:
 1. Visit: https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0
 2. Click "Transactions" tab
@@ -1688,7 +1610,7 @@ cd frontend && npm run dev
 4. Click any transaction to see input data (signal, confidence, timestamp)
 5. Timestamps prove decisions made in real-time, not backdated
 
-### 3. Unit Tests
+### 2. Unit Tests
 ```bash
 # Run contract tests
 cd contracts
@@ -1710,7 +1632,7 @@ npm run test
 #   ✓ Leaderboard returns sorted agents
 ```
 
-### 4. Integration Test: Full Cycle
+### 3. Integration Test: Full Cycle
 ```bash
 # Run end-to-end test (simulates one full 15s cycle)
 npm run test:e2e
@@ -1732,61 +1654,14 @@ npm run test:e2e
 
 ---
 
-## 📋 Hackathon Submission Checklist
+## � Documentation & References
 
-- [x] **GitHub Repository** → Public (Gideon145/provus-protocol)
-- [x] **0G Mainnet Contract** → StrategyRegistry deployed
-- [x] **0G Explorer Link** → https://chainscan.0g.ai/address/0x87E3D9...
-- [x] **0G Compute Integration** → DeepSeek V3.1 TEE inference active
-- [x] **Transaction Proofs** → 66+ on-chain, 2/15s accumulation rate
-- [x] **Engineering Debug Log** → ENGINEERING_DEBUG_LOG.md (1100 lines)
-- [x] **Judge Guide** → JUDGE_GUIDE.md (3-min walkthrough)
-- [x] **Dashboard Demo** → Live at localhost:3000
-- [ ] **Demo Video** → (60-90 sec screen recording - TBD)
-- [ ] **X/Twitter Post** → Announcement with #0GHackathon #BuildOn0G
-- [ ] **HackQuest Registration** → Submit GitHub + contract addresses
+**Project Documentation**:
+- [ENGINEERING_DEBUG_LOG.md](./ENGINEERING_DEBUG_LOG.md) — Production issues and solutions
+- [JUDGE_GUIDE.md](./JUDGE_GUIDE.md) — Verification walkthrough
 
----
-
-## 🎯 Why PROVUS Wins 0G APAC Hackathon
-
-| Evaluation Criterion | PROVUS Response | Competition |
-|---|---|---|
-| **Real on-chain proof** | 66+ txns on mainnet, auditable | Genesis: 157 txns, SynthLaunch: ✓ |
-| **Problem clarity** | Black-box AI → Verifiable attestation | Genesis: Hook optimization, Parry: IL protection |
-| **Engineering depth** | 5 production issues solved + debug log | SILOPOLIS: 9-agent swarm, TriMind: 3-AI consensus |
-| **0G integration** | Compute + Chain + Reputation system | Most use only 1 layer |
-| **Composability** | 4-contract primitive system | SynthLaunch: agentic identity, Genesis: V4 hooks |
-| **Uptime proof** | 340+ consecutive cycles, 99.7% uptime | Most are POCs or limited test data |
-| **Code quality** | Fully typed TypeScript + tested Solidity | Varies widely |
-| **Documentation** | 1500+ line README + debug log + judge guide | Most: 200-500 line README |
-
-**Verdict**: PROVUS is production-ready, deeply integrated with 0G, and demonstrates real autonomous execution. Not a prototype—it's a working system that proves every decision on-chain.
-
----
-
-## 📞 Support & Resources
-
-### Documentation
-- **ENGINEERING_DEBUG_LOG.md**: Real problems solved during development
-- **JUDGE_GUIDE.md**: Step-by-step demo walkthrough
-- **Smart Contracts**: Fully commented Solidity code with NatSpec
-
-### External Links
-- **0G Chain**: https://0g.ai
-- **0G Explorer**: https://chainscan.0g.ai
-- **DeepSeek**: https://deepseek.ai
-- **Hardhat**: https://hardhat.org
-- **OpenZeppelin Contracts**: https://docs.openzeppelin.com/contracts
-
-### Questions?
-Refer to:
-1. JUDGE_GUIDE.md for demo steps
-2. ENGINEERING_DEBUG_LOG.md for technical problems
-3. Smart contract NatSpec comments for function behavior
-4. .env.example for all configuration options
-
----
-
-**Built for 0G APAC Hackathon 2026**  
-*"Every AI trading decision. Sealed. Attested. Permanent."*
+**External Resources**:
+- [0G Chain Docs](https://0g.ai)
+- [0G ChainScan Explorer](https://chainscan.0g.ai)
+- [Hardhat Documentation](https://hardhat.org)
+- [OpenZeppelin Contracts](https://docs.openzeppelin.com/contracts)
