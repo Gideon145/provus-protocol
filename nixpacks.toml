@@ -1,0 +1,19 @@
+[phases.setup]
+nixPkgs = ["nodejs_20", "curl", "bash"]
+
+[phases.install]
+cmds = [
+  "cd agent && npm ci",
+  "cd mcp-server && npm ci",
+  "cd x402-server && npm ci"
+]
+
+[phases.build]
+cmds = [
+  "cd agent && npm run build",
+  "cd mcp-server && npm run build",
+  "cd x402-server && npm run build"
+]
+
+[start]
+cmd = "node agent/dist/index.js"
