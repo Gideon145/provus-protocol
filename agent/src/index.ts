@@ -344,9 +344,11 @@ async function main(): Promise<void> {
 
   const volEngine = new VolatilityEngine();
   const attester = new ZGAttester(wallet);
-  await attester.init();
 
-  let verifier: ethers.Contract | null = null;
+  startStatusServer();
+  state.running = true;
+
+  await attester.init();
   let vault: ethers.Contract | null = null;
 
   if (CONFIG.verifierAddress && !CONFIG.demoMode) {
@@ -360,9 +362,6 @@ async function main(): Promise<void> {
     vault = new ethers.Contract(CONFIG.vaultAddress, VAULT_ABI, wallet);
     logger.success(`StrategyVault  : ${CONFIG.vaultAddress}`);
   }
-
-  startStatusServer();
-  state.running = true;
 
   logger.success(`Agent running — ${CONFIG.loopIntervalMs / 1000}s loop`);
   logger.success(`Every iteration: recordVolatility() + attest() = 2 on-chain txns`);
