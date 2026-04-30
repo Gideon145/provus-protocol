@@ -26,7 +26,8 @@ export interface VolatilityState {
   priceChange24hPct: number;    // 24h % change (from ticker)
 }
 
-const BINANCE_BASE = "https://api.binance.com";
+const BINANCE_BASE = "https://api.binance.us";
+const BINANCE_BASE_GLOBAL = "https://api.binance.com";
 const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
 
 // ─── HTTP helper ─────────────────────────────────────────────────────────────
@@ -61,13 +62,19 @@ export class VolatilityEngine {
     }
 
     try {
-      // Fetch klines + 24h ticker in parallel
-      const [klines, ticker] = await Promise.all([
-        fetchJson(
-          `${BINANCE_BASE}/api/v3/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`
-        ),
-        fetchJson(`${BINANCE_BASE}/api/v3/ticker/24hr?symbol=${symbol}`),
-      ]);
+      // Try US endpoint first, fall back to global
+      let klines: unknown, ticker: unknown;
+      try {
+        [klines, ticker] = await Promise.all([
+          fetchJson(`${BINANCE_BASE}/api/v3/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`),
+          fetchJson(`${BINANCE_BASE}/api/v3/ticker/24hr?symbol=${symbol}`),
+        ]);
+      } catch {
+        [klines, ticker] = await Promise.all([
+          fetchJson(`${BINANCE_BASE_GLOBAL}/api/v3/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`),
+          fetchJson(`${BINANCE_BASE_GLOBAL}/api/v3/ticker/24hr?symbol=${symbol}`),
+        ]);
+      }
 
       const state = this._computeFromKlines(klines as number[][], ticker as Record<string, string>);
       this.cache.set(symbol, state);
