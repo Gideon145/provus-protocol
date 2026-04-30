@@ -65,6 +65,7 @@ contract VerifierEngine {
     );
 
     event AuthorizedAgent(address indexed agent, bool status);
+    event RegistryCallFailed(uint256 indexed strategyId, bytes reason);
 
     event VolatilityRecorded(
         uint256 indexed strategyId,
@@ -89,6 +90,8 @@ contract VerifierEngine {
     // ─── Constructor ──────────────────────────────────────────────────────────
 
     constructor(address _registry) {
+        require(_registry != address(0), "Registry: zero address");
+        require(_registry.code.length > 0, "Registry: not a contract");
         owner = msg.sender;
         authorized[msg.sender] = true;
         registry = IStrategyRegistry(_registry);
@@ -159,7 +162,9 @@ contract VerifierEngine {
         if (isValid) verifiedAttestations++;
 
         // Notify registry to increment signal count
-        try registry.incrementSignalCount(strategyId) {} catch {}
+        try registry.incrementSignalCount(strategyId) {} catch (bytes memory reason) {
+            emit RegistryCallFailed(strategyId, reason);
+        }
 
         emit DecisionVerified(
             strategyId,
