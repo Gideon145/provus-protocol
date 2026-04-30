@@ -19,14 +19,16 @@ const REPUTATION_ENG = "0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e";
 const VAULT          = "0x2B9366b7fea6a1C6279edbC7B87CCB91CdCc1014";
 const EXPLORER       = "https://chainscan.0g.ai";
 
-const WHAT_IS_PROVUS = [
-  { keyword: "ATTEST",  text: "Every AI trading decision with cryptographic proof via 0G TEE — immutable, verifiable, tamper-resistant.",   color: "var(--cyan)"   },
-  { keyword: "TRADE",   text: "ETH volatility autonomously using Yang-Zhang variance model — no human input, 24/7 execution.",            color: "var(--green)"  },
-  { keyword: "VERIFY",  text: "All 439+ on-chain transactions on 0G Mainnet — each one traceable on ChainScan explorer.",                 color: "var(--amber)"  },
-  { keyword: "SCORE",   text: "AI decision quality over time via ELO reputation engine — provable track record, not just claims.",         color: "var(--purple)" },
-  { keyword: "RECORD",  text: "Yang-Zhang volatility σ on-chain every cycle — creating an auditable history of market conditions.",       color: "var(--cyan)"   },
-  { keyword: "PROVE",   text: "The agent acts with verifiable intelligence — not a script, a genuine autonomous decision system.",         color: "var(--green)"  },
-];
+function buildWhatIsProvus(txCount: number) {
+  return [
+    { keyword: "ATTEST",  text: "Every AI trading decision with cryptographic proof via 0G TEE — immutable, verifiable, tamper-resistant.",   color: "var(--cyan)"   },
+    { keyword: "TRADE",   text: "ETH volatility autonomously using Yang-Zhang variance model — no human input, 24/7 execution.",            color: "var(--green)"  },
+    { keyword: "VERIFY",  text: `All ${txCount.toLocaleString()}+ on-chain transactions on 0G Mainnet — each one traceable on ChainScan explorer.`,                 color: "var(--amber)"  },
+    { keyword: "SCORE",   text: "AI decision quality over time via ELO reputation engine — provable track record, not just claims.",         color: "var(--purple)" },
+    { keyword: "RECORD",  text: "Yang-Zhang volatility σ on-chain every cycle — creating an auditable history of market conditions.",       color: "var(--cyan)"   },
+    { keyword: "PROVE",   text: "The agent acts with verifiable intelligence — not a script, a genuine autonomous decision system.",         color: "var(--green)"  },
+  ];
+}
 
 const INITIAL_LOGS: LogEntry[] = [
   { id: 1, timestamp: "22:45:12", level: "SUCCESS", message: "System initialized",     detail: "All 4 contracts deployed on 0G Mainnet (Chain ID 16661)" },
@@ -53,8 +55,8 @@ function shortAddr(addr: string): string {
 
 /* ========================================================================= */
 export default function Home() {
-  const [txCount,       setTxCount]       = useState(439);
-  const [iteration,     setIteration]     = useState(219);
+  const [txCount,       setTxCount]       = useState(10000);
+  const [iteration,     setIteration]     = useState(5000);
   const [price,         setPrice]         = useState(1793.45);
   const [priceChange,   setPriceChange]   = useState(1.21);
   const [vol,           setVol]           = useState(42.5);
@@ -127,6 +129,7 @@ export default function Home() {
   }, [confidence, vol, txCount, eloScore, logCounter]);
 
   /* ── Derived display values ───────────────────────────────────────────── */
+  const WHAT_IS_PROVUS = buildWhatIsProvus(txCount);
   const volRegime = vol < 30 ? "LOW" : vol < 60 ? "MEDIUM" : vol < 80 ? "HIGH" : "EXTREME";
   const volRegimeColor = vol < 30 ? "var(--green)" : vol < 60 ? "var(--cyan)" : vol < 80 ? "var(--amber)" : "var(--red)";
   const orbState  = chainConnected && vol < 30 ? "active" : vol >= 80 ? "danger" : vol >= 60 ? "warn" : "active";
@@ -404,6 +407,7 @@ export default function Home() {
           <a href={`${EXPLORER}/address/${VERIFIER}`} target="_blank" rel="noreferrer" className="evidence-btn">⛓ LIVE TXS ON CHAINSCAN</a>
           <a href="https://github.com/Gideon145/provus-protocol" target="_blank" rel="noreferrer" className="evidence-btn">⌨ GITHUB REPO</a>
           <a href={`${EXPLORER}/address/${AGENT_WALLET}`} target="_blank" rel="noreferrer" className="evidence-btn">🤖 AGENT WALLET</a>
+          <a href="https://provus-agent.up.railway.app" target="_blank" rel="noreferrer" className="evidence-btn" style={{ borderColor: "var(--green)", color: "var(--green)" }}>🚂 RAILWAY AGENT</a>
           <a href="https://github.com/Gideon145/provus-protocol/blob/master/JUDGE_GUIDE.md" target="_blank" rel="noreferrer" className="evidence-btn" style={{ borderColor: "var(--amber)", color: "var(--amber)" }}>📋 JUDGE GUIDE</a>
           <a href="https://github.com/Gideon145/provus-protocol/blob/master/ENGINEERING_DEBUG_LOG.md" target="_blank" rel="noreferrer" className="evidence-btn">🔧 ENGINEERING LOG</a>
         </div>
