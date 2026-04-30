@@ -348,7 +348,9 @@ async function main(): Promise<void> {
   startStatusServer();
   state.running = true;
 
-  await attester.init();
+  await attester.init().catch((err) => {
+    logger.warn(`attester.init() failed (non-fatal): ${err}`);
+  });
   let verifier: ethers.Contract | null = null;
   let vault: ethers.Contract | null = null;
 
