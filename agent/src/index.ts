@@ -349,6 +349,7 @@ async function main(): Promise<void> {
   state.running = true;
 
   await attester.init();
+  let verifier: ethers.Contract | null = null;
   let vault: ethers.Contract | null = null;
 
   if (CONFIG.verifierAddress && !CONFIG.demoMode) {
