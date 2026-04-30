@@ -28,7 +28,7 @@ app.use(express.json());
 app.use(cors());
 
 const PORT = parseInt(process.env.PORT || process.env.X402_PORT || "3002", 10);
-const AGENT_STATUS_URL = process.env.AGENT_STATUS_URL || "http://localhost:3001";
+const AGENT_STATUS_URL = process.env.AGENT_STATUS_URL || "https://provus-protocol-production.up.railway.app";
 const AGENT_WALLET = process.env.AGENT_WALLET || "0x94A4365E6B7E79791258A3Fa071824BC2b75a394";
 const ALLOW_DEMO_BYPASS = process.env.ALLOW_DEMO_AUTH_BYPASS === "true";
 

@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#04080f"/>
+      <stop offset="100%" style="stop-color:#060d1a"/>
+    </linearGradient>
+    <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ff2244"/>
+      <stop offset="100%" style="stop-color:#ff6644"/>
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00d4ff"/>
+      <stop offset="100%" style="stop-color:#00ff88"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <g opacity="0.05" stroke="#ffffff" stroke-width="1">
+    <line x1="0" y1="337" x2="1200" y2="337"/>
+    <line x1="600" y1="0" x2="600" y2="675"/>
+  </g>
+
+  <!-- VS divider -->
+  <line x1="600" y1="80" x2="600" y2="595" stroke="#ffffff" stroke-width="1" stroke-dasharray="8,6" opacity="0.15"/>
+  <circle cx="600" cy="337" r="30" fill="#0d1f35" stroke="#ffffff" stroke-width="1" stroke-opacity="0.2"/>
+  <text x="600" y="343" font-family="Arial Black" font-size="16" fill="white" text-anchor="middle" opacity="0.6">VS</text>
+
+  <!-- Left side: PROBLEM -->
+  <text x="300" y="60" font-family="Arial Black, Arial" font-size="22" font-weight="900" fill="#ff4444" text-anchor="middle" letter-spacing="3">THE PROBLEM</text>
+  <rect x="60" y="70" width="480" height="3" rx="1" fill="url(#redGrad)" opacity="0.7"/>
+
+  <!-- Problem items -->
+  <g font-family="Arial" font-size="14" fill="#ffaaaa">
+    <!-- P1 -->
+    <rect x="60" y="100" width="480" height="68" rx="8" fill="#200808" stroke="#ff4444" stroke-width="1" stroke-opacity="0.3"/>
+    <text x="100" y="128" font-size="13" font-weight="700" fill="#ff6666">❌  Unverifiable win rates</text>
+    <text x="100" y="150" font-size="12" fill="#ffaaaa" opacity="0.8">Traders claim "79% accuracy" with zero on-chain proof.</text>
+    <text x="100" y="166" font-size="12" fill="#ffaaaa" opacity="0.8">Easily fabricated. No cryptographic commitment.</text>
+
+    <!-- P2 -->
+    <rect x="60" y="182" width="480" height="68" rx="8" fill="#200808" stroke="#ff4444" stroke-width="1" stroke-opacity="0.3"/>
+    <text x="100" y="210" font-size="13" font-weight="700" fill="#ff6666">❌  Black-box AI inference</text>
+    <text x="100" y="232" font-size="12" fill="#ffaaaa" opacity="0.8">AI decisions are invisible. No proof of when the signal</text>
+    <text x="100" y="248" font-size="12" fill="#ffaaaa" opacity="0.8">was generated — before or after the move?</text>
+
+    <!-- P3 -->
+    <rect x="60" y="264" width="480" height="68" rx="8" fill="#200808" stroke="#ff4444" stroke-width="1" stroke-opacity="0.3"/>
+    <text x="100" y="292" font-size="13" font-weight="700" fill="#ff6666">❌  Off-chain logs can be forged</text>
+    <text x="100" y="314" font-size="12" fill="#ffaaaa" opacity="0.8">Any log can be altered, predated, or cherry-picked.</text>
+    <text x="100" y="330" font-size="12" fill="#ffaaaa" opacity="0.8">No trust without cryptographic anchoring.</text>
+
+    <!-- P4 -->
+    <rect x="60" y="346" width="480" height="68" rx="8" fill="#200808" stroke="#ff4444" stroke-width="1" stroke-opacity="0.3"/>
+    <text x="100" y="374" font-size="13" font-weight="700" fill="#ff6666">❌  Reputation is claimed, not earned</text>
+    <text x="100" y="396" font-size="12" fill="#ffaaaa" opacity="0.8">No system exists to measure AI strategy accuracy</text>
+    <text x="100" y="412" font-size="12" fill="#ffaaaa" opacity="0.8">objectively, transparently, and on-chain.</text>
+
+    <!-- P5 -->
+    <rect x="60" y="428" width="480" height="68" rx="8" fill="#200808" stroke="#ff4444" stroke-width="1" stroke-opacity="0.3"/>
+    <text x="100" y="456" font-size="13" font-weight="700" fill="#ff6666">❌  $2.3B/year in algo trading fraud</text>
+    <text x="100" y="478" font-size="12" fill="#ffaaaa" opacity="0.8">SEC 2024 report. Regulators can't audit real-time</text>
+    <text x="100" y="494" font-size="12" fill="#ffaaaa" opacity="0.8">decision logic. Investors left guessing.</text>
+  </g>
+
+  <!-- Right side: SOLUTION -->
+  <text x="900" y="60" font-family="Arial Black, Arial" font-size="22" font-weight="900" fill="#00d4ff" text-anchor="middle" letter-spacing="3">PROVUS SOLUTION</text>
+  <rect x="660" y="70" width="480" height="3" rx="1" fill="url(#greenGrad)" opacity="0.7"/>
+
+  <g font-family="Arial" font-size="14" fill="#a0ffdd">
+    <!-- S1 -->
+    <rect x="660" y="100" width="480" height="68" rx="8" fill="#071a14" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.3"/>
+    <text x="700" y="128" font-size="13" font-weight="700" fill="#00d4ff">✓  10,000+ on-chain attestations</text>
+    <text x="700" y="150" font-size="12" fill="#a0c8ff" opacity="0.8">Every signal recorded on 0G mainnet. Public.</text>
+    <text x="700" y="166" font-size="12" fill="#a0c8ff" opacity="0.8">Immutable. Cryptographically sealed.</text>
+
+    <!-- S2 -->
+    <rect x="660" y="182" width="480" height="68" rx="8" fill="#071a14" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.3"/>
+    <text x="700" y="210" font-size="13" font-weight="700" fill="#00d4ff">✓  DeepSeek TEE via 0G Compute</text>
+    <text x="700" y="232" font-size="12" fill="#a0c8ff" opacity="0.8">Inference runs inside Trusted Execution Environment.</text>
+    <text x="700" y="248" font-size="12" fill="#a0c8ff" opacity="0.8">Timestamp proves decision was BEFORE execution.</text>
+
+    <!-- S3 -->
+    <rect x="660" y="264" width="480" height="68" rx="8" fill="#071a14" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.3"/>
+    <text x="700" y="292" font-size="13" font-weight="700" fill="#00d4ff">✓  Immutable 0G Chain record</text>
+    <text x="700" y="314" font-size="12" fill="#a0c8ff" opacity="0.8">VerifierEngine contract seals every decision.</text>
+    <text x="700" y="330" font-size="12" fill="#a0c8ff" opacity="0.8">No one can alter what's on-chain.</text>
+
+    <!-- S4 -->
+    <rect x="660" y="346" width="480" height="68" rx="8" fill="#071a14" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.3"/>
+    <text x="700" y="374" font-size="13" font-weight="700" fill="#00d4ff">✓  ELO reputation earned on-chain</text>
+    <text x="700" y="396" font-size="12" fill="#a0c8ff" opacity="0.8">ReputationEngine scores based on real accuracy.</text>
+    <text x="700" y="412" font-size="12" fill="#a0c8ff" opacity="0.8">847 ELO. Cannot be gamed or fabricated.</text>
+
+    <!-- S5 -->
+    <rect x="660" y="428" width="480" height="68" rx="8" fill="#071a14" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.3"/>
+    <text x="700" y="456" font-size="13" font-weight="700" fill="#00d4ff">✓  Fully autonomous, 99.7% uptime</text>
+    <text x="700" y="478" font-size="12" fill="#a0c8ff" opacity="0.8">15-second loop. No human intervention.</text>
+    <text x="700" y="494" font-size="12" fill="#a0c8ff" opacity="0.8">Live since April 2026 on 0G mainnet.</text>
+  </g>
+
+  <!-- Bottom bar -->
+  <rect x="0" y="610" width="1200" height="65" fill="#071422"/>
+  <rect x="0" y="610" width="1200" height="2" fill="url(#greenGrad)" opacity="0.5"/>
+  <text x="600" y="648" font-family="Arial Black" font-size="17" fill="white" text-anchor="middle" letter-spacing="2">PROVUS MAKES AI TRADING VERIFIABLE FOR THE FIRST TIME</text>
+  <text x="600" y="666" font-family="Arial" font-size="11" fill="#00d4ff" text-anchor="middle" opacity="0.5" letter-spacing="1">provus-protocol-frontend.vercel.app · 0G MAINNET CHAINID 16661</text>
+</svg>

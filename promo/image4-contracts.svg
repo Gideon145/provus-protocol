@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#04080f"/>
+      <stop offset="100%" style="stop-color:#060d1a"/>
+    </linearGradient>
+    <linearGradient id="cyan" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00d4ff"/>
+      <stop offset="100%" style="stop-color:#0066ff"/>
+    </linearGradient>
+    <linearGradient id="barGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#00ff88;stop-opacity:0.6"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="bigglow">
+      <feGaussianBlur stdDeviation="10" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <g opacity="0.05" stroke="#00d4ff" stroke-width="1">
+    <line x1="0" y1="225" x2="1200" y2="225"/>
+    <line x1="0" y1="450" x2="1200" y2="450"/>
+    <line x1="400" y1="0" x2="400" y2="675"/>
+    <line x1="800" y1="0" x2="800" y2="675"/>
+  </g>
+
+  <!-- Title -->
+  <text x="600" y="55" font-family="Arial Black, Arial" font-size="26" font-weight="900" fill="white" text-anchor="middle" letter-spacing="4">LIVE ON-CHAIN PROOF · 0G MAINNET</text>
+  <rect x="150" y="65" width="900" height="3" rx="1" fill="url(#cyan)" opacity="0.7"/>
+
+  <!-- Main TX counter - center top -->
+  <circle cx="600" cy="185" r="100" fill="#071422" stroke="#00d4ff" stroke-width="2" stroke-opacity="0.5" filter="url(#glow)"/>
+  <circle cx="600" cy="185" r="90" fill="none" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.2"/>
+  <text x="600" y="168" font-family="Arial Black, Arial" font-size="46" font-weight="900" fill="#00d4ff" text-anchor="middle" filter="url(#bigglow)">10K+</text>
+  <text x="600" y="195" font-family="Arial" font-size="13" fill="white" text-anchor="middle" opacity="0.7">TRANSACTIONS</text>
+  <text x="600" y="213" font-family="Arial" font-size="10" fill="#00d4ff" text-anchor="middle" opacity="0.6">VERIFIED ON-CHAIN</text>
+  <text x="600" y="260" font-family="Arial" font-size="11" fill="#a0c8ff" text-anchor="middle" opacity="0.5" letter-spacing="1">since April 2026</text>
+
+  <!-- Contract rows -->
+  <text x="80" y="310" font-family="Arial" font-size="13" font-weight="700" fill="#00d4ff" letter-spacing="2" opacity="0.8">CONTRACT ADDRESSES · 0G MAINNET (CHAINID 16661)</text>
+  <rect x="78" y="318" width="600" height="1" fill="#00d4ff" opacity="0.2"/>
+
+  <!-- Contract cards -->
+  <g font-family="'Courier New', monospace">
+    <!-- StrategyRegistry -->
+    <rect x="78" y="330" width="1044" height="48" rx="6" fill="#071422" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.2"/>
+    <rect x="78" y="330" width="4" height="48" rx="2" fill="#00d4ff" opacity="0.6"/>
+    <text x="100" y="350" font-size="11" fill="#a0c8ff" opacity="0.7">StrategyRegistry</text>
+    <text x="100" y="368" font-size="12" fill="#00d4ff">0x87E3D9fcfA4eff229A65d045A7C741E49b581187</text>
+    <text x="980" y="360" font-size="11" fill="#00ff88" text-anchor="middle" opacity="0.8">LIVE</text>
+    <circle cx="1060" cy="357" r="5" fill="#00ff88" opacity="0.8" filter="url(#glow)"/>
+
+    <!-- VerifierEngine -->
+    <rect x="78" y="390" width="1044" height="48" rx="6" fill="#071a2e" stroke="#00d4ff" stroke-width="1.5" stroke-opacity="0.5"/>
+    <rect x="78" y="390" width="4" height="48" rx="2" fill="#00d4ff" opacity="0.9" filter="url(#glow)"/>
+    <text x="100" y="410" font-size="11" fill="#00d4ff" font-weight="700">VerifierEngine  ★ PRIMARY</text>
+    <text x="100" y="428" font-size="12" fill="#00d4ff" filter="url(#glow)">0x911E87629756F34190DF34162806f00b35521FD0</text>
+    <text x="980" y="420" font-size="11" fill="#00ff88" text-anchor="middle" opacity="0.8">LIVE</text>
+    <circle cx="1060" cy="417" r="5" fill="#00ff88" opacity="0.9" filter="url(#glow)"/>
+
+    <!-- StrategyVault -->
+    <rect x="78" y="450" width="1044" height="48" rx="6" fill="#071422" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.2"/>
+    <rect x="78" y="450" width="4" height="48" rx="2" fill="#00d4ff" opacity="0.6"/>
+    <text x="100" y="470" font-size="11" fill="#a0c8ff" opacity="0.7">StrategyVault</text>
+    <text x="100" y="488" font-size="12" fill="#00d4ff">0x2B9366b7fea6a1C6279edbC7B87CCB91CdCc1014</text>
+    <text x="980" y="480" font-size="11" fill="#00ff88" text-anchor="middle" opacity="0.8">LIVE</text>
+    <circle cx="1060" cy="477" r="5" fill="#00ff88" opacity="0.8" filter="url(#glow)"/>
+
+    <!-- ReputationEngine -->
+    <rect x="78" y="510" width="1044" height="48" rx="6" fill="#071422" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.2"/>
+    <rect x="78" y="510" width="4" height="48" rx="2" fill="#00d4ff" opacity="0.6"/>
+    <text x="100" y="530" font-size="11" fill="#a0c8ff" opacity="0.7">ReputationEngine</text>
+    <text x="100" y="548" font-size="12" fill="#00d4ff">0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e</text>
+    <text x="980" y="540" font-size="11" fill="#00ff88" text-anchor="middle" opacity="0.8">LIVE</text>
+    <circle cx="1060" cy="537" r="5" fill="#00ff88" opacity="0.8" filter="url(#glow)"/>
+  </g>
+
+  <!-- Explorer link -->
+  <rect x="78" y="572" width="1044" height="36" rx="6" fill="#00d4ff" opacity="0.08" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.2"/>
+  <text x="600" y="596" font-family="Arial" font-size="12" fill="#00d4ff" text-anchor="middle" opacity="0.8">🔍  chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0</text>
+
+  <!-- Bottom bar -->
+  <rect x="0" y="630" width="1200" height="45" fill="#071422"/>
+  <rect x="0" y="630" width="1200" height="2" fill="url(#cyan)" opacity="0.4"/>
+  <text x="600" y="658" font-family="Arial" font-size="12" fill="white" text-anchor="middle" opacity="0.5" letter-spacing="2">PROVUS PROTOCOL · github.com/Gideon145/provus-protocol · provus-protocol-frontend.vercel.app</text>
+</svg>

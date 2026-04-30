@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#04080f"/>
+      <stop offset="100%" style="stop-color:#060d1a"/>
+    </linearGradient>
+    <linearGradient id="cyan" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00d4ff"/>
+      <stop offset="100%" style="stop-color:#0066ff"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="bigglow">
+      <feGaussianBlur stdDeviation="14" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#00d4ff" opacity="0.8"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <g opacity="0.05" stroke="#00d4ff" stroke-width="1">
+    <line x1="0" y1="225" x2="1200" y2="225"/>
+    <line x1="0" y1="450" x2="1200" y2="450"/>
+    <line x1="300" y1="0" x2="300" y2="675"/>
+    <line x1="600" y1="0" x2="600" y2="675"/>
+    <line x1="900" y1="0" x2="900" y2="675"/>
+  </g>
+
+  <!-- Title -->
+  <text x="600" y="58" font-family="Arial Black, Arial" font-size="28" font-weight="900" fill="white" text-anchor="middle" letter-spacing="4">THE 15-SECOND ATTESTATION LOOP</text>
+  <rect x="200" y="68" width="800" height="3" rx="1" fill="url(#cyan)" opacity="0.6"/>
+  <text x="600" y="96" font-family="Arial" font-size="13" fill="#a0c8ff" text-anchor="middle" opacity="0.7" letter-spacing="1">Every cycle: AI decides → TEE signs → 0G Chain records → Reputation updates</text>
+
+  <!-- Step boxes - horizontal flow -->
+  <!-- Step 1: Market Data -->
+  <rect x="40" y="160" width="160" height="120" rx="10" fill="#071422" stroke="#00d4ff" stroke-width="1.5" stroke-opacity="0.5"/>
+  <circle cx="120" cy="192" r="16" fill="#00d4ff" opacity="0.15" stroke="#00d4ff" stroke-width="1"/>
+  <text x="120" y="197" font-family="Arial Black" font-size="14" fill="#00d4ff" text-anchor="middle" filter="url(#glow)">1</text>
+  <text x="120" y="225" font-family="Arial" font-size="11" font-weight="700" fill="white" text-anchor="middle">MARKET DATA</text>
+  <text x="120" y="242" font-family="Arial" font-size="10" fill="#a0c8ff" text-anchor="middle" opacity="0.7">Binance API</text>
+  <text x="120" y="257" font-family="Arial" font-size="10" fill="#a0c8ff" text-anchor="middle" opacity="0.7">ETH/USDT price</text>
+  <text x="120" y="272" font-family="Arial" font-size="10" fill="#a0c8ff" text-anchor="middle" opacity="0.7">144 × 5m candles</text>
+
+  <!-- Arrow -->
+  <line x1="202" y1="220" x2="228" y2="220" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow)" opacity="0.7" filter="url(#glow)"/>
+
+  <!-- Step 2: Volatility -->
+  <rect x="230" y="160" width="160" height="120" rx="10" fill="#071422" stroke="#00d4ff" stroke-width="1.5" stroke-opacity="0.5"/>
+  <circle cx="310" cy="192" r="16" fill="#00d4ff" opacity="0.15" stroke="#00d4ff" stroke-width="1"/>
+  <text x="310" y="197" font-family="Arial Black" font-size="14" fill="#00d4ff" text-anchor="middle" filter="url(#glow)">2</text>
+  <text x="310" y="225" font-family="Arial" font-size="11" font-weight="700" fill="white" text-anchor="middle">VOLATILITY</text>
+  <text x="310" y="242" font-family="Arial" font-size="10" fill="#a0c8ff" text-anchor="middle" opacity="0.7">Yang-Zhang</text>
+  <text x="310" y="257" font-family="Arial" font-size="10" fill="#a0c8ff" text-anchor="middle" opacity="0.7">estimator</text>
+  <text x="310" y="272" font-family="Arial" font-size="10" fill="#00d4ff" text-anchor="middle" opacity="0.8">Regime: HIGH</text>
+
+  <!-- Arrow -->
+  <line x1="392" y1="220" x2="418" y2="220" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow)" opacity="0.7" filter="url(#glow)"/>
+
+  <!-- Step 3: DeepSeek TEE -->
+  <rect x="420" y="145" width="175" height="140" rx="10" fill="#071a2e" stroke="#00d4ff" stroke-width="2" stroke-opacity="0.9" filter="url(#glow)"/>
+  <rect x="420" y="145" width="175" height="140" rx="10" fill="#00d4ff" opacity="0.04"/>
+  <circle cx="507" cy="180" r="18" fill="#00d4ff" opacity="0.2" stroke="#00d4ff" stroke-width="1.5"/>
+  <text x="507" y="186" font-family="Arial Black" font-size="15" fill="#00d4ff" text-anchor="middle" filter="url(#glow)">3</text>
+  <text x="507" y="215" font-family="Arial" font-size="12" font-weight="700" fill="white" text-anchor="middle">DEEPSEEK TEE</text>
+  <text x="507" y="233" font-family="Arial" font-size="10" fill="#a0c8ff" text-anchor="middle" opacity="0.7">0G Compute</text>
+  <text x="507" y="249" font-family="Arial" font-size="10" fill="#a0c8ff" text-anchor="middle" opacity="0.7">Encrypted inference</text>
+  <rect x="454" y="258" width="106" height="20" rx="10" fill="#00d4ff" opacity="0.2"/>
+  <text x="507" y="272" font-family="Arial Black" font-size="11" fill="#00d4ff" text-anchor="middle">BUY  84%</text>
+  <!-- TEE label -->
+  <rect x="542" y="148" width="50" height="18" rx="4" fill="#00d4ff" opacity="0.25"/>
+  <text x="567" y="161" font-family="Arial" font-size="9" fill="#00d4ff" text-anchor="middle" font-weight="700">TEE</text>
+
+  <!-- Arrow -->
+  <line x1="597" y1="220" x2="623" y2="220" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow)" opacity="0.7" filter="url(#glow)"/>
+
+  <!-- Step 4: On-chain attest -->
+  <rect x="625" y="160" width="160" height="120" rx="10" fill="#071422" stroke="#00d4ff" stroke-width="1.5" stroke-opacity="0.5"/>
+  <circle cx="705" cy="192" r="16" fill="#00d4ff" opacity="0.15" stroke="#00d4ff" stroke-width="1"/>
+  <text x="705" y="197" font-family="Arial Black" font-size="14" fill="#00d4ff" text-anchor="middle" filter="url(#glow)">4</text>
+  <text x="705" y="225" font-family="Arial" font-size="11" font-weight="700" fill="white" text-anchor="middle">ATTEST ON-CHAIN</text>
+  <text x="705" y="242" font-family="Arial" font-size="10" fill="#a0c8ff" text-anchor="middle" opacity="0.7">VerifierEngine</text>
+  <text x="705" y="257" font-family="Arial" font-size="10" fill="#a0c8ff" text-anchor="middle" opacity="0.7">0G Chain tx</text>
+  <text x="705" y="272" font-family="Arial" font-size="10" fill="#00ff88" text-anchor="middle" opacity="0.8">✓ Sealed forever</text>
+
+  <!-- Arrow -->
+  <line x1="787" y1="220" x2="813" y2="220" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrow)" opacity="0.7" filter="url(#glow)"/>
+
+  <!-- Step 5: ELO update -->
+  <rect x="815" y="160" width="160" height="120" rx="10" fill="#071422" stroke="#00d4ff" stroke-width="1.5" stroke-opacity="0.5"/>
+  <circle cx="895" cy="192" r="16" fill="#00d4ff" opacity="0.15" stroke="#00d4ff" stroke-width="1"/>
+  <text x="895" y="197" font-family="Arial Black" font-size="14" fill="#00d4ff" text-anchor="middle" filter="url(#glow)">5</text>
+  <text x="895" y="225" font-family="Arial" font-size="11" font-weight="700" fill="white" text-anchor="middle">ELO UPDATED</text>
+  <text x="895" y="242" font-family="Arial" font-size="10" fill="#a0c8ff" text-anchor="middle" opacity="0.7">ReputationEngine</text>
+  <text x="895" y="257" font-family="Arial" font-size="10" fill="#a0c8ff" text-anchor="middle" opacity="0.7">Score: earned</text>
+  <text x="895" y="272" font-family="Arial" font-size="10" fill="#00d4ff" text-anchor="middle" opacity="0.8">847 ELO</text>
+
+  <!-- Arrow back loop at bottom -->
+  <path d="M 985 220 Q 1060 220 1060 380 Q 1060 540 600 540 Q 140 540 140 380 Q 140 285 200 260"
+    fill="none" stroke="#00d4ff" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.35" marker-end="url(#arrow)"/>
+  <text x="600" y="570" font-family="Arial" font-size="11" fill="#00d4ff" text-anchor="middle" opacity="0.45" letter-spacing="2">REPEATS EVERY 15 SECONDS · AUTONOMOUS · NO HUMAN INTERVENTION</text>
+
+  <!-- Bottom section: 3 key claims -->
+  <rect x="60" y="395" width="330" height="80" rx="8" fill="#071422" stroke="#00ff88" stroke-width="1" stroke-opacity="0.4"/>
+  <text x="80" y="422" font-family="Arial" font-size="13" font-weight="700" fill="#00ff88">✓  TAMPER-PROOF</text>
+  <text x="80" y="444" font-family="Arial" font-size="11" fill="#a0c8ff" opacity="0.8">Timestamp proves decision was made</text>
+  <text x="80" y="460" font-family="Arial" font-size="11" fill="#a0c8ff" opacity="0.8">BEFORE execution. Not backdated.</text>
+
+  <rect x="435" y="395" width="330" height="80" rx="8" fill="#071422" stroke="#00ff88" stroke-width="1" stroke-opacity="0.4"/>
+  <text x="455" y="422" font-family="Arial" font-size="13" font-weight="700" fill="#00ff88">✓  TEE VERIFIED</text>
+  <text x="455" y="444" font-family="Arial" font-size="11" fill="#a0c8ff" opacity="0.8">Cryptographic proof the signal came</text>
+  <text x="455" y="460" font-family="Arial" font-size="11" fill="#a0c8ff" opacity="0.8">from DeepSeek, not fabricated.</text>
+
+  <rect x="810" y="395" width="330" height="80" rx="8" fill="#071422" stroke="#00ff88" stroke-width="1" stroke-opacity="0.4"/>
+  <text x="830" y="422" font-family="Arial" font-size="13" font-weight="700" fill="#00ff88">✓  REPUTATION EARNED</text>
+  <text x="830" y="444" font-family="Arial" font-size="11" fill="#a0c8ff" opacity="0.8">ELO score reflects real accuracy.</text>
+  <text x="830" y="460" font-family="Arial" font-size="11" fill="#a0c8ff" opacity="0.8">Cannot be claimed. Must be proven.</text>
+
+  <!-- Bottom bar -->
+  <rect x="0" y="640" width="1200" height="35" fill="#00d4ff" opacity="0.05"/>
+  <text x="600" y="663" font-family="Arial" font-size="11" fill="#00d4ff" text-anchor="middle" letter-spacing="2" opacity="0.6">PROVUS PROTOCOL · 0G MAINNET · CHAINID 16661</text>
+</svg>

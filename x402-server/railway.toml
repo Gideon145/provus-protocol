@@ -1,0 +1,12 @@
+[build]
+builder = "nixpacks"
+buildCommand = "npm install && npx tsc"
+
+[deploy]
+startCommand = "node dist/index.js"
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 5
+
+[variables]
+AGENT_STATUS_URL = "https://provus-protocol-production.up.railway.app"
+ALLOW_DEMO_AUTH_BYPASS = "true"

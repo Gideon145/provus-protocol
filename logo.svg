@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a1a"/>
+      <stop offset="100%" style="stop-color:#0d1b2e"/>
+    </linearGradient>
+    <linearGradient id="hexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d4ff"/>
+      <stop offset="100%" style="stop-color:#0066ff"/>
+    </linearGradient>
+    <linearGradient id="pGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff"/>
+      <stop offset="100%" style="stop-color:#a0c8ff"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softglow">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="400" height="400" fill="url(#bg)" rx="32"/>
+
+  <!-- Outer hex ring glow -->
+  <polygon points="200,48 310,112 310,240 200,304 90,240 90,112"
+    fill="none" stroke="#00d4ff" stroke-width="1.5" opacity="0.25" filter="url(#softglow)"/>
+
+  <!-- Outer hexagon -->
+  <polygon points="200,52 306,114 306,238 200,300 94,238 94,114"
+    fill="none" stroke="url(#hexGrad)" stroke-width="2.5" opacity="0.9" filter="url(#glow)"/>
+
+  <!-- Inner hexagon -->
+  <polygon points="200,80 278,126 278,218 200,264 122,218 122,126"
+    fill="none" stroke="#00d4ff" stroke-width="1" opacity="0.3"/>
+
+  <!-- Hex fill subtle -->
+  <polygon points="200,52 306,114 306,238 200,300 94,238 94,114"
+    fill="#00d4ff" opacity="0.04"/>
+
+  <!-- Corner node dots on outer hex -->
+  <circle cx="200" cy="52" r="3" fill="#00d4ff" opacity="0.8" filter="url(#glow)"/>
+  <circle cx="306" cy="114" r="3" fill="#00d4ff" opacity="0.8" filter="url(#glow)"/>
+  <circle cx="306" cy="238" r="3" fill="#00d4ff" opacity="0.8" filter="url(#glow)"/>
+  <circle cx="200" cy="300" r="3" fill="#00d4ff" opacity="0.8" filter="url(#glow)"/>
+  <circle cx="94" cy="238" r="3" fill="#00d4ff" opacity="0.8" filter="url(#glow)"/>
+  <circle cx="94" cy="114" r="3" fill="#00d4ff" opacity="0.8" filter="url(#glow)"/>
+
+  <!-- Horizontal scan line accent -->
+  <line x1="94" y1="176" x2="306" y2="176" stroke="#00d4ff" stroke-width="0.5" opacity="0.2"/>
+
+  <!-- P letterform - clean geometric -->
+  <path d="M148 136 L148 256 L168 256 L168 210 L210 210 C238 210 256 194 256 172 C256 150 238 136 210 136 Z
+           M168 152 L208 152 C226 152 236 160 236 172 C236 184 226 194 208 194 L168 194 Z"
+    fill="url(#pGrad)" filter="url(#glow)"/>
+
+  <!-- Attestation tick mark - bottom right of P -->
+  <polyline points="220,235 230,248 252,222" fill="none" stroke="#00d4ff" stroke-width="3"
+    stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)" opacity="0.9"/>
+
+  <!-- Wordmark -->
+  <text x="200" y="338" font-family="'Arial', sans-serif" font-size="22" font-weight="700"
+    fill="#ffffff" text-anchor="middle" letter-spacing="6" opacity="0.95">PROVUS</text>
+
+  <!-- Subtext -->
+  <text x="200" y="360" font-family="'Arial', sans-serif" font-size="9" font-weight="400"
+    fill="#00d4ff" text-anchor="middle" letter-spacing="3" opacity="0.7">AUTONOMOUS · ATTESTED · ON-CHAIN</text>
+</svg>

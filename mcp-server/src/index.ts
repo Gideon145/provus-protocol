@@ -22,7 +22,7 @@ import {
  *   get_elo_score          — agent reputation score from ReputationEngine
  */
 
-const AGENT_STATUS_URL = process.env.AGENT_STATUS_URL || "http://localhost:3001";
+const AGENT_STATUS_URL = process.env.AGENT_STATUS_URL || "https://provus-protocol-production.up.railway.app";
 
 const CONTRACTS = {
   StrategyRegistry:  "0x87E3D9fcfA4eff229A65d045A7C741E49b581187",

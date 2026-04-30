@@ -9,6 +9,7 @@
 [![0G ChainScan](https://img.shields.io/badge/VerifierEngine-0x911E87629...-brightgreen)](https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0)
 [![ReputationEngine](https://img.shields.io/badge/Reputation-ELO%20847-blue)](https://chainscan.0g.ai/address/0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e)
 [![0G Chain Mainnet](https://img.shields.io/badge/Chain-0G%20Mainnet%2016661-purple)](https://chainscan.0g.ai)
+[![ChainGPT Audit](https://img.shields.io/badge/ChainGPT-Audit%20Requested-orange)](https://www.chaingpt.org/smart-contract-auditor)
 [![GitHub](https://img.shields.io/badge/GitHub-Gideon145%2Fprovus--protocol-black)](https://github.com/Gideon145/provus-protocol)
 
 ---

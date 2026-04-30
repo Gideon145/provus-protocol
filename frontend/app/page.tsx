@@ -62,7 +62,11 @@ export default function Home() {
   const [vol,           setVol]           = useState(42.5);
   const [confidence,    setConfidence]    = useState(78);
   const [eloScore,      setEloScore]      = useState(847);
+  const [signal,        setSignal]        = useState<"BUY"|"SELL"|"HOLD">("HOLD");
+  const [reasoning,     setReasoning]     = useState("");
+  const [eloHistory,    setEloHistory]    = useState<{ts:string;elo:number;signal:string;confidence:number}[]>([]);
   const [chainConnected,setChainConnected]= useState(false);
+  const [agentConnected,setAgentConnected]= useState(false);
   const [lastFetch,     setLastFetch]     = useState("--");
   const [logs,          setLogs]          = useState<LogEntry[]>(INITIAL_LOGS);
   const [introIdx,      setIntroIdx]      = useState(0);
@@ -90,11 +94,40 @@ export default function Home() {
     } catch { /* keep last known values */ }
   }, []);
 
+  /* ── Live agent data every 15 s ─────────────────────────────────────── */
+  const fetchAgent = useCallback(async () => {
+    try {
+      const res = await fetch("/api/agent");
+      if (!res.ok) return;
+      const d = await res.json();
+      if (d.regime)      setVol((d.realizedVolBps ?? 0) / 100);
+      if (d.confidence)  setConfidence(d.confidence);
+      if (d.signal)      setSignal(d.signal);
+      if (d.currentElo)  setEloScore(d.currentElo);
+      if (d.lastReasoning) setReasoning(d.lastReasoning);
+      if (d.eloHistory?.length) setEloHistory(d.eloHistory);
+      if (d.logs?.length) {
+        const agentLogs: LogEntry[] = (d.logs as string[]).slice(0, 8).map((msg: string, i: number) => ({
+          id: 10000 + i,
+          timestamp: msg.slice(1, 13),
+          level: msg.includes("SIGNAL") ? "SIGNAL" : msg.includes("ATTEST") ? "TRADE" : msg.includes("ERR") ? "ALERT" : "INFO",
+          message: msg.slice(14).split(" ")[0] + " " + msg.slice(14).split(" ")[1],
+          detail: msg.slice(14),
+        }));
+        setLogs(agentLogs);
+      }
+      setAgentConnected(true);
+      setLastFetch(new Date().toLocaleTimeString());
+    } catch { /* keep last known values */ }
+  }, []);
+
   useEffect(() => {
     fetchChain();
-    const id = setInterval(fetchChain, 30_000);
-    return () => clearInterval(id);
-  }, [fetchChain]);
+    fetchAgent();
+    const chainId = setInterval(fetchChain, 30_000);
+    const agentId = setInterval(fetchAgent, 15_000);
+    return () => { clearInterval(chainId); clearInterval(agentId); };
+  }, [fetchChain, fetchAgent]);
 
   /* ── Simulated agent metrics every 15 s ─────────────────────────────── */
   useEffect(() => {
@@ -111,7 +144,7 @@ export default function Home() {
       const level  = levels[Math.floor(Math.random() * levels.length)];
 
       const messages: Record<string, { message: string; detail: string }> = {
-        SIGNAL:  { message: "AI Signal generated",       detail: `DeepSeek V3.1 via TEE — ${confidence > 60 ? "BUY" : "HOLD"} @ ${confidence.toFixed(0)}% confidence` },
+        SIGNAL:  { message: "AI Signal generated",       detail: `DeepSeek V3.1 via TEE — ${signal} @ ${confidence.toFixed(0)}% confidence` },
         TRADE:   { message: "Attestation on-chain",      detail: `tx #${txCount} → VerifierEngine confirmed (0.004 OG gas)` },
         ALERT:   { message: "Vol threshold breached",    detail: `${vol.toFixed(1)}% σ detected — Risk management engaged` },
         SUCCESS: { message: "Reputation cycle scored",   detail: `ELO updated → ${eloScore} | ReputationEngine.sol` },
@@ -126,7 +159,7 @@ export default function Home() {
       });
     }, 15_000);
     return () => clearInterval(id);
-  }, [confidence, vol, txCount, eloScore, logCounter]);
+  }, [confidence, vol, txCount, eloScore, logCounter, signal]);
 
   /* ── Derived display values ───────────────────────────────────────────── */
   const WHAT_IS_PROVUS = buildWhatIsProvus(txCount);
@@ -145,11 +178,12 @@ export default function Home() {
           <span>ETH/USD&nbsp;<span style={{ color: "var(--cyan)" }}>${price.toFixed(2)}</span></span>
           <span style={{ color: priceChange >= 0 ? "var(--green)" : "var(--red)" }}>{priceDir}{priceChange.toFixed(2)}%</span>
           <span>σ&nbsp;<span style={{ color: volRegimeColor }}>{vol.toFixed(1)}% [{volRegime}]</span></span>
+          <span>SIGNAL&nbsp;<span style={{ color: signal === "BUY" ? "var(--green)" : signal === "SELL" ? "var(--red)" : "var(--amber)" }}>{signal}</span></span>
           <span>CONFIDENCE&nbsp;<span style={{ color: confidence > 60 ? "var(--green)" : "var(--amber)" }}>{confidence.toFixed(0)}%</span></span>
           <span>TXS&nbsp;<span style={{ color: "var(--amber)" }}>{txCount}</span></span>
           <span>ELO&nbsp;<span style={{ color: "var(--purple)" }}>{eloScore}</span></span>
           <span style={{ color: "var(--text-faint)" }}>0G MAINNET (16661)</span>
-          <span style={{ color: "var(--text-faint)" }}>DEEPSEEK V3.1 · TEE ATTESTED</span>
+          <span style={{ color: agentConnected ? "var(--green)" : "var(--text-faint)" }}>{agentConnected ? "AGENT ● LIVE" : "DEEPSEEK V3.1 · TEE ATTESTED"}</span>
         </div>
       </div>
 
@@ -381,6 +415,70 @@ export default function Home() {
 
         {/* ── HOW IT WORKS cards ─────────────────────────────────────────── */}
         <div className="animate-in" style={{ marginBottom: 32 }}>
+
+        {/* ── AI SIGNAL PANEL ──────────────────────────────────────────────── */}
+        <div className="animate-in card-hud" style={{ marginBottom: 20, padding: 0, overflow: "hidden" }}>
+          <div style={{ padding: "12px 20px", borderBottom: "1px solid var(--border)", background: "var(--bg-deep)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+            <span style={{ fontFamily: "var(--font-orbitron), sans-serif", fontSize: 13, fontWeight: 700, color: "var(--purple)", letterSpacing: "0.1em" }}>AI SIGNAL — DEEPSEEK V3.1 REASONING</span>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <span style={{ padding: "4px 12px", borderRadius: 3, fontFamily: "var(--font-orbitron), sans-serif", fontSize: 13, fontWeight: 800, letterSpacing: "0.1em", background: signal === "BUY" ? "rgba(0,255,102,0.12)" : signal === "SELL" ? "rgba(255,59,48,0.12)" : "rgba(255,149,0,0.12)", color: signal === "BUY" ? "var(--green)" : signal === "SELL" ? "var(--red)" : "var(--amber)", border: `1px solid ${signal === "BUY" ? "var(--green)" : signal === "SELL" ? "var(--red)" : "var(--amber)"}` }}>{signal}</span>
+              <span style={{ padding: "4px 12px", borderRadius: 3, fontFamily: "var(--font-hud), monospace", fontSize: 12, color: "var(--purple)", border: "1px solid var(--purple)", background: "rgba(162,89,255,0.08)" }}>CONF {confidence.toFixed(0)}%</span>
+              <span className="attest-badge">◈ TEE SEALED</span>
+            </div>
+          </div>
+          <div style={{ padding: "18px 24px" }}>
+            {reasoning ? (
+              <div style={{ fontFamily: "var(--font-hud), monospace", fontSize: 14, color: "var(--text-primary)", lineHeight: 1.7, borderLeft: "3px solid var(--purple)", paddingLeft: 16 }}>
+                {reasoning}
+              </div>
+            ) : (
+              <div style={{ fontFamily: "var(--font-hud), monospace", fontSize: 13, color: "var(--text-dim)", fontStyle: "italic" }}>
+                Awaiting next 0G Compute inference cycle... agent queries DeepSeek V3.1 every 15 seconds.
+              </div>
+            )}
+            <div style={{ marginTop: 12, fontSize: 11, color: "var(--text-faint)", fontFamily: "var(--font-hud), monospace" }}>
+              — DeepSeek V3.1 · 0G Compute TEE · Cryptographic attestation on 0G Mainnet · Last fetch: {lastFetch}
+            </div>
+          </div>
+        </div>
+
+        {/* ── ELO HISTORY SPARKLINE ─────────────────────────────────────────── */}
+        {eloHistory.length > 0 && (
+          <div className="animate-in card-hud" style={{ marginBottom: 20, padding: 0, overflow: "hidden" }}>
+            <div style={{ padding: "12px 20px", borderBottom: "1px solid var(--border)", background: "var(--bg-deep)", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <span style={{ fontFamily: "var(--font-orbitron), sans-serif", fontSize: 13, fontWeight: 700, color: "var(--purple)", letterSpacing: "0.1em" }}>ELO REPUTATION HISTORY</span>
+              <span style={{ fontFamily: "var(--font-hud), monospace", fontSize: 12, color: "var(--purple)" }}>LAST {eloHistory.length} CYCLES · REPUTATIONENGINE.SOL</span>
+            </div>
+            <div style={{ padding: "16px 24px" }}>
+              {/* Sparkline bars */}
+              <div style={{ display: "flex", alignItems: "flex-end", gap: 4, height: 60, marginBottom: 12 }}>
+                {(() => {
+                  const min = Math.min(...eloHistory.map(e => e.elo));
+                  const max = Math.max(...eloHistory.map(e => e.elo));
+                  const range = max - min || 1;
+                  return eloHistory.slice().reverse().map((entry, i) => (
+                    <div key={i} title={`${entry.ts} · ELO ${entry.elo} · ${entry.signal} ${entry.confidence}%`} style={{ flex: 1, height: `${20 + ((entry.elo - min) / range) * 80}%`, borderRadius: 2, background: entry.signal === "BUY" ? "var(--green)" : entry.signal === "SELL" ? "var(--red)" : "var(--amber)", opacity: 0.8, transition: "height 0.3s ease", cursor: "default" }} />
+                  ));
+                })()}
+              </div>
+              {/* Last 5 rows */}
+              <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                {eloHistory.slice(0, 5).map((entry, i) => (
+                  <div key={i} style={{ display: "flex", gap: 16, alignItems: "center", fontFamily: "var(--font-hud), monospace", fontSize: 12 }}>
+                    <span style={{ color: "var(--text-faint)", minWidth: 80 }}>{entry.ts}</span>
+                    <span style={{ fontFamily: "var(--font-orbitron), sans-serif", fontWeight: 700, color: "var(--purple)", minWidth: 50 }}>{entry.elo}</span>
+                    <span style={{ color: entry.signal === "BUY" ? "var(--green)" : entry.signal === "SELL" ? "var(--red)" : "var(--amber)", minWidth: 40 }}>{entry.signal}</span>
+                    <span style={{ color: "var(--text-dim)" }}>CONF {entry.confidence}%</span>
+                    <div style={{ flex: 1, height: 3, background: "var(--border)", borderRadius: 1 }}>
+                      <div style={{ height: "100%", width: `${entry.confidence}%`, background: entry.signal === "BUY" ? "var(--green)" : entry.signal === "SELL" ? "var(--red)" : "var(--amber)", borderRadius: 1 }} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
           <div style={{ fontFamily: "var(--font-orbitron), sans-serif", fontSize: 22, fontWeight: 700, color: "var(--cyan)", letterSpacing: "0.1em", marginBottom: 16 }} className="text-glow-cyan">
             HOW PROVUS WORKS
           </div>
@@ -408,6 +506,7 @@ export default function Home() {
           <a href="https://github.com/Gideon145/provus-protocol" target="_blank" rel="noreferrer" className="evidence-btn">⌨ GITHUB REPO</a>
           <a href={`${EXPLORER}/address/${AGENT_WALLET}`} target="_blank" rel="noreferrer" className="evidence-btn">🤖 AGENT WALLET</a>
           <a href="https://provus-protocol-production.up.railway.app/status" target="_blank" rel="noreferrer" className="evidence-btn" style={{ borderColor: "var(--green)", color: "var(--green)" }}>🚂 RAILWAY AGENT</a>
+          <a href="https://provus-protocol-x402.up.railway.app/health" target="_blank" rel="noreferrer" className="evidence-btn" style={{ borderColor: "var(--purple)", color: "var(--purple)" }}>💳 x402 SERVER</a>
           <a href="https://github.com/Gideon145/provus-protocol/blob/master/JUDGE_GUIDE.md" target="_blank" rel="noreferrer" className="evidence-btn" style={{ borderColor: "var(--amber)", color: "var(--amber)" }}>📋 JUDGE GUIDE</a>
           <a href="https://github.com/Gideon145/provus-protocol/blob/master/ENGINEERING_DEBUG_LOG.md" target="_blank" rel="noreferrer" className="evidence-btn">🔧 ENGINEERING LOG</a>
         </div>

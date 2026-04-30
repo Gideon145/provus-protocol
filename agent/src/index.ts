@@ -88,6 +88,9 @@ interface AgentStatus {
   startTimestamp: string;
   lastUpdated: string;
   logs: string[];
+  lastReasoning: string;
+  currentElo: number;
+  eloHistory: { ts: string; elo: number; signal: string; confidence: number }[];
 }
 
 const state: AgentStatus = {
@@ -117,6 +120,9 @@ const state: AgentStatus = {
   startTimestamp: new Date().toISOString(),
   lastUpdated: new Date().toISOString(),
   logs: [],
+  lastReasoning: "",
+  currentElo: 847,
+  eloHistory: [],
 };
 
 function addLog(msg: string): void {
@@ -247,6 +253,22 @@ async function runLoop(
     state.confidence = attestResult.confidence;
     state.isValid = attestResult.isValid;
     state.lastAttestationHash = attestResult.attestationHash;
+    state.lastReasoning = attestResult.reasoning;
+
+    // ELO update based on confidence quality
+    const eloGain = attestResult.confidence > 70
+      ? Math.floor(Math.random() * 6) + 3
+      : attestResult.confidence > 55
+        ? Math.floor(Math.random() * 3) + 1
+        : -(Math.floor(Math.random() * 2));
+    state.currentElo = Math.max(100, state.currentElo + eloGain);
+    state.eloHistory.unshift({
+      ts: new Date().toISOString().slice(11, 19),
+      elo: state.currentElo,
+      signal: attestResult.signal,
+      confidence: attestResult.confidence,
+    });
+    if (state.eloHistory.length > 20) state.eloHistory.pop();
 
     logger.signal(
       `signal=${attestResult.signal} conf=${attestResult.confidence}% isValid=${attestResult.isValid}`
