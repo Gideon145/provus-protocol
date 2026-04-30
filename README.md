@@ -1432,31 +1432,11 @@ fi
 
 ---
 
-## 🗺️ Future Roadmap
+## 🗺️ Next Steps
 
-### Phase 2: Multi-Agent Swarm (Q3 2026)
-- Deploy 5-10 independent agents with different strategies
-- Each agent has own ERC-721 strategy token
-- StrategyRegistry becomes marketplace for strategies
-- Expected: 50,000+ daily transactions across swarm
-
-### Phase 3: Cross-Chain Bridges (Q4 2026)
-- Expand from 0G to Arbitrum, Optimism, Solana
-- Cross-chain reputation aggregation
-- Universal ReputationEngine on L1
-- Expected: 10M+ daily transactions network-wide
-
-### Phase 4: AI Fine-Tuning (2027)
-- Collect 6 months of training data (1M+ signals)
-- Fine-tune DeepSeek specifically for crypto vol trading
-- Custom model achieves >85% accuracy (vs current 79%)
-- Expected: 5x better Sharpe ratio
-
-### Phase 5: Institutional Integration (2027)
-- Enterprise API with SLA
-- White-label PROVUS for hedge funds
-- Managed attestation service for institutions
-- Expected: $10M+ ARR potential
+- **Multi-agent swarm** — deploy 3-5 independent agents with different strategies, each with its own ERC-721 strategy token on `StrategyRegistry`
+- **0G Compute funding** — top up agent wallet to unlock live DeepSeek signals (currently returning HOLD due to `AccountNotExists`)
+- **x402 monetization** — open the signal feed as a paid API endpoint via the deployed x402 server
 
 ---
 
