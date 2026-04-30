@@ -1157,6 +1157,22 @@ Monitor live attestations: https://chainscan.0g.ai/address/0x911E87629756F34190D
 
 ## 🛡️ Security Considerations
 
+### ChainGPT Smart Contract Audit — April 2026
+
+`VerifierEngine.sol` was audited via the [ChainGPT Smart Contract Auditor](https://app.chaingpt.org/smart-contract-auditor) (April 30, 2026).
+
+| Finding | Severity | Status |
+|---------|----------|--------|
+| Constructor accepts unvalidated registry address | Low | ✅ Fixed — validates non-zero + `code.length > 0` |
+| Silent `try/catch` on external registry call | Low | ✅ Fixed — emits `RegistryCallFailed(strategyId, reason)` |
+| Replay attack protection | Informational | ✅ Already handled — `attestationUsed` mapping is global across all strategies |
+| Reentrancy risk | Informational | N/A — no Ether transfers, no state changes after external call |
+| Centralized access control | Informational | Intentional — single-agent design for autonomous operation |
+
+All low-severity findings were addressed in commit `85041b5`. No critical or high-severity issues found.
+
+---
+
 ### 1. Private Key Management
 - **NEVER** commit `.env` to Git
 - `.gitignore` excludes `.env` automatically
