@@ -55,7 +55,7 @@ const CONFIG = {
   // 15s like Parry — faster accumulation of on-chain txns
   loopIntervalMs: parseInt(process.env.LOOP_INTERVAL_MS ?? "15000"),
 
-  statusPort: parseInt(process.env.STATUS_PORT ?? "3001"),
+  statusPort: parseInt(process.env.PORT ?? process.env.STATUS_PORT ?? "3001"),
   demoMode: process.env.DEMO_MODE === "true",
 };
 

@@ -407,7 +407,7 @@ export default function Home() {
           <a href={`${EXPLORER}/address/${VERIFIER}`} target="_blank" rel="noreferrer" className="evidence-btn">⛓ LIVE TXS ON CHAINSCAN</a>
           <a href="https://github.com/Gideon145/provus-protocol" target="_blank" rel="noreferrer" className="evidence-btn">⌨ GITHUB REPO</a>
           <a href={`${EXPLORER}/address/${AGENT_WALLET}`} target="_blank" rel="noreferrer" className="evidence-btn">🤖 AGENT WALLET</a>
-          <a href="https://provus-agent.up.railway.app" target="_blank" rel="noreferrer" className="evidence-btn" style={{ borderColor: "var(--green)", color: "var(--green)" }}>🚂 RAILWAY AGENT</a>
+          <a href="https://provus-protocol-production.up.railway.app/status" target="_blank" rel="noreferrer" className="evidence-btn" style={{ borderColor: "var(--green)", color: "var(--green)" }}>🚂 RAILWAY AGENT</a>
           <a href="https://github.com/Gideon145/provus-protocol/blob/master/JUDGE_GUIDE.md" target="_blank" rel="noreferrer" className="evidence-btn" style={{ borderColor: "var(--amber)", color: "var(--amber)" }}>📋 JUDGE GUIDE</a>
           <a href="https://github.com/Gideon145/provus-protocol/blob/master/ENGINEERING_DEBUG_LOG.md" target="_blank" rel="noreferrer" className="evidence-btn">🔧 ENGINEERING LOG</a>
         </div>
