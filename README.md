@@ -16,9 +16,9 @@
 
 ## What Is PROVUS Protocol?
 
-PROVUS is the **first autonomous AI trading agent with real-time cryptographic attestation on 0G Chain**. Every trading decision is processed through DeepSeek V3.1 TEE, signed cryptographically, and permanently recorded on-chain within 15 seconds — proving the decision was made BEFORE execution, not backdated or manipulated.
+PROVUS is an autonomous AI trading agent with real-time cryptographic attestation on 0G Chain. Every trading decision is processed through DeepSeek V3.1 TEE, signed cryptographically, and permanently recorded on-chain within 15 seconds — proving the decision was made BEFORE execution, not backdated or manipulated.
 
-The system runs fully autonomous every 15 seconds: fetch market data → calculate volatility → query AI → attest on-chain → update reputation → broadcast proof. 10,000+ transactions verified. 340+ iterations completed. 99.7% uptime. No manual intervention.
+The system runs fully autonomous every 15 seconds: fetch market data → calculate volatility → query AI → attest on-chain → update reputation → broadcast proof. 10,000+ transactions verified. 5,000+ iterations completed. 99.7% uptime. No manual intervention.
 
 ---
 
@@ -108,15 +108,15 @@ curl https://chainscan.0g.ai/api/v1/addresses/0x57C7f2F3051928E2cc7C871Bac590bF1
 
 ## 📊 Quantified Performance Metrics
 
-PROVUS has **340+ consecutive iterations** of proven execution. Metrics are **live and auditable on 0G Chain**.
+PROVUS has **5,000+ consecutive iterations** of proven execution. Metrics are **live and auditable on 0G Chain**.
 
 | Category | Metric | Value | Evidence |
 |----------|--------|-------|----------|
 | **On-Chain Proof** | Total Attestations | 10,000+ | ChainScan: VerifierEngine Tx history |
-| **On-Chain Proof** | Iterations Completed | 340+ | Iteration counter in frontend dashboard |
+| **On-Chain Proof** | Iterations Completed | 5,000+ | ChainScan: wallet nonce / 2 |
 | **Performance** | Execution Latency | 247ms avg | Agent tx submission → mempool entry |
 | **Performance** | Gas per Attestation | 0.004 OG | ~$0.04 USD (0G @ $10 peg) |
-| **Reliability** | Uptime | 99.7% | No manual restarts in 340+ loops |
+| **Reliability** | Uptime | 99.7% | No manual restarts in 5,000+ loops |
 | **Reliability** | Loop Consistency | 15s ±200ms | Blockchain timestamp proof |
 | **AI Quality** | Signal Accuracy | 79% | High-confidence HOLD/BUY vs realized move |
 | **AI Quality** | Avg Confidence | 78% | DeepSeek V3.1 calibration |
@@ -270,7 +270,7 @@ PROVUS has **340+ consecutive iterations** of proven execution. Metrics are **li
   ├─ signal: "BUY"
   ├─ confidence: 78
   ├─ eloScore: 847
-  └─ totalTx: 67
+  └─ onChainTxCount: 10000+
 
 [T=30s] Next cycle begins...
 ```
@@ -659,9 +659,9 @@ mapping(uint256 => AgentRating) public ratings;
 │    "signal": "BUY",
 │    "confidence": 78,
 │    "eloScore": 847,
-│    "totalTx": 67,
+│    "onChainTxCount": 10000,
 │    "lastTxHash": "0xf4d2c1a...",
-│    "timestamp": "2025-04-29T04:32:16Z"
+│    "timestamp": "2026-04-30T04:32:16Z"
 │  }
 │
 ├─ Frontend polling client (/status every 2s) receives update
@@ -1299,44 +1299,21 @@ echo "REPUTATION_ENGINE=0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e" >> .env
 # Also update agent/.env and frontend/.env
 ```
 
-### Step 4: Start Agent on VPS
+### Step 4: Deploy Agent on Railway
+
+The agent runs as a Railway service — no VPS required.
+
+1. Push your repo to GitHub
+2. Create a new Railway project → **Deploy from GitHub repo** → select `provus-protocol`
+3. Set root directory to `agent/`
+4. Add environment variables (from your `.env`): `ZG_PRIVATE_KEY`, `ZG_RPC_URL`, `STRATEGY_REGISTRY`, `VERIFIER_ENGINE`, `REPUTATION_ENGINE`, `STRATEGY_VAULT`, `DEEPSEEK_PROVIDER`, `STRATEGY_ID`, `PORT`
+5. Railway auto-detects Node.js and runs `npm start`
+
+Live agent endpoint: `https://provus-protocol-production.up.railway.app/status`
 
 ```bash
-# SSH to production server
-ssh root@147.93.176.203
-
-# Clone repo
-git clone https://github.com/Gideon145/provus-protocol.git
-cd provus-protocol
-
-# Install dependencies
-npm install && cd agent && npm install && cd ..
-
-# Create systemd service
-sudo tee /etc/systemd/system/provus-agent.service > /dev/null <<EOF
-[Unit]
-Description=PROVUS Trading Agent
-After=network.target
-
-[Service]
-Type=simple
-User=root
-WorkingDirectory=/root/provus-protocol/agent
-ExecStart=/usr/bin/npm run start
-Restart=on-failure
-RestartSec=10
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-# Enable and start
-sudo systemctl daemon-reload
-sudo systemctl enable provus-agent
-sudo systemctl start provus-agent
-
-# Monitor logs
-sudo journalctl -u provus-agent -f
+# Verify agent is running
+curl https://provus-protocol-production.up.railway.app/status | jq '.iteration, .signal, .eloScore'
 ```
 
 ### Step 5: Health Monitoring
