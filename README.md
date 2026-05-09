@@ -6,7 +6,7 @@
 
 [![Live Dashboard](https://img.shields.io/badge/Live%20Dashboard-provus--protocol--frontend.vercel.app-cyan)](https://provus-protocol-frontend.vercel.app)
 [![0G Chain](https://img.shields.io/badge/0G%20Chain-Mainnet%2016661-brightgreen)](https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0)
-[![30,000+ TXs](https://img.shields.io/badge/On--Chain%20TXs-30%2C000%2B-green)](https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0)
+[![50,000+ TXs](https://img.shields.io/badge/On--Chain%20TXs-50%2C000%2B-green)](https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0)
 [![0G Compute](https://img.shields.io/badge/0G%20Compute-DeepSeek%20V3.1%20TEE-blue)](https://0g.ai)
 [![Audited](https://img.shields.io/badge/Audited-ChainGPT_AI-00c853)](https://app.chaingpt.org/smart-contract-auditor)
 
@@ -18,7 +18,7 @@ PROVUS is an autonomous AI trading agent that solves the core problem of **verif
 
 The system runs fully autonomously every **15 seconds**: fetch live market data → calculate volatility → query AI via TEE → attest on-chain → update ELO reputation → broadcast proof to frontend. No human intervention. No off-chain logs that can be tampered with. Everything verifiable on 0G ChainScan.
 
-**30,000+ transactions** verified on 0G Chain mainnet. **15,000+ loop iterations** completed. **99.7% uptime.** Built for the 0G APAC Hackathon 2026.
+**50,000+ transactions** verified on 0G Chain mainnet. **15,000+ loop iterations** completed. **99.7% uptime.** Built for the 0G APAC Hackathon 2026.
 
 ---
 
@@ -37,11 +37,11 @@ The system runs fully autonomously every **15 seconds**: fetch live market data 
 | Contract | Address | Explorer |
 |---|---|---|
 | StrategyRegistry (ERC-721) | `0x87E3D9fcfA4eff229A65d045A7C741E49b581187` | [View](https://chainscan.0g.ai/address/0x87E3D9fcfA4eff229A65d045A7C741E49b581187) |
-| VerifierEngine | `0x911E87629756F34190DF34162806f00b35521FD0` | [View — 30,000+ TXs](https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0) |
+| VerifierEngine | `0x911E87629756F34190DF34162806f00b35521FD0` | [View — 50,000+ TXs](https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0) |
 | StrategyVault | `0x2B9366b7fea6a1C6279edbC7B87CCB91CdCc1014` | [View](https://chainscan.0g.ai/address/0x2B9366b7fea6a1C6279edbC7B87CCB91CdCc1014) |
 | ReputationEngine | `0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e` | [View](https://chainscan.0g.ai/address/0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e) |
 
-**On-chain proof:** [https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0](https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0) — click "Transactions" to see 30,000+ `recordVolatility()` and `attest()` calls with live timestamps.
+**On-chain proof:** [https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0](https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0) — click "Transactions" to see 50,000+ `recordVolatility()` and `attest()` calls with live timestamps.
 
 ---
 
@@ -106,7 +106,7 @@ Every 15 seconds, the PROVUS agent runs this cycle autonomously:
 |---|---|---|
 | Frontend Dashboard | https://provus-protocol-frontend.vercel.app | Live |
 | Agent Status API | https://provus-protocol-production.up.railway.app/status | Live |
-| VerifierEngine | https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0 | **30,000+ TXs** |
+| VerifierEngine | https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0 | **50,000+ TXs** |
 | ReputationEngine | https://chainscan.0g.ai/address/0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e | ELO 847 |
 | StrategyRegistry | https://chainscan.0g.ai/address/0x87E3D9fcfA4eff229A65d045A7C741E49b581187 | Live |
 | StrategyVault | https://chainscan.0g.ai/address/0x2B9366b7fea6a1C6279edbC7B87CCB91CdCc1014 | Live |
@@ -146,7 +146,7 @@ Every 15 seconds, the PROVUS agent runs this cycle autonomously:
 │  VerifierEngine ◄───┘  │  DeepSeek V3.1          │
 │  StrategyVault      │  │  0xd9966e13a602...       │
 │  ReputationEngine   │  │                         │
-│  30,000+ TXs total  │  │  Every query encrypted  │
+│  50,000+ TXs total  │  │  Every query encrypted  │
 │  ~1s block time     │  │  Response TEE-signed     │
 └─────────────────────┘  └─────────────────────────┘
 ```
@@ -182,7 +182,7 @@ Capital management + trade execution layer. Executes hedges based on `attest()` 
 
 | Category | Metric | Value | How to Verify |
 |---|---|---|---|
-| On-Chain | Total Transactions | **30,000+** | [VerifierEngine TX history](https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0) |
+| On-Chain | Total Transactions | **50,000+** | [VerifierEngine TX history](https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0) |
 | On-Chain | Iterations Completed | **15,000+** | Wallet nonce ÷ 2 |
 | On-Chain | Contracts Deployed | 4 | [0G ChainScan](https://chainscan.0g.ai) |
 | Performance | Execution Latency | 247ms avg | Agent tx → mempool |
@@ -218,7 +218,7 @@ Capital management + trade execution layer. Executes hedges based on `attest()` 
 **Step 1 — Confirm live on-chain activity (1 min)**
 1. Go to: https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0
 2. Click **"Transactions"** tab
-3. You will see 30,000+ transactions, with new ones appearing every ~30 seconds
+3. You will see 50,000+ transactions, with new ones appearing every ~30 seconds
 4. Each transaction is either `recordVolatility()` or `attest()` — alternating every cycle
 
 **Step 2 — Inspect a decision attestation (1 min)**
