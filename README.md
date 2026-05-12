@@ -9,7 +9,7 @@
 [![60,000+ TXs](https://img.shields.io/badge/On--Chain%20TXs-60%2C000%2B-green)](https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0)
 [![0G Compute](https://img.shields.io/badge/0G%20Compute-DeepSeek%20V3.1%20TEE-blue)](https://0g.ai)
 [![0G Storage](https://img.shields.io/badge/0G%20Storage-Decision%20Archive-purple)](https://chainscan.0g.ai/address/0x8fa2c5ae17E2D170C54fC3CA34148B0Ad503d8DB)
-[![Audited](https://img.shields.io/badge/Audited-ChainGPT_AI-00c853)](https://app.chaingpt.org/smart-contract-auditor)
+[![Audited](https://img.shields.io/badge/Audited-ChainGPT_AI-00c853)](./AUDIT.md)
 
 ---
 
@@ -189,7 +189,7 @@ ERC-721 contract. Each trading strategy is minted as a non-fungible token. Trans
 ### StrategyVault — `0x2B9366b7fea6a1C6279edbC7B87CCB91CdCc1014`
 Capital management + trade execution layer. Executes hedges based on `attest()` signals with slippage protection (±5% delta tolerance).
 
-**Security:** Audited via ChainGPT AI (April 2026). No critical or high-severity findings. All low-severity findings resolved in commit `85041b5`. See [ENGINEERING_DEBUG_LOG.md](ENGINEERING_DEBUG_LOG.md) for audit details.
+**Security:** Audited via ChainGPT AI (May 2026). No critical or high-severity findings. See [AUDIT.md](./AUDIT.md) for the full report.
 
 ---
 
