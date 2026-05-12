@@ -21,7 +21,9 @@ import { ethers } from "ethers";
 import * as http from "http";
 import { VolatilityEngine, VolatilityState } from "./volatility";
 import { ZGAttester } from "./attester";
+import { ZGStorageArchiver } from "./storage";
 import { logger } from "./logger";
+import * as path from "path";
 
 // --- ABIs ---------------------------------------------------------------------
 
@@ -48,6 +50,9 @@ const CONFIG = {
 
   verifierAddress: process.env.VERIFIER_ENGINE_ADDRESS ?? "",
   vaultAddress: process.env.STRATEGY_VAULT_ADDRESS ?? "",
+  archiveAddress: process.env.ARCHIVE_REGISTRY_ADDRESS ?? "",
+  storageIndexerRpc: process.env.ZG_STORAGE_INDEXER_RPC ?? "https://indexer-storage-testnet-turbo.0g.ai",
+  archiveBatchSize: parseInt(process.env.ARCHIVE_BATCH_SIZE ?? "50"),
 
   strategyId: parseInt(process.env.STRATEGY_ID ?? "1"),
   symbol: process.env.TRADE_SYMBOL ?? "ETHUSDT",
@@ -91,6 +96,16 @@ interface AgentStatus {
   lastReasoning: string;
   currentElo: number;
   eloHistory: { ts: string; elo: number; signal: string; confidence: number }[];
+  // 0G Storage archive state
+  archiveAddress: string;
+  archiveBatchSize: number;
+  pendingArchiveDecisions: number;
+  totalArchivedBatches: number;
+  totalArchivedDecisions: number;
+  lastArchiveRoot: string;
+  lastArchiveTxHash: string;
+  lastArchiveBatchId: number;
+  zgStorageSdkReady: boolean;
 }
 
 const state: AgentStatus = {
@@ -123,6 +138,15 @@ const state: AgentStatus = {
   lastReasoning: "",
   currentElo: 847,
   eloHistory: [],
+  archiveAddress: CONFIG.archiveAddress,
+  archiveBatchSize: CONFIG.archiveBatchSize,
+  pendingArchiveDecisions: 0,
+  totalArchivedBatches: 0,
+  totalArchivedDecisions: 0,
+  lastArchiveRoot: "",
+  lastArchiveTxHash: "",
+  lastArchiveBatchId: 0,
+  zgStorageSdkReady: false,
 };
 
 function addLog(msg: string): void {
@@ -196,7 +220,8 @@ async function runLoop(
   rpcProvider: ethers.JsonRpcProvider,
   verifier: ethers.Contract | null,
   vault: ethers.Contract | null,
-  wallet: ethers.Wallet
+  wallet: ethers.Wallet,
+  archiver: ZGStorageArchiver | null
 ): Promise<void> {
   state.iteration++;
   const taskId = Date.now();
@@ -333,6 +358,46 @@ async function runLoop(
     }
   }
 
+  // -- Step 5b: Push decision into 0G Storage batch buffer ------------------
+  if (archiver && attestResult && !CONFIG.demoMode) {
+    archiver.push({
+      iteration: state.iteration,
+      taskId,
+      ts: new Date().toISOString(),
+      signal: attestResult.signal,
+      confidence: attestResult.confidence,
+      isValid: attestResult.isValid,
+      attestationHash: attestResult.attestationHash,
+      volBps: vol.realizedVolBps,
+      regime: vol.regime,
+      price: vol.latestPrice,
+      reasoning: attestResult.reasoning,
+      volTxHash: state.lastVolTxHash,
+      attestTxHash: state.lastAttestTxHash,
+    });
+
+    try {
+      const result = await archiver.archiveIfDue();
+      if (result) {
+        state.lastArchiveRoot = result.rootHash;
+        state.lastArchiveTxHash = result.txHash;
+        state.lastArchiveBatchId = result.batchId;
+        state.totalArchivedBatches = archiver.totalBatchesArchived;
+        state.totalArchivedDecisions = archiver.totalDecisionsArchived;
+        addLog(
+          `[0G-STORAGE] batch #${state.totalArchivedBatches} ` +
+          `root=${result.rootHash.slice(0, 14)}... ` +
+          `(${result.decisionCount} decisions, iters ${result.fromIteration}-${result.toIteration})`
+        );
+      }
+      const s = archiver.getStatus();
+      state.pendingArchiveDecisions = s.bufferedDecisions;
+      state.zgStorageSdkReady = s.sdkReady;
+    } catch (err) {
+      logger.warn(`archiver.archiveIfDue() failed: ${err}`);
+    }
+  }
+
   // -- Step 6: Sync wallet nonce every 5 iterations (= permanent proof) -------
   if (state.iteration % 5 === 0 && !CONFIG.demoMode) {
     try {
@@ -388,15 +453,31 @@ async function main(): Promise<void> {
     logger.success(`StrategyVault  : ${CONFIG.vaultAddress}`);
   }
 
+  // 0G Storage archiver (Component 3 of the 0G stack: Chain + Compute + Storage)
+  let archiver: ZGStorageArchiver | null = null;
+  if (CONFIG.archiveAddress && !CONFIG.demoMode) {
+    archiver = new ZGStorageArchiver(wallet, {
+      strategyId: CONFIG.strategyId,
+      archiveContractAddress: CONFIG.archiveAddress,
+      batchSize: CONFIG.archiveBatchSize,
+      indexerRpc: CONFIG.storageIndexerRpc,
+      cacheDir: path.join(process.cwd(), "archive-cache"),
+    });
+    logger.success(`ArchiveRegistry: ${CONFIG.archiveAddress}`);
+    logger.success(`0G Storage    : batches of ${CONFIG.archiveBatchSize} decisions ? Merkle root ? on-chain`);
+  } else if (!CONFIG.demoMode) {
+    logger.warn("ARCHIVE_REGISTRY_ADDRESS not set — 0G Storage archiving disabled");
+  }
+
   logger.success(`Agent running — ${CONFIG.loopIntervalMs / 1000}s loop`);
   logger.success(`Every iteration: recordVolatility() + attest() = 2 on-chain txns`);
   addLog(`Agent started. Strategy #${CONFIG.strategyId} on ${CONFIG.symbol}`);
 
-  await runLoop(volEngine, attester, rpcProvider, verifier, vault, wallet);
+  await runLoop(volEngine, attester, rpcProvider, verifier, vault, wallet, archiver);
 
   setInterval(async () => {
     try {
-      await runLoop(volEngine, attester, rpcProvider, verifier, vault, wallet);
+      await runLoop(volEngine, attester, rpcProvider, verifier, vault, wallet, archiver);
     } catch (err) {
       logger.error(`Loop error: ${err}`);
       addLog(`[ERR] ${String(err).slice(0, 80)}`);

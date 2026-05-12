@@ -1,0 +1,46 @@
+{
+  "_format": "hh3-sol-build-info-1",
+  "id": "solc-0_8_24-cbd14afa7a62007938b6bb06a47be963e0047383",
+  "solcVersion": "0.8.24",
+  "solcLongVersion": "0.8.24+commit.e11b9ed9",
+  "compilerType": "solc",
+  "userSourceNameMap": {
+    "contracts/ArchiveRegistry.sol": "project/contracts/ArchiveRegistry.sol"
+  },
+  "input": {
+    "language": "Solidity",
+    "settings": {
+      "evmVersion": "cancun",
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "outputSelection": {
+        "*": {
+          "": [
+            "ast"
+          ],
+          "*": [
+            "abi",
+            "evm.bytecode.linkReferences",
+            "evm.bytecode.object",
+            "evm.bytecode.opcodes",
+            "evm.bytecode.sourceMap",
+            "evm.deployedBytecode.immutableReferences",
+            "evm.deployedBytecode.linkReferences",
+            "evm.deployedBytecode.object",
+            "evm.deployedBytecode.opcodes",
+            "evm.deployedBytecode.sourceMap",
+            "evm.methodIdentifiers"
+          ]
+        }
+      },
+      "remappings": []
+    },
+    "sources": {
+      "project/contracts/ArchiveRegistry.sol": {
+        "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.20;\r\n\r\n/**\r\n * @title ArchiveRegistry\r\n * @notice PROVUS — Permanent 0G Storage archive index.\r\n *\r\n * Every N agent iterations, the PROVUS agent batches the last N decision\r\n * records (signal, volatility, confidence, attestationHash, timestamp) into\r\n * a single JSON blob and uploads it to 0G Storage. The Storage SDK returns\r\n * a content-addressed Merkle root. That root is then registered here.\r\n *\r\n * Result: a tamper-proof bridge between 0G Chain (state) and 0G Storage\r\n * (history). Anyone can:\r\n *   1. Read `archives(batchId)` to get the rootHash.\r\n *   2. Fetch the JSON blob from 0G Storage using that rootHash.\r\n *   3. Reconstruct the agent's full decision history with cryptographic\r\n *      guarantees that nothing has been altered or backdated.\r\n *\r\n * This contract is intentionally minimal — the heavy attestation logic stays\r\n * in VerifierEngine. ArchiveRegistry is a pure append-only index for batched\r\n * forensic audit data.\r\n */\r\ncontract ArchiveRegistry {\r\n    struct Batch {\r\n        uint256 batchId;\r\n        uint256 strategyId;\r\n        bytes32 rootHash;       // 0G Storage Merkle root\r\n        uint256 fromIteration;  // first iteration covered by this batch\r\n        uint256 toIteration;    // last iteration covered by this batch\r\n        uint256 decisionCount;  // number of decisions archived in this blob\r\n        uint256 timestamp;      // block.timestamp at archive\r\n        address archiver;       // agent wallet that submitted this batch\r\n    }\r\n\r\n    address public owner;\r\n    mapping(address => bool) public authorized;\r\n\r\n    Batch[] public archives;\r\n    mapping(uint256 => uint256) public batchIndexById; // batchId -> archives[] index + 1 (0 = not set)\r\n\r\n    uint256 public totalBatches;\r\n    uint256 public totalDecisionsArchived;\r\n\r\n    event BatchArchived(\r\n        uint256 indexed batchId,\r\n        uint256 indexed strategyId,\r\n        bytes32 rootHash,\r\n        uint256 fromIteration,\r\n        uint256 toIteration,\r\n        uint256 decisionCount,\r\n        address archiver,\r\n        uint256 timestamp\r\n    );\r\n\r\n    event AuthorizedAgent(address indexed agent, bool status);\r\n\r\n    modifier onlyOwner() {\r\n        require(msg.sender == owner, \"Not owner\");\r\n        _;\r\n    }\r\n\r\n    modifier onlyAuthorized() {\r\n        require(authorized[msg.sender] || msg.sender == owner, \"Not authorized\");\r\n        _;\r\n    }\r\n\r\n    constructor() {\r\n        owner = msg.sender;\r\n        authorized[msg.sender] = true;\r\n    }\r\n\r\n    /**\r\n     * @notice Register a batch of decisions archived to 0G Storage.\r\n     *\r\n     * @param batchId       Monotonically increasing agent-side batch counter.\r\n     * @param strategyId    Strategy NFT ID this batch belongs to.\r\n     * @param rootHash      0G Storage Merkle root returned by the Storage SDK.\r\n     * @param fromIteration First agent iteration included in this batch.\r\n     * @param toIteration   Last agent iteration included in this batch.\r\n     * @param decisionCount Number of decisions archived in the JSON blob.\r\n     */\r\n    function archiveBatch(\r\n        uint256 batchId,\r\n        uint256 strategyId,\r\n        bytes32 rootHash,\r\n        uint256 fromIteration,\r\n        uint256 toIteration,\r\n        uint256 decisionCount\r\n    ) external onlyAuthorized {\r\n        require(rootHash != bytes32(0), \"Root required\");\r\n        require(batchIndexById[batchId] == 0, \"Batch exists\");\r\n        require(toIteration >= fromIteration, \"Range invalid\");\r\n        require(decisionCount > 0, \"Empty batch\");\r\n\r\n        archives.push(Batch({\r\n            batchId: batchId,\r\n            strategyId: strategyId,\r\n            rootHash: rootHash,\r\n            fromIteration: fromIteration,\r\n            toIteration: toIteration,\r\n            decisionCount: decisionCount,\r\n            timestamp: block.timestamp,\r\n            archiver: msg.sender\r\n        }));\r\n\r\n        batchIndexById[batchId] = archives.length; // store index+1\r\n        totalBatches++;\r\n        totalDecisionsArchived += decisionCount;\r\n\r\n        emit BatchArchived(\r\n            batchId,\r\n            strategyId,\r\n            rootHash,\r\n            fromIteration,\r\n            toIteration,\r\n            decisionCount,\r\n            msg.sender,\r\n            block.timestamp\r\n        );\r\n    }\r\n\r\n    // ─── Views ────────────────────────────────────────────────────────────────\r\n\r\n    function getArchiveCount() external view returns (uint256) {\r\n        return archives.length;\r\n    }\r\n\r\n    function getArchive(uint256 index) external view returns (Batch memory) {\r\n        require(index < archives.length, \"Index OOB\");\r\n        return archives[index];\r\n    }\r\n\r\n    function getArchiveById(uint256 batchId) external view returns (Batch memory) {\r\n        uint256 idxPlus = batchIndexById[batchId];\r\n        require(idxPlus != 0, \"Not found\");\r\n        return archives[idxPlus - 1];\r\n    }\r\n\r\n    function getLatestArchive() external view returns (Batch memory) {\r\n        require(archives.length > 0, \"No archives\");\r\n        return archives[archives.length - 1];\r\n    }\r\n\r\n    /**\r\n     * @notice Returns the last `n` archives (most recent first).\r\n     */\r\n    function getRecentArchives(uint256 n) external view returns (Batch[] memory) {\r\n        uint256 len = archives.length;\r\n        if (n > len) n = len;\r\n        Batch[] memory out = new Batch[](n);\r\n        for (uint256 i = 0; i < n; i++) {\r\n            out[i] = archives[len - 1 - i];\r\n        }\r\n        return out;\r\n    }\r\n\r\n    // ─── Admin ────────────────────────────────────────────────────────────────\r\n\r\n    function setAuthorized(address agent, bool status) external onlyOwner {\r\n        authorized[agent] = status;\r\n        emit AuthorizedAgent(agent, status);\r\n    }\r\n\r\n    function transferOwnership(address newOwner) external onlyOwner {\r\n        require(newOwner != address(0), \"Zero address\");\r\n        owner = newOwner;\r\n    }\r\n}\r\n"
+      }
+    }
+  }
+}

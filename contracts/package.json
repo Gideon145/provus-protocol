@@ -8,6 +8,7 @@
     "compile": "hardhat compile",
     "deploy:testnet": "node --import tsx/esm scripts/deploy.ts",
     "deploy:mainnet": "node --import tsx/esm scripts/deploy.ts",
+    "deploy:archive": "node --import tsx/esm scripts/deployArchive.ts",
     "clean": "hardhat clean"
   },
   "devDependencies": {
