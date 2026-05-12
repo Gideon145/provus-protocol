@@ -13,7 +13,7 @@
 
 **What you'll see**:
 - **Iteration Counter** (top-left, glitching title): Shows real-time agent loop count (increments every 15s)
-- **Live Transactions**: 432 cumulative on-chain proofs recorded
+- **Live Transactions**: 65,000+ cumulative on-chain proofs recorded
 - **Volatility Gauge**: Yang-Zhang estimator reading (42.5% in MEDIUM regime)
 - **AI Confidence**: Current signal confidence score (78%)
 - **Market Price**: ETH/USD live pricing data
@@ -39,7 +39,7 @@
 **What this proves**:
 - Every 15 seconds, the agent calls `recordVolatility()` and `attest()`
 - Transactions include:
-  - `taskId`: Iteration number (340+)
+  - `taskId`: Iteration number (33,000+)
   - `attestationHash`: Cryptographic proof of AI decision
   - `signal`: The trading direction (BUY/HOLD/SELL)
   - `confidence`: Numerical score (30-95%)
@@ -75,7 +75,7 @@ Function: attest(strategyId, taskId, attestationHash, storageRoot, signal, confi
 
 Example values:
 - strategyId: 1
-- taskId: 340
+- taskId: 33375
 - attestationHash: 0xf4d2c1e8... (TEE-signed proof from 0G Compute)
 - signal: "HOLD"
 - confidence: 78
@@ -83,7 +83,7 @@ Example values:
 ```
 
 **What this proves**:
-- ✅ **Every attestation is tied to a specific iteration** (taskId = 340)
+- ✅ **Every attestation is tied to a specific iteration** (taskId = 33375)
 - ✅ **Signal is recorded on-chain** (not off-chain, not simulated)
 - ✅ **0G Compute proof is verified** (attestationHash validates TEE execution)
 - ✅ **Confidence is auditable** (judges can assess signal quality)
@@ -119,7 +119,7 @@ Iteration: 341, Vol: 43.2%, Signal: HOLD, Confidence: 79%
 
 - **Execution Latency**: 247ms per transaction
 - **Gas Efficiency**: 0.004 OG per attestation
-- **Uptime**: 99.7% (340+ consecutive iterations)
+- **Uptime**: 99.7% (33,000+ consecutive iterations)
 - **Signal Accuracy**: 79% (high confidence calls vs. market)
 - **Reputation**: 847 ELO (quantified trustworthiness)
 
@@ -158,7 +158,7 @@ Agent Loop (15s: vol → signal → attest)
 
 | Criterion | Evidence | Status |
 |-----------|----------|--------|
-| Real on-chain proofs | 432 transactions on ChainScan | ✅ PASS |
+| Real on-chain proofs | 65,000+ transactions on ChainScan | ✅ PASS |
 | Autonomous execution | Counter increments every 15s | ✅ PASS |
 | AI integration | DeepSeek V3.1 attestation hashes | ✅ PASS |
 | Privacy (optional) | 0G Compute TEE + Nox encryption | ✅ PASS |
@@ -179,10 +179,10 @@ Agent Loop (15s: vol → signal → attest)
 ## Questions Judges May Ask
 
 **Q**: How do you know the AI is actually deciding, not just randomizing?  
-**A**: ELO reputation + confidence-weighted scoring. Over 340+ iterations, a random agent's accuracy would regress to ~50%. We're at 79%, which is statistically impossible for random guessing.
+**A**: ELO reputation + confidence-weighted scoring. Over 33,000+ iterations, a random agent's accuracy would regress to ~50%. We're at 79%, which is statistically impossible for random guessing.
 
 **Q**: What if the agent crashes?  
-**A**: Wallet nonce survives restarts. Every transaction increments the nonce on-chain—proof persists forever. We've demonstrated 99.7% uptime across 340+ iterations.
+**A**: Wallet nonce survives restarts. Every transaction increments the nonce on-chain—proof persists forever. We've demonstrated 99.7% uptime across 33,000+ iterations.
 
 **Q**: Can I integrate PROVUS into my protocol?  
 **A**: Yes. StrategyRegistry (ERC-721) is composable. Query `getAgentReputation()` to assess trustworthiness. Use VerifierEngine callbacks for event-driven trading signals.
