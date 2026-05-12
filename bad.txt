@@ -1,0 +1,42 @@
+﻿ryptographic proof via 0G TEE � immutable, verifiable, tamper
+ing Yang-Zhang variance model � no human input, 24/7 executio
+in transactions on 0G Mainnet � each one traceable on ChainSc
+ime via ELO reputation engine � provable track record, not ju
+tility s on-chain every cycle � creating an auditable history
+ with verifiable intelligence � not a script, a genuine auton
+: "Executing every 15 seconds � Yang-Zhang volatility model a
+il: "DeepSeek V3.1 via 0G TEE � HOLD @ 78% confidence" },
+dated",      detail: "ELO 847 � ReputationEngine.sol scored c
+eceipt.gasUsed).toString() : "�",
+etail: `DeepSeek V3.1 via TEE � ${signal} @ ${confidence.toFi
+${vol.toFixed(1)}% s detected � Risk management engaged` },
+   detail: "0G Mainnet active � Chain ID 16661 � Uptime 99.7%
+GENT ? LIVE" : "DEEPSEEK V3.1 � TEE ATTESTED"}</span>
+   {/* Rotating hex watermark � PROVUS signature */}
+amber)" letterSpacing="4">TEE � ATTESTED</text>
+ntly archived on the 0G stack � so traders, regulators, and c
+ decoder runs in your browser � nothing trusted, nothing fetc
+k #{verifyResult.blockNumber} � gas {verifyResult.gasUsed} � 
+, marginBottom: 12 }}>DECODED � attest()</div>
+, marginBottom: 12 }}>DECODED � recordVolatility()</div>
+ted ? `? 0G MAINNET CONNECTED � ${lastFetch}` : "? CONNECTING
+ TO 0G MAINNET..."} � CHAIN ID 16661 � DEEPSEEK V3.
+m)", marginTop: 8 }}>VERIFIED � 0G MAINNET</div>
+marginTop: 8 }}>2 TXS / CYCLE � 15s LOOP</div>
+Dir}{priceChange.toFixed(2)}% � 24H</div>
+marginTop: 6 }}>DEEPSEEK V3.1 � TEE SEALED</div>
+inTop: 8 }}>REPUTATION ENGINE � ERC-721</div>
+AGENT_WALLET,   note: "Signer � live",     color: "var(--text
+Spacing: "0.1em" }}>AI SIGNAL � DEEPSEEK V3.1 REASONING</span
+              � DeepSeek V3.1 � 0G Compute TEE � Cryptographi
+c attestation on 0G Mainnet � Last fetch: {lastFetch}
+ST {eloHistory.length} CYCLES � REPUTATIONENGINE.SOL</span>
+v key={i} title={`${entry.ts} � ELO ${entry.elo} � ${entry.si
+ULATIVE ON-CHAIN TRANSACTIONS � 0G MAINNET</span>
+txCount.toLocaleString()} TXS � VERIFY LIVE ?</a>
+        DEPLOYED APR 28, 2026 � 2 TXS / 15-SECOND CYCLE � {tx
+es realised s from OHLCV data � resilient to price jumps and 
+raphically seals the decision � proving the exact model weigh
+res signal accuracy using ELO � building a verifiable AI trac
+       0G APAC HACKATHON 2026 � TRACK 2 VERIFIABLE FINANCE � 
+            CHAIN ID 16661 � RPC: evmrpc.0g.ai � EXPLORER:
