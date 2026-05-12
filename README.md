@@ -4,6 +4,7 @@
 
 > *"Every AI trading decision. Sealed on-chain. Cryptographically proven. Impossible to fake."*
 
+[![Demo Video](https://img.shields.io/badge/Demo%20Video-YouTube-red)](https://youtu.be/lrhgAbrWF94)
 [![Live Dashboard](https://img.shields.io/badge/Live%20Dashboard-provus--protocol--frontend.vercel.app-cyan)](https://provus-protocol-frontend.vercel.app)
 [![0G Chain](https://img.shields.io/badge/0G%20Chain-Mainnet%2016661-brightgreen)](https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0)
 [![60,000+ TXs](https://img.shields.io/badge/On--Chain%20TXs-60%2C000%2B-green)](https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0)

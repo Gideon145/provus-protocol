@@ -1,6 +1,7 @@
 # PROVUS — 3-Minute Judge Demo Walkthrough
 
 **Objective**: See autonomous AI trading attestation in action on 0G mainnet.  
+**Demo Video**: https://youtu.be/lrhgAbrWF94  
 **Time**: ~3 minutes  
 **Live Dashboard**: https://provus-protocol-frontend.vercel.app (or hosted URL)  
 **Explorer**: https://chainscan.0g.ai
