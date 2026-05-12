@@ -232,7 +232,7 @@ export default function Home() {
             <span className="attest-badge">◈ TEE VERIFIED</span>
           </div>
           <div style={{ fontSize: 18, lineHeight: 1.6, color: "var(--text-primary)", marginBottom: 24 }}>
-            The first AI trading agent where every signal is <strong>cryptographically attested in a TEE</strong> and permanently archived on 0G — so traders, regulators, and copy-trading platforms can verify the alpha was real, not backdated.
+            An autonomous AI trading agent where every signal is <strong>cryptographically attested in a TEE</strong> and permanently archived on the 0G stack — so traders, regulators, and copy-trading platforms can verify the alpha was real, not backdated.
           </div>
           <div style={{ minHeight: 90 }}>
             <div key={introIdx} className="animate-in" style={{ display: "flex", alignItems: "flex-start", gap: 20, padding: "18px 22px", background: "rgba(0,0,0,0.35)", border: `1px solid ${WHAT_IS_PROVUS[introIdx].color}44`, borderRadius: 4, borderLeft: `3px solid ${WHAT_IS_PROVUS[introIdx].color}` }}>
@@ -296,7 +296,7 @@ export default function Home() {
                 PROVUS
               </h1>
               <p style={{ fontSize: 14, color: "var(--text-dim)", letterSpacing: "0.2em", marginTop: 4, margin: 0 }}>
-                THE FIRST VERIFIABLE AI TRADING AGENT
+                VERIFIABLE AI TRADING AGENT
               </p>
               <div style={{ marginTop: 6, display: "flex", gap: 6 }}>
                 <span className="attest-badge">◈ TEE ATTESTED</span>
