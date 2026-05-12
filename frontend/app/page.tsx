@@ -836,7 +836,7 @@ export default function Home() {
           <a href="https://github.com/Gideon145/provus-protocol" target="_blank" rel="noreferrer" className="evidence-btn">⌨ GITHUB REPO</a>
           <a href={`${EXPLORER}/address/${AGENT_WALLET}`} target="_blank" rel="noreferrer" className="evidence-btn">🤖 AGENT WALLET</a>
           <a href="https://provus-protocol-production.up.railway.app/status" target="_blank" rel="noreferrer" className="evidence-btn" style={{ borderColor: "var(--green)", color: "var(--green)" }}>🚂 RAILWAY AGENT</a>
-          <a href="https://provus-protocol-x402.up.railway.app/health" target="_blank" rel="noreferrer" className="evidence-btn" style={{ borderColor: "var(--purple)", color: "var(--purple)" }}>💳 x402 SERVER</a>
+          <a href="https://app.chaingpt.org/smart-contract-auditor" target="_blank" rel="noreferrer" className="evidence-btn" style={{ borderColor: "var(--purple)", color: "var(--purple)" }}>🛡 CHAINGPT AUDIT</a>
           <a href="https://github.com/Gideon145/provus-protocol/blob/master/JUDGE_GUIDE.md" target="_blank" rel="noreferrer" className="evidence-btn" style={{ borderColor: "var(--amber)", color: "var(--amber)" }}>📋 JUDGE GUIDE</a>
           <a href="https://github.com/Gideon145/provus-protocol/blob/master/ENGINEERING_DEBUG_LOG.md" target="_blank" rel="noreferrer" className="evidence-btn">🔧 ENGINEERING LOG</a>
         </div>
