@@ -1,6 +1,6 @@
 # PROVUS — 3-Minute Judge Verification Guide
 
-> **One-liner:** Autonomous AI-trading agent with **73,000+ confirmed transactions on 0G Chain mainnet** — every 15 seconds, real Yang-Zhang volatility is sealed on-chain by `VerifierEngine.recordVolatility()`, creating an immutable timestamped record that the strategy is *executing live*, not replaying.
+> **One-liner:** Autonomous AI-trading agent with **75,000+ confirmed transactions on 0G Chain mainnet** — every 15 seconds, real Yang-Zhang volatility is sealed on-chain by `VerifierEngine.recordVolatility()`, creating an immutable timestamped record that the strategy is *executing live*, not replaying.
 >
 > **Track fit:** Track 2 — Agentic Trading Arena (Verifiable Finance).
 >
@@ -8,7 +8,7 @@
 >
 > | Deployment | Chain ID | Components Live | Strongest Evidence |
 > |---|---|---|---|
-> | **Mainnet (primary)** | 16661 | 0G **Chain** | 73,000+ confirmed TXs on agent wallet — irrefutable proof of long-running autonomous operation |
+> | **Mainnet (primary)** | 16661 | 0G **Chain** | 75,000+ confirmed TXs on agent wallet — irrefutable proof of long-running autonomous operation |
 > | **Testnet (full stack)** | 16602 | 0G **Chain** + **Compute** + **Storage** | All three 0G components exercised end-to-end. Real Qwen-2.5-7B inference via 0G Compute broker, `VerifierEngine.attest()` landing every 15s, `ArchiveRegistry.archiveBatch()` writing a Merkle root every 50 decisions |
 >
 > The mainnet deployment carries the lifetime-TX-count claim. The testnet deployment proves the *full* PROVUS pipeline (Chain + Compute + Storage) works end-to-end against live 0G infrastructure. Same wallet, same code, two networks — switched by environment variable.
@@ -21,7 +21,7 @@
 
 ---
 
-## Step 1: Confirm 73k+ mainnet TXs (30 seconds)
+## Step 1: Confirm 75k+ mainnet TXs (30 seconds)
 
 ```bash
 curl -s -X POST https://evmrpc.0g.ai \
@@ -32,7 +32,7 @@ curl -s -X POST https://evmrpc.0g.ai \
 Or open: https://chainscan.0g.ai/address/0x94A4365E6B7E79791258A3Fa071824BC2b75a394
 
 **What this proves:**
-- ✅ Lifetime confirmed transactions on 0G mainnet by the agent wallet (currently 73,000+ and counting)
+- ✅ Lifetime confirmed transactions on 0G mainnet by the agent wallet (currently 75,000+ and counting)
 - ✅ Wallet nonce is read directly from the chain — cannot be fabricated
 - ✅ Counter persists across agent restarts (proof of long-running autonomous operation)
 
@@ -96,7 +96,7 @@ Visit: https://provus-protocol-frontend.vercel.app
 
 ## Step 5: Verify All Three 0G Components on Testnet (1 minute)
 
-The 0G hackathon requires *at least one* core component integrated and verifiable on-chain. PROVUS leads with **0G Chain mainnet** (73k+ TXs above) and also runs a **parallel testnet deployment that exercises all three components end-to-end**.
+The 0G hackathon requires *at least one* core component integrated and verifiable on-chain. PROVUS leads with **0G Chain mainnet** (75k+ TXs above) and also runs a **parallel testnet deployment that exercises all three components end-to-end**.
 
 ### Testnet Contract Addresses (Chain ID 16602)
 
@@ -114,7 +114,7 @@ Explorer: https://chainscan-galileo.0g.ai/address/0x94A4365E6B7E79791258A3Fa0718
 
 | Component | Implementation | Mainnet (16661) | Testnet (16602) |
 |---|---|---|---|
-| **0G Chain** | `index.ts` → `VerifierEngine.recordVolatility()` + `attest()` | ✅ 73,000+ confirmed TXs | ✅ Both methods landing every 15s. Sample: vol `0xd3a019cb52d26479`, attest `0xb6a46c099947734e` |
+| **0G Chain** | `index.ts` → `VerifierEngine.recordVolatility()` + `attest()` | ✅ 75,000+ confirmed TXs | ✅ Both methods landing every 15s. Sample: vol `0xd3a019cb52d26479`, attest `0xb6a46c099947734e` |
 | **0G Compute** (TEE) | [`agent/src/attester.ts`](./agent/src/attester.ts) — broker init, sub-account funding, OpenAI-compatible chat | 🛠 Service not yet on mainnet | ✅ Live. Qwen-2.5-7B inference via dstack-verified provider `0xa48f01287233509FD694a22Bf840225062E67836`. Sample chat ids: `chatcmpl-5884c4f`, `chatcmpl-e1f51ee`. TEE signer `0x83df4B8EbA7c0B3B740019b8c9a77ffF77D508cF` acknowledged on-chain. |
 | **0G Storage** (decision archive → `ArchiveRegistry`) | [`agent/src/storage.ts`](./agent/src/storage.ts) — batched serialization, deterministic keccak Merkle root, indexer upload | 🛠 Service not yet on mainnet | ✅ Full SDK pipeline exercised end-to-end every 50 iterations. SDK initializes, connects to live storage nodes (`34.83.53.209:5678`, `34.169.28.106:5678`), computes the file Merkle root (e.g. `root=0xd23bbe1a... numSegments=1 numChunks=150`), submits to indexer. `ArchiveRegistry.archiveBatch()` lands the Merkle root on-chain every time. Verified TXs: `0xaf325832bd0e17f6` (run1 iter 51), `0x570caec7b2b238d0` (run1 iter 102), `0xc04a99133df4e168` (run2 iter 52), `0x878bdd96fd9ab333` (run2 iter 102). Indexer-side blob upload occasionally returns `AggregateError` (testnet nodes overloaded) — we degrade gracefully; the on-chain Merkle proof is what makes archives verifiable. |
 
@@ -140,7 +140,7 @@ When 0G Compute and Storage services expose mainnet endpoints, the same code poi
 
 | Criterion | Evidence | Status |
 |---|---|---|
-| 0G core component integrated on mainnet | 0G Chain — 73,000+ confirmed TXs on agent wallet | ✅ PASS |
+| 0G core component integrated on mainnet | 0G Chain — 75,000+ confirmed TXs on agent wallet | ✅ PASS |
 | **All three 0G components integrated** | Testnet (16602): Chain + Compute (Qwen-2.5-7B TEE) + Storage (`ArchiveRegistry.archiveBatch` Merkle root) all live | ✅ PASS |
 | Autonomous execution | `recordVolatility()` + `attest()` lands every 15s without operator action | ✅ PASS |
 | Real strategy logic | Yang-Zhang vol on live Binance OHLCV; regime classification on-chain | ✅ PASS |
@@ -164,8 +164,8 @@ When 0G Compute and Storage services expose mainnet endpoints, the same code poi
 
 ## Questions Judges May Ask
 
-**Q: Why is `totalAttestTx` 0 in `/status` but you have 73k+ TXs on the wallet?**
-**A:** `/status` reflects the *mainnet* agent. On mainnet, `attest()` is gated on a successful 0G Compute TEE response, and 0G Compute is not yet on mainnet — so the TEE branch short-circuits and `attest()` does not fire on mainnet. The `recordVolatility()` heartbeat continues unaffected, which drives the 73k+ lifetime nonce. **On testnet (chain 16602), `attest()` does fire every 15s** — see the testnet TX list in Step 5. Same wallet, two networks: mainnet anchors the long-running autonomy claim, testnet proves the full pipeline.
+**Q: Why is `totalAttestTx` 0 in `/status` but you have 75k+ TXs on the wallet?**
+**A:** `/status` reflects the *mainnet* agent. On mainnet, `attest()` is gated on a successful 0G Compute TEE response, and 0G Compute is not yet on mainnet — so the TEE branch short-circuits and `attest()` does not fire on mainnet. The `recordVolatility()` heartbeat continues unaffected, which drives the 75k+ lifetime nonce. **On testnet (chain 16602), `attest()` does fire every 15s** — see the testnet TX list in Step 5. Same wallet, two networks: mainnet anchors the long-running autonomy claim, testnet proves the full pipeline.
 
 **Q: What's the ELO number on `ReputationEngine`?**
 **A:** ELO updates are gated on `attest(isValid=true)`. On testnet, the TEE signature step from the current Qwen provider currently produces `isValid=null` (the attestation is *recorded on-chain* but cannot be marked verified) — we degrade gracefully rather than crash. As soon as a TEE-clean provider is online, `isValid=true` flows in and ELO initializes at 1500. Query directly: `cast call 0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e "getScore(uint256)" 1 --rpc-url https://evmrpc-testnet.0g.ai`.
@@ -174,7 +174,7 @@ When 0G Compute and Storage services expose mainnet endpoints, the same code poi
 **A:** Yes. Subscribe to `VolatilityRecorded` events on `VerifierEngine` for live strategy state. Once `attest()` activates, also subscribe to `DecisionVerified`. Query `ReputationEngine.getScore(strategyId)` for ELO + win/loss history. `StrategyRegistry` is ERC-721 enumerable.
 
 **Q: Does the hackathon rubric penalize you for Compute/Storage not being live on mainnet?**
-**A:** The rule is: *"Clear proof that **at least one** 0G core component has been integrated."* PROVUS has 0G Chain on mainnet with 73k+ TXs — unambiguously past that bar. We *additionally* run a parallel testnet deployment that exercises **all three** components live (see Step 5), so the "Technical Implementation Completeness" and "0G Integration Depth" criteria are over-served, not under-served.
+**A:** The rule is: *"Clear proof that **at least one** 0G core component has been integrated."* PROVUS has 0G Chain on mainnet with 75k+ TXs — unambiguously past that bar. We *additionally* run a parallel testnet deployment that exercises **all three** components live (see Step 5), so the "Technical Implementation Completeness" and "0G Integration Depth" criteria are over-served, not under-served.
 
 ---
 

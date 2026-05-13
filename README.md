@@ -81,7 +81,7 @@ Same wallet, same code, two networks — switched by environment variable.
 | StrategyVault | `0x2B9366b7fea6a1C6279edbC7B87CCB91CdCc1014` | [View](https://chainscan.0g.ai/address/0x2B9366b7fea6a1C6279edbC7B87CCB91CdCc1014) |
 | ReputationEngine | `0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e` | [View](https://chainscan.0g.ai/address/0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e) |
 | ArchiveRegistry | `0x8fa2c5ae17E2D170C54fC3CA34148B0Ad503d8DB` | [View](https://chainscan.0g.ai/address/0x8fa2c5ae17E2D170C54fC3CA34148B0Ad503d8DB) |
-| **Agent Wallet (mainnet)** | `0x94A4365E6B7E79791258A3Fa071824BC2b75a394` | [**73,000+ confirmed TXs**](https://chainscan.0g.ai/address/0x94A4365E6B7E79791258A3Fa071824BC2b75a394) |
+| **Agent Wallet (mainnet)** | `0x94A4365E6B7E79791258A3Fa071824BC2b75a394` | [**75,000+ confirmed TXs**](https://chainscan.0g.ai/address/0x94A4365E6B7E79791258A3Fa071824BC2b75a394) |
 
 **On-chain proof:**
 ```bash
@@ -136,7 +136,7 @@ The indexer `https://indexer-storage-testnet-turbo.0g.ai` returns live storage n
 
 | Capability | Status | Where to verify |
 |---|---|---|
-| `recordVolatility()` every 15s on 0G **mainnet** | **LIVE** | [Agent wallet TXs](https://chainscan.0g.ai/address/0x94A4365E6B7E79791258A3Fa071824BC2b75a394) — 73k+ |
+| `recordVolatility()` every 15s on 0G **mainnet** | **LIVE** | [Agent wallet TXs](https://chainscan.0g.ai/address/0x94A4365E6B7E79791258A3Fa071824BC2b75a394) — 75k+ |
 | 5 smart contracts on 0G **mainnet** | **LIVE** | Addresses above |
 | 5 smart contracts on 0G **testnet** (16602) | **LIVE** | [chainscan-galileo.0g.ai/address/0x94A4...A394](https://chainscan-galileo.0g.ai/address/0x94A4365E6B7E79791258A3Fa071824BC2b75a394) |
 | `recordVolatility()` + `attest()` every 15s on **testnet** | **LIVE** | testnet wallet TX history |
@@ -188,7 +188,7 @@ Every 15 seconds, the PROVUS agent runs this cycle autonomously:
 |---|---|---|
 | Frontend Dashboard | https://provus-protocol-frontend.vercel.app | Live |
 | Agent Status API | https://provus-protocol-production.up.railway.app/status | Live |
-| Agent Wallet (mainnet) | https://chainscan.0g.ai/address/0x94A4365E6B7E79791258A3Fa071824BC2b75a394 | **73,000+ confirmed TXs** |
+| Agent Wallet (mainnet) | https://chainscan.0g.ai/address/0x94A4365E6B7E79791258A3Fa071824BC2b75a394 | **75,000+ confirmed TXs** |
 | VerifierEngine | https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0 | Live, receiving `recordVolatility()` |
 | ArchiveRegistry | https://chainscan.0g.ai/address/0x8fa2c5ae17E2D170C54fC3CA34148B0Ad503d8DB | Deployed on mainnet; live on testnet receiving `archiveBatch()` |
 | ReputationEngine | https://chainscan.0g.ai/address/0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e | Deployed on mainnet; live on testnet |
@@ -232,7 +232,7 @@ Every 15 seconds, the PROVUS agent runs this cycle autonomously:
 │  StrategyVault      │  │  Provider (when active): │
 │  ReputationEngine   │  │  DeepSeek V3.1           │
 │  ArchiveRegistry    │  │  0xd9966e13a602...       │
-│  73,000+ TXs total  │  │                         │
+│  75,000+ TXs total  │  │                         │
 │  ~1s block time     │  │  Mainnet endpoint        │
 │                     │  │  pending from 0G         │
 └─────────────────────┘  └─────────────────────────┘
@@ -270,7 +270,7 @@ Capital management + trade execution layer. Executes hedges based on `attest()` 
 
 | Category | Metric | Value | How to Verify |
 |---|---|---|---|
-| On-Chain | Lifetime confirmed TXs (agent wallet) | **73,000+** | `eth_getTransactionCount` on `0x94A4…A394` |
+| On-Chain | Lifetime confirmed TXs (agent wallet) | **75,000+** | `eth_getTransactionCount` on `0x94A4…A394` |
 | On-Chain | Smart contracts deployed on mainnet | 5 | Addresses in *0G Integration* section |
 | Cadence | Loop interval | 15s | `/status.iteration` over time |
 | Performance | Gas per `recordVolatility()` | ~0.004 OG | Any recent agent TX on ChainScan |
@@ -299,7 +299,7 @@ Capital management + trade execution layer. Executes hedges based on `attest()` 
 
 > Every claim in this README is verifiable on 0G ChainScan or via the live `/status` endpoint right now.
 
-**Step 1 — Confirm 73k+ mainnet TXs (30s)**
+**Step 1 — Confirm 75k+ mainnet TXs (30s)**
 ```bash
 curl -X POST https://evmrpc.0g.ai \
   -H 'content-type: application/json' \
