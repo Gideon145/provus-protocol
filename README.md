@@ -120,9 +120,8 @@ The indexer `https://indexer-storage-testnet-turbo.0g.ai` returns live storage n
 | Yang-Zhang volatility engine (real Binance OHLCV) | **LIVE** | `/status` → `realizedVolBps`, `regime` |
 | Live frontend dashboard | **LIVE** | https://provus-protocol-frontend.vercel.app |
 | ChainGPT AI security audit | **LIVE** | [AUDIT.md](./AUDIT.md) |
-| 0G Compute & Storage on **mainnet** (chain 16661) | **Awaiting 0G mainnet service rollout** | Same code, env-var switch |
 
-> **Honest framing:** The 0G hackathon requires *at least one* core component integrated and verifiable on-chain. PROVUS leads with **0G Chain mainnet** (73,000+ confirmed TXs) and *additionally* runs a parallel testnet deployment proving all three components (Chain + Compute + Storage) end-to-end. The Compute and Storage paths on mainnet are written and waiting only on those services exposing mainnet endpoints.
+> **Honest framing:** The 0G hackathon requires *at least one* core component integrated and verifiable on-chain. PROVUS goes further: **0G Chain mainnet** (75,000+ confirmed TXs and growing) anchors the long-running autonomy claim, and a **parallel testnet deployment proves all three 0G components end-to-end** (Chain + Compute + Storage — verifiable TX hashes above). When 0G Compute and Storage expose mainnet endpoints, the same code points at chain 16661 via a single env-var switch — no rewrite, no rearchitecture.
 
 ---
 
@@ -149,12 +148,12 @@ Every 15 seconds, the PROVUS agent runs this cycle autonomously:
 | 2 | Calculate Yang-Zhang realized volatility (12-hour window) | Agent — `volatility.ts` | Live |
 | 3 | Classify regime: LOW / MEDIUM / HIGH / EXTREME | Agent — `volatility.ts` | Live |
 | 4 | Record volatility on-chain: `recordVolatility()` | **0G Chain** — VerifierEngine | **Live** (every 15s) |
-| 5 | Query DeepSeek V3.1 inside TEE, validate signed response | **0G Compute** — `attester.ts` | Implemented; mainnet service pending |
-| 6 | Attest AI decision on-chain: `attest()` | **0G Chain** — VerifierEngine | Implemented; gated on step 5 |
-| 7 | Batch decisions every 50 iters, archive to 0G Storage, write Merkle root | **0G Storage** — `storage.ts` | Implemented; mainnet service pending |
+| 5 | Query Qwen-2.5-7B inside TEE, validate signed response | **0G Compute** — `attester.ts` | **Live on testnet**; same code targets mainnet via env switch |
+| 6 | Attest AI decision on-chain: `attest()` | **0G Chain** — VerifierEngine | **Live on testnet** every 15s |
+| 7 | Batch decisions every 50 iters, archive to 0G Storage, write Merkle root | **0G Storage** — `storage.ts` | **Live on testnet**; same code targets mainnet via env switch |
 | 8 | Broadcast state to frontend | Agent HTTP server | Live |
 
-**Key invariant:** Each `recordVolatility()` transaction's block timestamp is cryptographic proof that the strategy was *executing live* at that moment. When 0G Compute exposes mainnet endpoints, the same invariant extends to the AI signal itself via `attest()`.
+**Key invariant:** Each `recordVolatility()` transaction's block timestamp is cryptographic proof that the strategy was *executing live* at that moment. On testnet, `attest()` and `archiveBatch()` extend the same invariant to the AI signal itself and to batched decision archives. When 0G Compute and Storage expose mainnet endpoints, the same code path activates on chain 16661 with no changes — only `ZG_RPC_URL` / `ZG_CHAIN_ID`.
 
 ---
 
@@ -166,8 +165,8 @@ Every 15 seconds, the PROVUS agent runs this cycle autonomously:
 | Agent Status API | https://provus-protocol-production.up.railway.app/status | Live |
 | Agent Wallet (mainnet) | https://chainscan.0g.ai/address/0x94A4365E6B7E79791258A3Fa071824BC2b75a394 | **73,000+ confirmed TXs** |
 | VerifierEngine | https://chainscan.0g.ai/address/0x911E87629756F34190DF34162806f00b35521FD0 | Live, receiving `recordVolatility()` |
-| ArchiveRegistry | https://chainscan.0g.ai/address/0x8fa2c5ae17E2D170C54fC3CA34148B0Ad503d8DB | Deployed, awaiting Storage rollout |
-| ReputationEngine | https://chainscan.0g.ai/address/0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e | Deployed, awaiting `attest()` activation |
+| ArchiveRegistry | https://chainscan.0g.ai/address/0x8fa2c5ae17E2D170C54fC3CA34148B0Ad503d8DB | Deployed on mainnet; live on testnet receiving `archiveBatch()` |
+| ReputationEngine | https://chainscan.0g.ai/address/0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e | Deployed on mainnet; live on testnet |
 | StrategyRegistry | https://chainscan.0g.ai/address/0x87E3D9fcfA4eff229A65d045A7C741E49b581187 | Live |
 | StrategyVault | https://chainscan.0g.ai/address/0x2B9366b7fea6a1C6279edbC7B87CCB91CdCc1014 | Deployed |
 
@@ -262,9 +261,9 @@ Capital management + trade execution layer. Executes hedges based on `attest()` 
 | Blockchain | 0G Chain EVM (ChainID 16661) | ✅ 0G Chain | Live on mainnet |
 | Contract Interaction | ethers.js v6 | 0G Chain RPC | Live |
 | Contracts | Solidity 0.8.24 + OpenZeppelin v5 + Hardhat | — | Live |
-| AI Inference | DeepSeek V3.1 inside TEE | 🛠️ 0G Compute | Implemented (`attester.ts`); mainnet service pending |
+| AI Inference | Qwen-2.5-7B inside TEE | ✅ 0G Compute | Live on testnet (`attester.ts`); mainnet service pending |
 | TEE SDK | `@0glabs/0g-serving-broker` | 🛠️ 0G Compute | Implemented |
-| Decision Archive | Batched JSON → Merkle root → `ArchiveRegistry` | 🛠️ 0G Storage | Implemented (`storage.ts`); mainnet service pending |
+| Decision Archive | Batched JSON → Merkle root → `ArchiveRegistry` | ✅ 0G Storage | Live on testnet (`storage.ts`); mainnet service pending |
 | Agent Runtime | Node.js v24 + TypeScript | — | Live (Railway) |
 | Frontend | Next.js 15 + React 19 + Tailwind CSS v4 | — | Live (Vercel) |
 | Market Data | Binance REST API v3 | — | Live |
