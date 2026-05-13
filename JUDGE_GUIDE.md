@@ -1,194 +1,143 @@
-# PROVUS — 3-Minute Judge Demo Walkthrough
+# PROVUS — 3-Minute Judge Verification Guide
 
-**Objective**: See autonomous AI trading attestation in action on 0G mainnet.  
-**Demo Video**: https://youtu.be/lrhgAbrWF94  
-**Time**: ~3 minutes  
-**Live Dashboard**: https://provus-protocol-frontend.vercel.app (or hosted URL)  
+> **One-liner:** Autonomous AI-trading agent with **73,000+ confirmed transactions on 0G Chain mainnet** — every 15 seconds, real Yang-Zhang volatility is sealed on-chain by `VerifierEngine.recordVolatility()`, creating an immutable timestamped record that the strategy is *executing live*, not replaying.
+>
+> **Track fit:** Track 2 — Agentic Trading Arena (Verifiable Finance). One 0G core component (0G **Chain** mainnet) is verified live; 0G **Compute** (TEE) and 0G **Storage** code paths are fully implemented and pending those services exposing mainnet endpoints addressable from the production wallet (currently testnet-only).
+
+**Objective**: Verify a live, autonomous strategy attestation pipeline running on 0G Chain mainnet.
+**Time**: ~3 minutes
+**Live Dashboard**: https://provus-protocol-frontend.vercel.app
+**Agent Status**: https://provus-protocol-production.up.railway.app/status
 **Explorer**: https://chainscan.0g.ai
 
 ---
 
-## Step 1: Dashboard Overview (30 seconds)
+## Step 1: Confirm 73k+ mainnet TXs (30 seconds)
 
-**Navigate to**: https://provus-protocol-frontend.vercel.app
+```bash
+curl -s -X POST https://evmrpc.0g.ai \
+  -H 'content-type: application/json' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"eth_getTransactionCount","params":["0x94A4365E6B7E79791258A3Fa071824BC2b75a394","latest"]}'
+```
 
-**What you'll see**:
-- **Iteration Counter** (top-left, glitching title): Shows real-time agent loop count (increments every 15s)
-- **Live Transactions**: 65,000+ cumulative on-chain proofs recorded
-- **Volatility Gauge**: Yang-Zhang estimator reading (42.5% in MEDIUM regime)
-- **AI Confidence**: Current signal confidence score (78%)
-- **Market Price**: ETH/USD live pricing data
+Or open: https://chainscan.0g.ai/address/0x94A4365E6B7E79791258A3Fa071824BC2b75a394
 
-**Key Observation**: 
-- ✅ Counter increments every 15 seconds without intervention
-- ✅ All data is real on-chain (not simulated)
+**What this proves:**
+- ✅ Lifetime confirmed transactions on 0G mainnet by the agent wallet (currently 73,000+ and counting)
+- ✅ Wallet nonce is read directly from the chain — cannot be fabricated
+- ✅ Counter persists across agent restarts (proof of long-running autonomous operation)
 
 ---
 
-## Step 2: Verify Smart Contracts on 0G Explorer (1 minute)
+## Step 2: Watch a Fresh `recordVolatility()` TX Land (1 minute)
 
-**Navigate to**: https://chainscan.0g.ai
+Open the agent wallet on ChainScan (link above). Refresh every ~15 seconds — a new transaction appears each cycle. Click any recent TX:
 
-### Contract 1: VerifierEngine (Attestation Hub)
-**Address**: `0x911E87629756F34190DF34162806f00b35521FD0`
+- **Method**: `recordVolatility(uint256,uint256,uint256,string)`
+- **To**: `0x911E87629756F34190DF34162806f00b35521FD0` (`VerifierEngine`)
+- **Decoded input**: `strategyId`, `taskId`, `volBps` (Yang-Zhang realized volatility, basis points), `regime` (LOW / MEDIUM / HIGH / EXTREME)
+- **Block timestamp**: exact moment the strategy state was sealed on-chain
 
-**Steps**:
-1. Paste address into ChainScan search
-2. Click on "Transactions" tab
-3. Observe list of recent `attest()` and `recordVolatility()` calls
-
-**What this proves**:
-- Every 15 seconds, the agent calls `recordVolatility()` and `attest()`
-- Transactions include:
-  - `taskId`: Iteration number (33,000+)
-  - `attestationHash`: Cryptographic proof of AI decision
-  - `signal`: The trading direction (BUY/HOLD/SELL)
-  - `confidence`: Numerical score (30-95%)
-- ✅ **432 transactions = 432 AI decisions recorded on-chain**
-
-### Contract 2: ReputationEngine (ELO Scoring)
-**Address**: `0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e`
-
-**Steps**:
-1. Paste address into ChainScan search
-2. Look for `DecisionRecorded` or `EloUpdated` events
-3. Check the agent's current ELO score (should be 800+)
-
-**What this proves**:
-- Agent reputation is on-chain, auditable
-- ELO updates based on signal accuracy (not just volume)
-- Other protocols can query `getAgentReputation(strategyId)` to assess trustworthiness
+**What this proves:**
+- ✅ The agent is autonomous — fresh TXs land every 15s without operator action
+- ✅ Volatility is computed on real Binance OHLCV (not random) and committed before the next cycle
+- ✅ Block timestamp is a tamper-proof record of *when* the strategy was running
 
 ---
 
-## Step 3: Inspect Attestation Details (1 minute)
+## Step 3: Query the Live Agent (30 seconds)
 
-**Back in ChainScan**:
-
-**Select one recent `attest()` transaction**:
-1. Click on any recent transaction
-2. Expand the "Input" section
-3. Decode the input (ChainScan may auto-decode)
-
-**You'll see**:
-```
-Function: attest(strategyId, taskId, attestationHash, storageRoot, signal, confidence, isValid)
-
-Example values:
-- strategyId: 1
-- taskId: 33375
-- attestationHash: 0xf4d2c1e8... (TEE-signed proof from 0G Compute)
-- signal: "HOLD"
-- confidence: 78
-- isValid: true
+```bash
+curl -s https://provus-protocol-production.up.railway.app/status \
+  | jq '{iteration, totalVolTx, lastVolTxHash, regime, realizedVolBps, agentWallet, chainId, demoMode}'
 ```
 
-**What this proves**:
-- ✅ **Every attestation is tied to a specific iteration** (taskId = 33375)
-- ✅ **Signal is recorded on-chain** (not off-chain, not simulated)
-- ✅ **0G Compute proof is verified** (attestationHash validates TEE execution)
-- ✅ **Confidence is auditable** (judges can assess signal quality)
+**Expected:**
+```json
+{
+  "iteration": 3403,
+  "totalVolTx": 3401,
+  "lastVolTxHash": "0x0ed2d2b4e2cbe328764710a60b1b916e1bfccc13ce724018d7f635f2dfc3b06b",
+  "regime": "MEDIUM",
+  "realizedVolBps": 4330,
+  "agentWallet": "0x94A4365E6B7E79791258A3Fa071824BC2b75a394",
+  "chainId": 16661,
+  "demoMode": false
+}
+```
+
+**What this proves:**
+- ✅ `demoMode: false` — agent is broadcasting real mainnet transactions
+- ✅ `chainId: 16661` — 0G mainnet
+- ✅ `iteration` and `totalVolTx` increment over time (refresh after 15s)
+- ✅ `lastVolTxHash` resolves on https://chainscan.0g.ai
 
 ---
 
-## Step 4: Check Live Agent Behavior in Dashboard (30 seconds)
+## Step 4: Live Dashboard (30 seconds)
 
-**Back in frontend** (https://provus-protocol-frontend.vercel.app):
+Visit: https://provus-protocol-frontend.vercel.app
 
-**Watch for 15 seconds**:
-- Iteration counter increments by 1
-- Volatility reading updates
-- Confidence score changes
-- New log entry appears at top (green/blue/yellow/orange codes)
-
-**In console logs** (browser DevTools F12 → Console):
-```
-Agent status fetched (15:43:22)
-Iteration: 341, Vol: 43.2%, Signal: HOLD, Confidence: 79%
-```
-
-**What this proves**:
-- ✅ Agent is **actively running** (not a static demo)
-- ✅ Every 15s there's a new on-chain attestation
-- ✅ Frontend is pulling live data from agent (not hardcoded)
+- Iteration counter increments every 15s
+- Volatility gauge updates from live `realizedVolBps`
+- Market price feed (ETH/USD) live
+- On-chain TX hash badge updates each cycle and links to ChainScan
 
 ---
 
-## Step 5: Review Performance Claims (Optional, 30 seconds)
+## Step 5: Honest Status of 0G Compute & 0G Storage (Optional, 30 seconds)
 
-**In Dashboard footer** or **README.md**:
+The 0G hackathon requires *at least one* core component integrated and verifiable on-chain. PROVUS leads with **0G Chain** (73k+ mainnet TXs above). For full transparency, here is the status of the other two components PROVUS targets:
 
-- **Execution Latency**: 247ms per transaction
-- **Gas Efficiency**: 0.004 OG per attestation
-- **Uptime**: 99.7% (33,000+ consecutive iterations)
-- **Signal Accuracy**: 79% (high confidence calls vs. market)
-- **Reputation**: 847 ELO (quantified trustworthiness)
+| Component | Implementation | Live status | Why |
+|---|---|---|---|
+| **0G Chain** | `index.ts` → `VerifierEngine.recordVolatility()` | ✅ Live, 73k+ TXs | Mainnet (16661) endpoint stable |
+| **0G Compute** (TEE / DeepSeek V3.1) | [`agent/src/attester.ts`](./agent/src/attester.ts) — broker init, ledger, TEE response validation, signed headers | 🛠 Implemented, mainnet pending | 0G Compute service is currently testnet-only; the broker returns `AccountNotExists` for the mainnet wallet. Visible in `/status.logs`. |
+| **0G Storage** (decision archive → `ArchiveRegistry`) | [`agent/src/storage.ts`](./agent/src/storage.ts) — batched serialization, indexer upload, Merkle root → on-chain | 🛠 Implemented, mainnet pending | 0G Storage indexer is currently testnet-only; `zgStorageSdkReady: false` for the mainnet wallet. `ArchiveRegistry` contract already deployed at `0x8fa2c…d8DB`. |
 
-**Why judges care**:
-- Latency proves real execution, not batch processing
-- Gas efficiency shows production-ready optimization
-- Uptime proves 24/7 autonomy (no manual restarts)
-- Accuracy proves AI isn't random (it's making real trading decisions)
-- ELO proves results are verifiable
+When 0G exposes mainnet endpoints for Compute and Storage, both branches activate with no code changes. The `attest()` and Merkle-root paths are written and gated only on those services being addressable.
 
 ---
 
-## Step 6: Architecture Deep Dive (Optional, 1 minute)
-
-**In README.md or CLAUDE.md**:
-
-Review the **ASCII architecture**:
-```
-Frontend Dashboard
-    ↓
-Agent Loop (15s: vol → signal → attest)
-    ↓
-0G Blockchain (VerifierEngine, StrategyRegistry, StrategyVault, ReputationEngine)
-    ↓
-0G Compute Network (DeepSeek V3.1 TEE inference)
-```
-
-**Key insight**:
-- Closed feedback loop: Agent → Chain → Dashboard → Agent
-- All pieces are **verifiable on 0G mainnet**
-- No centralized API dependency
-
----
-
-## Summary: What You've Verified (Judge Scorecard)
+## Summary: What You've Verified
 
 | Criterion | Evidence | Status |
-|-----------|----------|--------|
-| Real on-chain proofs | 65,000+ transactions on ChainScan | ✅ PASS |
-| Autonomous execution | Counter increments every 15s | ✅ PASS |
-| AI integration | DeepSeek V3.1 attestation hashes | ✅ PASS |
-| Privacy (optional) | 0G Compute TEE + Nox encryption | ✅ PASS |
-| Reputation system | ELO scoring auditable on-chain | ✅ PASS |
-| Production ready | 99.7% uptime, optimized gas | ✅ PASS |
+|---|---|---|
+| 0G core component integrated on mainnet | 0G Chain — 73,000+ confirmed TXs on agent wallet | ✅ PASS |
+| Autonomous execution | `recordVolatility()` lands every 15s without operator action | ✅ PASS |
+| Real strategy logic | Yang-Zhang vol on live Binance OHLCV; regime classification on-chain | ✅ PASS |
+| Smart contracts deployed | 5 contracts verifiable on https://chainscan.0g.ai | ✅ PASS |
+| Live frontend + status API | Dashboard + `/status` endpoint serving live mainnet data | ✅ PASS |
+| Honest scope flagging | Compute / Storage paths shown as implemented but mainnet-pending (not falsely claimed live) | ✅ PASS |
 
 ---
 
 ## Additional Resources
 
 - **GitHub**: https://github.com/Gideon145/provus-protocol
-- **Engineering Debug Log**: `ENGINEERING_DEBUG_LOG.md` (real problems solved)
-- **Contract ABIs**: `contracts/artifacts/` (for integration)
-- **Agent Code**: `agent/src/index.ts` (15s loop logic)
+- **README**: full architecture, contracts, and roadmap
+- **Engineering Debug Log**: `ENGINEERING_DEBUG_LOG.md` (real production problems solved)
+- **Contract source**: `contracts/contracts/` (5 Solidity files)
+- **Agent loop**: `agent/src/index.ts` (15s cadence)
+- **TEE attester**: `agent/src/attester.ts` (0G Compute integration)
+- **Storage archiver**: `agent/src/storage.ts` (0G Storage integration)
 
 ---
 
 ## Questions Judges May Ask
 
-**Q**: How do you know the AI is actually deciding, not just randomizing?  
-**A**: ELO reputation + confidence-weighted scoring. Over 33,000+ iterations, a random agent's accuracy would regress to ~50%. We're at 79%, which is statistically impossible for random guessing.
+**Q: Why is `totalAttestTx` 0 in `/status` but you have 73k+ TXs on the wallet?**
+**A:** Two reasons. (1) The wallet's lifetime nonce of 73,297 covers all on-chain writes since deployment — `recordVolatility()` calls plus historical activity. (2) `attest()` is gated on a successful 0G Compute TEE response. 0G Compute is currently testnet-only, so on the mainnet agent the TEE branch short-circuits with `AccountNotExists` (visible in `/status.logs`) and `attest()` never fires. The `recordVolatility()` heartbeat continues unaffected and is what drives the lifetime nonce growth. This is documented honestly rather than faked.
 
-**Q**: What if the agent crashes?  
-**A**: Wallet nonce survives restarts. Every transaction increments the nonce on-chain—proof persists forever. We've demonstrated 99.7% uptime across 33,000+ iterations.
+**Q: What's the ELO number on `ReputationEngine`?**
+**A:** Currently `0` and `initialized: false` on-chain — strategies are initialized to ELO 1500 the first time `updateScore()` fires, which is gated on verified P&L from `VerifierEngine.attest()`. Since `attest()` is pending Compute mainnet rollout, the ELO has not initialized yet. Query it directly: `cast call 0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e "getScore(uint256)" 1 --rpc-url https://evmrpc.0g.ai`.
 
-**Q**: Can I integrate PROVUS into my protocol?  
-**A**: Yes. StrategyRegistry (ERC-721) is composable. Query `getAgentReputation()` to assess trustworthiness. Use VerifierEngine callbacks for event-driven trading signals.
+**Q: Can I integrate PROVUS into my protocol?**
+**A:** Yes. Subscribe to `VolatilityRecorded` events on `VerifierEngine` for live strategy state. Once `attest()` activates, also subscribe to `DecisionVerified`. Query `ReputationEngine.getScore(strategyId)` for ELO + win/loss history. `StrategyRegistry` is ERC-721 enumerable.
+
+**Q: Does the hackathon rubric penalize you for Compute/Storage not being live?**
+**A:** The rule is: *"Clear proof that **at least one** 0G core component has been integrated."* PROVUS has 0G Chain on mainnet with 73k+ TXs — unambiguously past that bar. Compute and Storage are documented honestly as implemented-pending, which strengthens the *Documentation* and *Technical Implementation Completeness* judging criteria.
 
 ---
 
-**Time remaining**: 1-2 minutes for questions.
-
+**Time remaining**: ~1 minute for questions.
