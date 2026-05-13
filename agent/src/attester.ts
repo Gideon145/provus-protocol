@@ -63,8 +63,9 @@ export class ZGAttester {
       await this.broker.ledger.getLedger();
       logger.success("0G ledger found.");
     } catch {
-      logger.info("No ledger — creating with 3 OG...");
-      await this.broker!.ledger.addLedger(3);
+      const ledgerOg = Number(process.env.ZG_COMPUTE_LEDGER_OG ?? "3");
+      logger.info(`No ledger — creating with ${ledgerOg} OG...`);
+      await this.broker!.ledger.addLedger(ledgerOg);
       logger.success("0G ledger created.");
     }
 
@@ -126,12 +127,20 @@ export class ZGAttester {
 
     logger.attest(`chatId=${chatId.slice(0, 16)}... model=${model}`);
 
-    // Verify TEE attestation — processResponse returns true/false/null
-    const isValid = await broker.inference.responseProcessor.processResponse(
-      this.providerAddress,
-      chatId,
-      content
-    );
+    // Verify TEE attestation — processResponse returns true/false/null,
+    // or throws if the provider response lacks a signature header.
+    // We treat any failure as isValid=null so the on-chain attestation still
+    // fires (recording the unverifiable response), preserving auditability.
+    let isValid: boolean | null = null;
+    try {
+      isValid = await broker.inference.responseProcessor.processResponse(
+        this.providerAddress,
+        chatId,
+        content
+      );
+    } catch (err) {
+      logger.warn(`TEE signature verify failed (recording as isValid=null): ${String(err).slice(0, 80)}`);
+    }
 
     logger.attest(`isValid=${isValid}`);
 
