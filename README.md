@@ -4,6 +4,8 @@
 
 > *"Every AI trading decision. Sealed on-chain. Cryptographically proven. Impossible to fake."*
 
+**0G Stack used:** Chain (mainnet, 75k+ TXs) · Compute (Qwen-2.5-7B TEE inference) · Storage (Merkle archives) — **3 of 5 components**
+
 [![Demo Video](https://img.shields.io/badge/Demo%20Video-YouTube-red)](https://youtu.be/lrhgAbrWF94)
 [![Live Dashboard](https://img.shields.io/badge/Live%20Dashboard-provus--protocol--frontend.vercel.app-cyan)](https://provus-protocol-frontend.vercel.app)
 [![0G Chain Mainnet](https://img.shields.io/badge/0G%20Chain-Mainnet%2016661-brightgreen)](https://chainscan.0g.ai/address/0x94A4365E6B7E79791258A3Fa071824BC2b75a394)
