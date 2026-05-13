@@ -841,7 +841,7 @@ export default function Home() {
           <a href="https://github.com/Gideon145/provus-protocol/blob/master/AUDIT.md" target="_blank" rel="noreferrer" className="evidence-btn" style={{ borderColor: "var(--purple)", color: "var(--purple)" }}>🛡 CHAINGPT AUDIT</a>
           <a href="https://github.com/Gideon145/provus-protocol/blob/master/agent/src/attester.ts" target="_blank" rel="noreferrer" className="evidence-btn" style={{ borderColor: "var(--cyan)", color: "var(--cyan)" }}>🧠 0G COMPUTE · TEE</a>
           <a href="https://github.com/Gideon145/provus-protocol/blob/master/agent/src/storage.ts" target="_blank" rel="noreferrer" className="evidence-btn" style={{ borderColor: "var(--purple)", color: "var(--purple)" }}>💾 0G STORAGE · MERKLE</a>
-          <a href={`${EXPLORER}/tx/0x878bdd96fd9ab333`} target="_blank" rel="noreferrer" className="evidence-btn" style={{ borderColor: "var(--purple)", color: "var(--purple)" }}>📦 ARCHIVE BATCH TX</a>
+          <a href={`${EXPLORER}/address/${ARCHIVE_REG}`} target="_blank" rel="noreferrer" className="evidence-btn" style={{ borderColor: "var(--purple)", color: "var(--purple)" }}>📦 ARCHIVE REGISTRY</a>
           <a href="https://github.com/Gideon145/provus-protocol/blob/master/ENGINEERING_DEBUG_LOG.md" target="_blank" rel="noreferrer" className="evidence-btn">🔧 ENGINEERING LOG</a>
         </div>
 

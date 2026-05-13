@@ -302,8 +302,18 @@ async function runLoop(
       `[SIGNAL] ${attestResult.signal} conf=${attestResult.confidence}% isValid=${attestResult.isValid} | ${attestResult.reasoning.slice(0, 60)}`
     );
   } catch (err) {
-    logger.error(`0G Compute query failed: ${err}`);
-    addLog(`[0G-ERR] ${String(err).slice(0, 80)}`);
+    const msg = String(err);
+    logger.error(`0G Compute query failed: ${msg}`);
+    addLog(`[0G-ERR] ${msg.slice(0, 80)}`);
+    // Self-heal: if the 0G Compute ledger account is missing (e.g. created when
+    // wallet had 0 OG and silently failed), force a re-init on next iteration so
+    // ZGAttester re-runs addLedger() with a now-funded wallet.
+    if (msg.includes("AccountNotExists") || msg.includes("LedgerNotExists")) {
+      try {
+        (attester as unknown as { initialized: boolean }).initialized = false;
+        addLog(`[0G-HEAL] forced attester re-init for next iteration`);
+      } catch {}
+    }
     // recordVolatility already fired — still got a tx this iteration
     return;
   }
