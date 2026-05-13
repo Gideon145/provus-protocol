@@ -12,6 +12,10 @@
 [![0G Storage Live](https://img.shields.io/badge/0G%20Storage-Live%20on%20Testnet-purple)](./agent/src/storage.ts)
 [![Audited](https://img.shields.io/badge/Audited-ChainGPT_AI-00c853)](./AUDIT.md)
 
+> ### 👉 **[3-Minute Judge Verification Guide → JUDGE_GUIDE.md](./JUDGE_GUIDE.md)**
+>
+> If you are evaluating PROVUS for the 0G APAC Hackathon, start here. Self-contained walkthrough with direct on-chain proofs for all three 0G components (Chain mainnet 75k+ TXs, Compute on testnet via Qwen-2.5-7B TEE, Storage on testnet via `ArchiveRegistry.archiveBatch`).
+
 ---
 
 ## Project Overview
