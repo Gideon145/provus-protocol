@@ -1,0 +1,14 @@
+{
+  "network": "zg_mainnet",
+  "chainId": "16661",
+  "deployer": "0x94A4365E6B7E79791258A3Fa071824BC2b75a394",
+  "deployedAt": "2026-04-28T12:55:56.126Z",
+  "contracts": {
+    "StrategyRegistry": "0x87E3D9fcfA4eff229A65d045A7C741E49b581187",
+    "VerifierEngine": "0x911E87629756F34190DF34162806f00b35521FD0",
+    "StrategyVault": "0x2B9366b7fea6a1C6279edbC7B87CCB91CdCc1014",
+    "ReputationEngine": "0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e",
+    "ArchiveRegistry": "0x8fa2c5ae17E2D170C54fC3CA34148B0Ad503d8DB"
+  },
+  "archiveDeployedAt": "2026-05-12T13:12:03.749Z"
+}

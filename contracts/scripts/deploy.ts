@@ -18,7 +18,11 @@ import { createRequire } from "module";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
 
-dotenv.config({ path: path.join(__dirname, "../../.env") });
+// Allow override: `ENV_FILE=.env.testnet npm run deploy:testnet`
+const envFile = process.env.ENV_FILE ?? "../../.env";
+const envPath = path.isAbsolute(envFile) ? envFile : path.join(__dirname, envFile);
+dotenv.config({ path: envPath });
+console.log(`[env] loaded ${envPath}`);
 
 const RPC_URL = process.env.ZG_RPC_URL ?? "https://evmrpc.0g.ai";
 const PRIVATE_KEY = process.env.ZG_PRIVATE_KEY!;
@@ -112,12 +116,20 @@ async function main() {
   };
 
   const deployDir = path.join(__dirname, "..");
+  // Network-suffixed file (so testnet deploy doesn't overwrite mainnet record)
+  const suffix = deployments.network === "zg_testnet" ? "-testnet" : "-mainnet";
+  const networkFile = `deployments${suffix}.json`;
+  fs.writeFileSync(
+    path.join(deployDir, networkFile),
+    JSON.stringify(deployments, null, 2)
+  );
+  // Also overwrite the canonical deployments.json for backwards compatibility
   fs.writeFileSync(
     path.join(deployDir, "deployments.json"),
     JSON.stringify(deployments, null, 2)
   );
   console.log();
-  console.log("Deployments saved to deployments.json");
+  console.log(`Deployments saved to ${networkFile} and deployments.json`);
 
   // 7. Print summary
   console.log();

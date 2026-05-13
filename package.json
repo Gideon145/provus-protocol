@@ -6,7 +6,8 @@
   "scripts": {
     "probe:compute": "npx ts-node scripts/probe-compute.ts",
     "probe:storage": "npx ts-node scripts/probe-storage.ts",
-    "agent:dev": "npx ts-node agent/src/index.ts"
+    "agent:dev": "npx ts-node agent/src/index.ts",
+    "agent:dev:testnet": "node -r dotenv/config node_modules/ts-node/dist/bin.js agent/src/index.ts dotenv_config_path=.env.testnet"
   },
   "dependencies": {
     "@0glabs/0g-serving-broker": "^1.0.0-beta.8",

@@ -19,7 +19,11 @@ import { createRequire } from "module";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const require = createRequire(import.meta.url);
 
-dotenv.config({ path: path.join(__dirname, "../../.env") });
+// Allow override: `ENV_FILE=.env.testnet npm run deploy:archive`
+const envFile = process.env.ENV_FILE ?? "../../.env";
+const envPath = path.isAbsolute(envFile) ? envFile : path.join(__dirname, envFile);
+dotenv.config({ path: envPath });
+console.log(`[env] loaded ${envPath}`);
 
 const RPC_URL = process.env.ZG_RPC_URL ?? "https://evmrpc.0g.ai";
 const PRIVATE_KEY = process.env.ZG_PRIVATE_KEY!;
@@ -64,18 +68,24 @@ async function main() {
     console.log("[2/2] Deployer is also the agent — no extra authorization needed");
   }
 
-  // Update deployments.json (keep existing entries, add ArchiveRegistry)
+  // Update both the canonical and the network-specific deployments file.
+  const isTestnet = RPC_URL.includes("testnet");
+  const networkFile = `deployments${isTestnet ? "-testnet" : "-mainnet"}.json`;
+  const networkPath = path.join(__dirname, "..", networkFile);
   const deployPath = path.join(__dirname, "..", "deployments.json");
-  let deployments: any = {};
-  if (fs.existsSync(deployPath)) {
-    deployments = JSON.parse(fs.readFileSync(deployPath, "utf8"));
+
+  for (const targetPath of [networkPath, deployPath]) {
+    let deployments: any = {};
+    if (fs.existsSync(targetPath)) {
+      deployments = JSON.parse(fs.readFileSync(targetPath, "utf8"));
+    }
+    deployments.contracts = deployments.contracts ?? {};
+    deployments.contracts.ArchiveRegistry = archiveAddr;
+    deployments.archiveDeployedAt = new Date().toISOString();
+    fs.writeFileSync(targetPath, JSON.stringify(deployments, null, 2));
   }
-  deployments.contracts = deployments.contracts ?? {};
-  deployments.contracts.ArchiveRegistry = archiveAddr;
-  deployments.archiveDeployedAt = new Date().toISOString();
-  fs.writeFileSync(deployPath, JSON.stringify(deployments, null, 2));
   console.log();
-  console.log("deployments.json updated.");
+  console.log(`${networkFile} and deployments.json updated.`);
 
   console.log();
   console.log("=".repeat(60));

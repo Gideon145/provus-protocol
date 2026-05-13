@@ -3,3 +3,7 @@ dist/
 .env
 *.env.local
 archive-cache/
+
+# environment profiles
+.env.testnet
+.env.mainnet
