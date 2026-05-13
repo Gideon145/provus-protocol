@@ -15,9 +15,9 @@ const shareTechMono = Share_Tech_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PROVUS Protocol — Autonomous AI Trading Agent",
+  title: "PROVUS Protocol — Verifiable Signal Engine on 0G",
   description:
-    "Autonomous AI trading agent with cryptographic attestation on 0G Mainnet. Every decision sealed in TEE. 439+ verified transactions on-chain.",
+    "Verifiable Signal Engine for autonomous AI trading on 0G. Every 15s a Qwen-2.5-7B reasoning trace is TEE-sealed and published on-chain. 75,000+ mainnet attestations. 3 of 5 0G components live.",
 };
 
 export default function RootLayout({
