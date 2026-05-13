@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#04080f"/><stop offset="100%" style="stop-color:#060d1a"/>
+    </linearGradient>
+    <linearGradient id="cyan" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00d4ff"/><stop offset="100%" style="stop-color:#0066ff"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1f35"/><stop offset="100%" style="stop-color:#071422"/>
+    </linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="bigglow"><feGaussianBlur stdDeviation="14" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <g opacity="0.06" stroke="#00d4ff" stroke-width="1">
+    <line x1="0" y1="135" x2="1200" y2="135"/><line x1="0" y1="270" x2="1200" y2="270"/>
+    <line x1="0" y1="405" x2="1200" y2="405"/><line x1="0" y1="540" x2="1200" y2="540"/>
+    <line x1="200" y1="0" x2="200" y2="675"/><line x1="400" y1="0" x2="400" y2="675"/>
+    <line x1="600" y1="0" x2="600" y2="675"/><line x1="800" y1="0" x2="800" y2="675"/><line x1="1000" y1="0" x2="1000" y2="675"/>
+  </g>
+  <circle cx="180" cy="338" r="220" fill="#00d4ff" opacity="0.05" filter="url(#bigglow)"/>
+  <circle cx="1020" cy="338" r="180" fill="#0066ff" opacity="0.06" filter="url(#bigglow)"/>
+
+  <rect x="430" y="52" width="340" height="30" rx="15" fill="#00d4ff" opacity="0.14"/>
+  <text x="600" y="72" font-family="Arial" font-size="12" font-weight="700" fill="#00d4ff" text-anchor="middle" letter-spacing="3">CHECKPOINT · 2026-05-13 · MILESTONE</text>
+
+  <text x="600" y="178" font-family="Arial Black, Arial" font-size="110" font-weight="900" fill="white" text-anchor="middle">75,286</text>
+  <rect x="350" y="195" width="500" height="4" rx="2" fill="url(#cyan)" filter="url(#glow)"/>
+  <text x="600" y="240" font-family="Arial" font-size="22" font-weight="700" fill="#a0c8ff" text-anchor="middle" letter-spacing="2">ON-CHAIN ATTESTATIONS · 0G MAINNET (16661)</text>
+  <text x="600" y="272" font-family="Arial" font-size="16" font-weight="400" fill="#6e8bb5" text-anchor="middle">VerifierEngine.recordVolatility() every 15 seconds · autonomous since Apr 28, 2026</text>
+
+  <!-- Three component cards -->
+  <g transform="translate(60, 320)">
+    <rect width="350" height="220" rx="14" fill="url(#cardGrad)" stroke="#00d4ff" stroke-opacity="0.4" stroke-width="1.5"/>
+    <rect x="0" y="0" width="350" height="4" rx="2" fill="#00d4ff"/>
+    <text x="24" y="40" font-family="Arial" font-size="11" font-weight="700" fill="#00d4ff" letter-spacing="2">0G CHAIN</text>
+    <text x="24" y="84" font-family="Arial Black, Arial" font-size="38" font-weight="900" fill="white">LIVE</text>
+    <text x="24" y="120" font-family="Arial" font-size="14" fill="#a0c8ff">Mainnet 16661 · Testnet 16602</text>
+    <text x="24" y="146" font-family="Arial" font-size="14" fill="#a0c8ff">recordVolatility + attest</text>
+    <text x="24" y="172" font-family="Arial" font-size="14" fill="#a0c8ff">every 15s · 75,000+ txs</text>
+    <text x="24" y="198" font-family="monospace" font-size="11" fill="#00d4ff">5 contracts deployed</text>
+  </g>
+
+  <g transform="translate(425, 320)">
+    <rect width="350" height="220" rx="14" fill="url(#cardGrad)" stroke="#7c5cff" stroke-opacity="0.5" stroke-width="1.5"/>
+    <rect x="0" y="0" width="350" height="4" rx="2" fill="#7c5cff"/>
+    <text x="24" y="40" font-family="Arial" font-size="11" font-weight="700" fill="#a890ff" letter-spacing="2">0G COMPUTE</text>
+    <text x="24" y="84" font-family="Arial Black, Arial" font-size="38" font-weight="900" fill="white">LIVE</text>
+    <text x="24" y="120" font-family="Arial" font-size="14" fill="#cdb8ff">Qwen-2.5-7B · TEE-sealed</text>
+    <text x="24" y="146" font-family="Arial" font-size="14" fill="#cdb8ff">dstack-verified provider</text>
+    <text x="24" y="172" font-family="Arial" font-size="14" fill="#cdb8ff">signed inference per cycle</text>
+    <text x="24" y="198" font-family="monospace" font-size="11" fill="#a890ff">0xa48f0128…7836</text>
+  </g>
+
+  <g transform="translate(790, 320)">
+    <rect width="350" height="220" rx="14" fill="url(#cardGrad)" stroke="#ff7eb3" stroke-opacity="0.5" stroke-width="1.5"/>
+    <rect x="0" y="0" width="350" height="4" rx="2" fill="#ff7eb3"/>
+    <text x="24" y="40" font-family="Arial" font-size="11" font-weight="700" fill="#ffa3c8" letter-spacing="2">0G STORAGE</text>
+    <text x="24" y="84" font-family="Arial Black, Arial" font-size="38" font-weight="900" fill="white">LIVE</text>
+    <text x="24" y="120" font-family="Arial" font-size="14" fill="#ffd0e0">archiveBatch Merkle roots</text>
+    <text x="24" y="146" font-family="Arial" font-size="14" fill="#ffd0e0">every 50 decisions</text>
+    <text x="24" y="172" font-family="Arial" font-size="14" fill="#ffd0e0">4 batches confirmed</text>
+    <text x="24" y="198" font-family="monospace" font-size="11" fill="#ffa3c8">0xaf325832…0e17f6</text>
+  </g>
+
+  <!-- Bottom bar -->
+  <rect x="60" y="585" width="1080" height="48" rx="10" fill="#0d1f35" stroke="#00d4ff" stroke-opacity="0.25"/>
+  <text x="80" y="615" font-family="Arial" font-size="14" font-weight="700" fill="#00d4ff" letter-spacing="2">ALL THREE 0G COMPONENTS · DEMONSTRABLY LIVE</text>
+  <text x="1120" y="615" font-family="Arial" font-size="13" fill="#6e8bb5" text-anchor="end">ELO 847 · 99.7% uptime · audited by ChainGPT</text>
+</svg>

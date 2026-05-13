@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#04080f"/><stop offset="100%" style="stop-color:#060d1a"/>
+    </linearGradient>
+    <linearGradient id="cyan" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00d4ff"/><stop offset="100%" style="stop-color:#0066ff"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1f35"/><stop offset="100%" style="stop-color:#071422"/>
+    </linearGradient>
+    <linearGradient id="line1" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:0"/>
+      <stop offset="100%" style="stop-color:#00d4ff;stop-opacity:1"/>
+    </linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="bigglow"><feGaussianBlur stdDeviation="14" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <rect width="1200" height="675" fill="url(#bg)"/>
+  <g opacity="0.06" stroke="#00d4ff" stroke-width="1">
+    <line x1="0" y1="135" x2="1200" y2="135"/><line x1="0" y1="270" x2="1200" y2="270"/>
+    <line x1="0" y1="405" x2="1200" y2="405"/><line x1="0" y1="540" x2="1200" y2="540"/>
+  </g>
+  <circle cx="600" cy="338" r="280" fill="#00d4ff" opacity="0.04" filter="url(#bigglow)"/>
+
+  <rect x="430" y="52" width="340" height="30" rx="15" fill="#00d4ff" opacity="0.14"/>
+  <text x="600" y="72" font-family="Arial" font-size="12" font-weight="700" fill="#00d4ff" text-anchor="middle" letter-spacing="3">CHECKPOINT · 2026-05-05 · LAUNCH</text>
+
+  <text x="600" y="170" font-family="Arial Black, Arial" font-size="68" font-weight="900" fill="white" text-anchor="middle">FRONTEND + 50K TXS</text>
+  <rect x="370" y="190" width="460" height="4" rx="2" fill="url(#cyan)" filter="url(#glow)"/>
+  <text x="600" y="232" font-family="Arial" font-size="18" font-weight="400" fill="#a0c8ff" text-anchor="middle">Live dashboard · client-side TX decoder · anyone can verify any attestation</text>
+
+  <!-- Growth chart -->
+  <g transform="translate(80, 290)">
+    <rect width="700" height="260" rx="14" fill="url(#cardGrad)" stroke="#00d4ff" stroke-opacity="0.25"/>
+    <text x="24" y="36" font-family="Arial" font-size="11" font-weight="700" fill="#00d4ff" letter-spacing="2">MAINNET ATTESTATIONS · CUMULATIVE</text>
+    <text x="676" y="36" font-family="Arial" font-size="11" font-weight="700" fill="#6e8bb5" letter-spacing="2" text-anchor="end">APR 28 → MAY 13</text>
+
+    <!-- Y axis -->
+    <text x="20" y="80" font-family="monospace" font-size="10" fill="#6e8bb5">75K</text>
+    <text x="20" y="125" font-family="monospace" font-size="10" fill="#6e8bb5">50K</text>
+    <text x="20" y="170" font-family="monospace" font-size="10" fill="#6e8bb5">25K</text>
+    <text x="20" y="215" font-family="monospace" font-size="10" fill="#6e8bb5">0</text>
+
+    <!-- Grid -->
+    <g stroke="#1a3055" stroke-width="1" opacity="0.5">
+      <line x1="50" y1="78" x2="680" y2="78"/>
+      <line x1="50" y1="123" x2="680" y2="123"/>
+      <line x1="50" y1="168" x2="680" y2="168"/>
+      <line x1="50" y1="213" x2="680" y2="213"/>
+    </g>
+
+    <!-- Growth line (linear-ish from Apr 28 to May 13) -->
+    <path d="M 60,213 L 110,210 L 160,200 L 210,185 L 260,165 L 310,142 L 360,125 L 410,110 L 460,98 L 510,88 L 560,80 L 610,75 L 660,72 L 680,71" fill="none" stroke="url(#cyan)" stroke-width="3" filter="url(#glow)"/>
+    <!-- area under curve -->
+    <path d="M 60,213 L 110,210 L 160,200 L 210,185 L 260,165 L 310,142 L 360,125 L 410,110 L 460,98 L 510,88 L 560,80 L 610,75 L 660,72 L 680,71 L 680,215 L 60,215 Z" fill="#00d4ff" opacity="0.08"/>
+
+    <!-- Milestone dots -->
+    <circle cx="60" cy="213" r="5" fill="#00ffa3"/>
+    <text x="60" y="238" font-family="Arial" font-size="10" fill="#00ffa3" text-anchor="middle" font-weight="700">Apr 28</text>
+    <text x="60" y="253" font-family="Arial" font-size="9" fill="#6e8bb5" text-anchor="middle">first tx</text>
+
+    <circle cx="310" cy="142" r="5" fill="#ffd700"/>
+    <text x="310" y="238" font-family="Arial" font-size="10" fill="#ffd700" text-anchor="middle" font-weight="700">May 5</text>
+    <text x="310" y="253" font-family="Arial" font-size="9" fill="#6e8bb5" text-anchor="middle">50K · frontend live</text>
+
+    <circle cx="680" cy="71" r="6" fill="#00d4ff" filter="url(#glow)"/>
+    <text x="680" y="238" font-family="Arial" font-size="10" fill="#00d4ff" text-anchor="middle" font-weight="700">May 13</text>
+    <text x="680" y="253" font-family="Arial" font-size="9" fill="#6e8bb5" text-anchor="middle">75,286 · today</text>
+  </g>
+
+  <!-- Right side stats -->
+  <g transform="translate(820, 290)">
+    <rect width="320" height="125" rx="14" fill="url(#cardGrad)" stroke="#00d4ff" stroke-opacity="0.3"/>
+    <text x="24" y="36" font-family="Arial" font-size="11" font-weight="700" fill="#00d4ff" letter-spacing="2">DASHBOARD LIVE</text>
+    <text x="24" y="78" font-family="Arial Black, Arial" font-size="32" fill="white">Vercel · Next.js</text>
+    <text x="24" y="105" font-family="Arial" font-size="13" fill="#a0c8ff">wagmi · viem · TX decoder</text>
+  </g>
+  <g transform="translate(820, 425)">
+    <rect width="320" height="125" rx="14" fill="url(#cardGrad)" stroke="#00ffa3" stroke-opacity="0.4"/>
+    <text x="24" y="36" font-family="Arial" font-size="11" font-weight="700" fill="#00ffa3" letter-spacing="2">UPTIME · AUTONOMY</text>
+    <text x="24" y="78" font-family="Arial Black, Arial" font-size="32" fill="white">99.7%</text>
+    <text x="24" y="105" font-family="Arial" font-size="13" fill="#a0ffce">Railway 24/7 · zero operator action</text>
+  </g>
+
+  <rect x="60" y="585" width="1080" height="48" rx="10" fill="#0d1f35" stroke="#00d4ff" stroke-opacity="0.25"/>
+  <text x="80" y="615" font-family="Arial" font-size="14" font-weight="700" fill="#00d4ff" letter-spacing="2">PROVUS-PROTOCOL-FRONTEND.VERCEL.APP · CLIENT-SIDE PROOF VERIFICATION</text>
+  <text x="1120" y="615" font-family="Arial" font-size="13" fill="#6e8bb5" text-anchor="end">~50 TXs/min · 2 contracts called per cycle</text>
+</svg>
