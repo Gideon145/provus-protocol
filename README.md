@@ -1,8 +1,8 @@
 ﻿# PROVUS Protocol
 
-**Autonomous AI Trading Agent with Cryptographic Attestation on 0G Chain**
+**A Verifiable Signal Engine for Autonomous Trading Agents on 0G**
 
-> *"Every AI trading decision. Sealed on-chain. Cryptographically proven. Impossible to fake."*
+> *"Every AI trading decision. Sealed on-chain. Cryptographically proven. Pre-committed, not back-fit. The reasoning is the product — execution is pluggable."*
 
 **0G Stack used:** Chain (mainnet, 75k+ TXs) · Compute (Qwen-2.5-7B TEE inference) · Storage (Merkle archives) — **3 of 5 components**
 
@@ -22,11 +22,19 @@
 
 ## Project Overview
 
-PROVUS is an autonomous AI trading agent built around **verifiable on-chain attestation**. Every 15 seconds, the agent measures market volatility, computes a Yang-Zhang realized-vol signal, and submits a `recordVolatility()` transaction to **0G Chain mainnet** — creating an immutable, block-timestamped record that the strategy was executing *live* at that moment, with no possibility of post-hoc fabrication.
+PROVUS is a **Verifiable Signal Engine** — an autonomous agent that publishes a TEE-signed market reasoning trace to 0G Chain mainnet every 15 seconds. It measures realized volatility (Yang-Zhang), classifies a regime, and submits a `recordVolatility()` transaction to `VerifierEngine` — creating an immutable, block-timestamped record that the strategy was executing *live* at that moment, with no possibility of post-hoc fabrication.
 
-**75,000+ confirmed transactions** on 0G Chain mainnet (agent wallet `0x94A4...A394`, lifetime nonce, persistent across restarts). The agent loop has been running continuously since deployment with autonomous 15-second cadence.
+**75,000+ confirmed transactions** on 0G Chain mainnet (agent wallet `0x94A4...A394`, lifetime nonce, persistent across restarts) form an auditable track record that *precedes* any capital deployment.
 
 Built for the 0G APAC Hackathon 2026 (Track 2: Agentic Trading Arena).
+
+### Why "signal engine" and not "trading bot"
+
+Most AI trading agents ask judges and users to trust three things at once: the model, the data, and the P&L. PROVUS unbundles them.
+
+We publish a **TEE-signed, on-chain reasoning trace every 15 seconds** — the volatility regime, the model output, the Merkle-archived history. **75,479+ mainnet attestations** form an auditable signal feed that *precedes* any capital deployment. Execution is intentionally a separate layer (perp-DEX executor planned for v2) so the **reasoning quality is provable independently of trading P&L**.
+
+Result: a verifiable signal feed any vault, agent, or human can subscribe to — knowing every signal was committed on-chain *before* the market moved.
 
 ---
 
