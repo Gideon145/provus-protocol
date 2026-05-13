@@ -197,13 +197,23 @@ export class ZGStorageArchiver {
     // 3. Best-effort upload to 0G Storage (no-op if SDK unavailable)
     if (this.sdkReady && this.uploader && this.indexer) {
       try {
-        // The 0G TS SDK API surface varies between versions; we wrap it in a
-        // try block so any change doesn't break the agent loop.
+        // ZgFile in @0glabs/0g-ts-sdk is fs-backed (uses an internal fd), so
+        // we must hand it a real file path — not a Buffer. We already wrote
+        // the blob to disk in step 2.
         // @ts-ignore optional / version-dependent API
-        const file = new this.uploader.ZgFile(Buffer.from(blob));
+        const ZgFile = this.uploader.ZgFile;
         // @ts-ignore
-        const tx = await this.indexer.upload(file, this.cfg.storageRpc, this.wallet);
-        logger.success(`0G Storage upload tx: ${String(tx).slice(0, 18)}...`);
+        const file = typeof ZgFile.fromFilePath === "function"
+          ? await ZgFile.fromFilePath(blobPath)
+          : new ZgFile(blobPath);
+        // @ts-ignore
+        const uploadRes = await this.indexer.upload(file, this.cfg.storageRpc, this.wallet);
+        // SDK returns [tx, error] tuple in newer versions
+        const txOrErr = Array.isArray(uploadRes) ? uploadRes[0] : uploadRes;
+        const uploadErr = Array.isArray(uploadRes) ? uploadRes[1] : null;
+        if (uploadErr) throw uploadErr;
+        try { if (typeof (file as any).close === "function") await (file as any).close(); } catch {}
+        logger.success(`0G Storage upload tx: ${String(txOrErr).slice(0, 18)}...`);
       } catch (err) {
         this.lastUploadError = String(err).slice(0, 200);
         logger.warn(`0G Storage upload failed (continuing with local root): ${this.lastUploadError}`);
