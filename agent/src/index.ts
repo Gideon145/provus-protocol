@@ -85,6 +85,9 @@ interface AgentStatus {
   totalAttestTx: number;
   verifiedAttestations: number;
   onChainTxCount: number;
+  // 0G Compute integration status — see attester health
+  computeStatus: "unknown" | "ready" | "mainnet-not-configured" | "error";
+  computeStatusNote: string;
   demoMode: boolean;
   chainId: number;
   rpcUrl: string;
@@ -127,6 +130,8 @@ const state: AgentStatus = {
   totalAttestTx: 0,
   verifiedAttestations: 0,
   onChainTxCount: 0,
+  computeStatus: "unknown",
+  computeStatusNote: "0G Compute broker not yet initialized",
   demoMode: CONFIG.demoMode,
   chainId: CONFIG.chainId,
   rpcUrl: CONFIG.rpcUrl,
@@ -303,19 +308,38 @@ async function runLoop(
     );
   } catch (err) {
     const msg = String(err);
-    logger.error(`0G Compute query failed: ${msg}`);
-    addLog(`[0G-ERR] ${msg.slice(0, 80)}`);
-    // Self-heal: if the 0G Compute ledger account is missing (e.g. created when
-    // wallet had 0 OG and silently failed), force a re-init on next iteration so
-    // ZGAttester re-runs addLedger() with a now-funded wallet.
+    // Detect the 0G Compute mainnet limitation: the configured provider is
+    // registered on testnet inference but not on the mainnet inference contract,
+    // so getServiceMetadata reverts with AccountNotExists. Mark status once and
+    // suppress further error spam — keep firing recordVolatility() each cycle.
     if (msg.includes("AccountNotExists") || msg.includes("LedgerNotExists")) {
+      if (state.computeStatus !== "mainnet-not-configured") {
+        state.computeStatus = "mainnet-not-configured";
+        state.computeStatusNote =
+          `0G Compute provider ${process.env.ZG_DEEPSEEK_PROVIDER ?? ""} ` +
+          `is registered on testnet (chainId 16602) but not on mainnet ` +
+          `(chainId 16661). On mainnet the agent runs recordVolatility() only; ` +
+          `full TEE attest pipeline runs on testnet deployment.`;
+        logger.warn(state.computeStatusNote);
+        addLog(`[0G-INFO] Compute path on mainnet: not configured (testnet-only provider). Continuing with recordVolatility-only mode.`);
+      }
+    } else {
+      // Genuinely new error — log it and try to self-heal
+      state.computeStatus = "error";
+      state.computeStatusNote = msg.slice(0, 200);
+      logger.error(`0G Compute query failed: ${msg}`);
+      addLog(`[0G-ERR] ${msg.slice(0, 80)}`);
       try {
         (attester as unknown as { initialized: boolean }).initialized = false;
-        addLog(`[0G-HEAL] forced attester re-init for next iteration`);
       } catch {}
     }
     // recordVolatility already fired — still got a tx this iteration
     return;
+  }
+  // First successful attestation → mark ready
+  if (state.computeStatus !== "ready") {
+    state.computeStatus = "ready";
+    state.computeStatusNote = "0G Compute TEE attestation pipeline active";
   }
 
   // -- Step 4: VerifierEngine.attest() — fires on EVERY signal ----------------
