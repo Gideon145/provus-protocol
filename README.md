@@ -43,7 +43,8 @@ Result: a verifiable signal feed any vault, agent, or human can subscribe to —
 > Concrete, verifiable signals — every number below is independently checkable on-chain or in the public dashboard.
 
 - **75,479 mainnet attestations** on 0G Chain (chainId 16661) — agent wallet [`0x94A4365E6B7E79791258A3Fa071824BC2b75a394`](https://chainscan.0g.ai/address/0x94A4365E6B7E79791258A3Fa071824BC2b75a394). Live count: `curl -X POST https://evmrpc.0g.ai -H 'content-type: application/json' -d '{"jsonrpc":"2.0","id":1,"method":"eth_getTransactionCount","params":["0x94A4365E6B7E79791258A3Fa071824BC2b75a394","latest"]}'`
-- **Autonomous since April 28, 2026** — 60-second cadence (production-tuned for gas efficiency — sub-minute vol is noise, not signal), persistent nonce across restarts, ~1,440 attestations / day
+- **Autonomous since April 28, 2026** — 60-second cadence, persistent nonce across restarts, ~1,440 attestations / day
+  > **Cadence history:** Launched at 15s (Apr 28 – May 13, 2026) to rapidly build on-chain evidence during the hackathon period (~75k TXs). Tuned to 60s on May 14, 2026 — one attestation per minute aligns with the minimum meaningful market regime window (sub-minute volatility is microstructure noise, not tradeable signal) and reduces mainnet gas burn 4×.
 - **99.7% uptime** on Railway (production, 24/7)
 - **200 decisions archived to 0G Storage** across 4 Merkle batches on testnet — roots `0xaf325832bd0e17f6`, `0x570caec7b2b238d0`, `0xc04a99133df4e168`, `0x878bdd96fd9ab333`
 - **ELO 847** computed on-chain by `ReputationEngine`
@@ -243,7 +244,7 @@ Every 60 seconds, the PROVUS agent runs this cycle autonomously:
 ## Smart Contracts (Solidity 0.8.24 · Deployed on 0G Chain)
 
 ### VerifierEngine — `0x911E87629756F34190DF34162806f00b35521FD0`
-The attestation hub. Called twice per 15-second cycle. Stores every AI decision as an immutable on-chain record with TEE proof hash and block timestamp.
+The attestation hub. Called once per 60-second cycle. Stores every AI decision as an immutable on-chain record with TEE proof hash and block timestamp.
 
 - `recordVolatility(strategyId, taskId, volBps, regime)` — seals the volatility context
 - `attest(strategyId, taskId, attestationHash, storageRoot, signal, confidence, isValid)` — seals the AI decision
