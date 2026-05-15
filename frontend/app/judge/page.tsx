@@ -87,13 +87,13 @@ export default function JudgePage() {
         <header style={{ marginBottom: "2rem", borderBottom: "1px solid var(--border-glow)", paddingBottom: "1rem" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "1rem" }}>
             <div>
-              <div style={{ fontSize: "0.75rem", color: "var(--cyan)", letterSpacing: "0.2em", marginBottom: "0.25rem" }}>
+              <div style={{ fontSize: "3rem", color: "var(--cyan)", letterSpacing: "0.2em", marginBottom: "0.25rem" }}>
                 ⬢ JUDGE MODE — 0G APAC HACKATHON
               </div>
-              <h1 style={{ fontFamily: "var(--font-orbitron), sans-serif", fontSize: "2rem", margin: 0, color: "var(--text-primary)" }}>
+              <h1 style={{ fontFamily: "var(--font-orbitron), sans-serif", fontSize: "8rem", margin: 0, color: "var(--text-primary)" }}>
                 PROVUS Protocol
               </h1>
-              <div style={{ color: "var(--text-dim)", fontSize: "0.85rem", marginTop: "0.25rem" }}>
+              <div style={{ color: "var(--text-dim)", fontSize: "3.4rem", marginTop: "0.25rem" }}>
                 Verifiable Signal Engine · Read-only review · No wallet required
               </div>
             </div>
@@ -105,13 +105,13 @@ export default function JudgePage() {
 
         {/* --------- The headline number --------- */}
         <section className="card-hud" style={cardLg}>
-          <div style={{ fontSize: "0.7rem", color: "var(--text-dim)", letterSpacing: "0.2em" }}>
+          <div style={{ fontSize: "2.8rem", color: "var(--text-dim)", letterSpacing: "0.2em" }}>
             LIFETIME MAINNET TRANSACTIONS · agent wallet · live from 0G RPC
           </div>
-          <div style={{ fontFamily: "var(--font-orbitron)", fontSize: "4rem", color: "var(--green)", lineHeight: 1, marginTop: "0.5rem" }} className="text-glow-green">
+          <div style={{ fontFamily: "var(--font-orbitron)", fontSize: "16rem", color: "var(--green)", lineHeight: 1, marginTop: "0.5rem" }} className="text-glow-green">
             {nonce !== null ? nonce.toLocaleString() : loading ? "…" : "—"}
           </div>
-          <div style={{ color: "var(--text-dim)", fontSize: "0.8rem", marginTop: "0.5rem" }}>
+          <div style={{ color: "var(--text-dim)", fontSize: "3.2rem", marginTop: "0.5rem" }}>
             Read directly from <code>eth_getTransactionCount</code> on{" "}
             <a href={`${EXPLORER}/address/${AGENT_WALLET}`} target="_blank" rel="noreferrer" style={inlineLink}>
               {AGENT_WALLET.slice(0, 10)}…{AGENT_WALLET.slice(-6)}
@@ -144,7 +144,7 @@ export default function JudgePage() {
             <Stat label="0G Compute"       value={status?.computeStatus ?? "—"} color={status?.computeStatus === "ready" ? "var(--green)" : "var(--amber)"} />
           </div>
           {status?.computeStatusNote && (
-            <div style={{ marginTop: "1rem", fontSize: "0.8rem", color: "var(--text-dim)", borderLeft: "2px solid var(--amber)", paddingLeft: "0.75rem" }}>
+            <div style={{ marginTop: "1rem", fontSize: "3.2rem", color: "var(--text-dim)", borderLeft: "2px solid var(--amber)", paddingLeft: "0.75rem" }}>
               {status.computeStatusNote}
             </div>
           )}
@@ -153,7 +153,7 @@ export default function JudgePage() {
         {/* --------- What's live where --------- */}
         <section className="card-hud" style={card}>
           <h2 style={h2}>What is live on which network</h2>
-          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.85rem" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "3.4rem" }}>
             <thead>
               <tr style={{ color: "var(--text-dim)", textAlign: "left", borderBottom: "1px solid var(--border)" }}>
                 <th style={th}>Component</th>
@@ -167,7 +167,7 @@ export default function JudgePage() {
               <Row c="0G Storage" m="⚠ Indexer not on mainnet" t="✅ Live · ArchiveRegistry Merkle roots" mWarn tOk />
             </tbody>
           </table>
-          <div style={{ marginTop: "1rem", fontSize: "0.8rem", color: "var(--text-dim)" }}>
+          <div style={{ marginTop: "1rem", fontSize: "3.2rem", color: "var(--text-dim)" }}>
             Same wallet, same code, two networks — switched by environment variable.
             Hackathon rule is &quot;at least one 0G core component integrated&quot; — PROVUS clears that bar on mainnet with the 75k+ TXs above, and exercises all three components end-to-end on testnet.
           </div>
@@ -180,8 +180,8 @@ export default function JudgePage() {
             {CONTRACTS.map((c) => (
               <div key={c.addr} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.5rem", background: "var(--bg-deep)", border: "1px solid var(--border)", borderRadius: 4, gap: "0.5rem", flexWrap: "wrap" }}>
                 <div>
-                  <div style={{ color: "var(--text-primary)", fontSize: "0.85rem" }}>{c.name}</div>
-                  <div style={{ color: "var(--text-dim)", fontSize: "0.75rem", fontFamily: "var(--font-hud)" }}>{c.addr}</div>
+                  <div style={{ color: "var(--text-primary)", fontSize: "3.4rem" }}>{c.name}</div>
+                  <div style={{ color: "var(--text-dim)", fontSize: "3rem", fontFamily: "var(--font-hud)" }}>{c.addr}</div>
                 </div>
                 <a href={`${EXPLORER}/address/${c.addr}`} target="_blank" rel="noreferrer" style={linkBtn}>
                   View ↗
@@ -191,10 +191,10 @@ export default function JudgePage() {
           </div>
         </section>
 
-        {/* --------- Honest failure modes --------- */}
+        {/* --------- Known limitations --------- */}
         <section className="card-hud" style={card}>
-          <h2 style={h2}>Honest failure modes</h2>
-          <ul style={{ color: "var(--text-dim)", fontSize: "0.85rem", lineHeight: 1.7, paddingLeft: "1.2rem" }}>
+          <h2 style={h2}>Known limitations</h2>
+          <ul style={{ color: "var(--text-dim)", fontSize: "3.4rem", lineHeight: 1.7, paddingLeft: "1.2rem" }}>
             <li><b style={{ color: "var(--text-primary)" }}>If 0G Compute mainnet provider isn&apos;t registered</b> → agent keeps writing <code>recordVolatility()</code>, exposes <code>computeStatus: mainnet-not-configured</code>, never fakes a TEE attestation.</li>
             <li><b style={{ color: "var(--text-primary)" }}>If 0G Storage indexer is overloaded</b> → on-chain Merkle root still lands via <code>ArchiveRegistry.archiveBatch()</code>; off-chain blob upload retried with backoff.</li>
             <li><b style={{ color: "var(--text-primary)" }}>If RPC drops mid-cycle</b> → persistent nonce manager retries, never loses sequence; nonce is read from chain on restart.</li>
@@ -214,7 +214,7 @@ export default function JudgePage() {
           <pre style={pre}>{`curl -s https://provus-protocol-production.up.railway.app/status`}</pre>
         </section>
 
-        <footer style={{ textAlign: "center", color: "var(--text-faint)", fontSize: "0.75rem", padding: "2rem 0 1rem" }}>
+        <footer style={{ textAlign: "center", color: "var(--text-faint)", fontSize: "3rem", padding: "2rem 0 1rem" }}>
           PROVUS Protocol · 0G APAC Hackathon 2026 · Track 2 (Agentic Trading Arena)
           {" · "}
           <a href="https://github.com/Gideon145/provus-protocol" target="_blank" rel="noreferrer" style={inlineLink}>GitHub</a>
@@ -230,8 +230,8 @@ export default function JudgePage() {
 function Stat({ label, value, color }: { label: string; value: string; color?: string }) {
   return (
     <div>
-      <div style={{ fontSize: "0.7rem", color: "var(--text-dim)", letterSpacing: "0.15em" }}>{label}</div>
-      <div style={{ fontFamily: "var(--font-orbitron)", fontSize: "1.25rem", color: color ?? "var(--text-primary)", marginTop: "0.2rem" }}>{value}</div>
+      <div style={{ fontSize: "2.8rem", color: "var(--text-dim)", letterSpacing: "0.15em" }}>{label}</div>
+      <div style={{ fontFamily: "var(--font-orbitron)", fontSize: "5rem", color: color ?? "var(--text-primary)", marginTop: "0.2rem" }}>{value}</div>
     </div>
   );
 }
@@ -251,12 +251,12 @@ function Row({ c, m, t, mOk, mWarn, tOk }: { c: string; m: string; t: string; mO
 /* ---- Styles --------------------------------------------------------------- */
 const card: React.CSSProperties = { padding: "1.25rem", marginBottom: "1rem" };
 const cardLg: React.CSSProperties = { padding: "1.5rem", marginBottom: "1rem" };
-const h2: React.CSSProperties = { fontFamily: "var(--font-orbitron)", fontSize: "1rem", color: "var(--cyan)", letterSpacing: "0.15em", margin: "0 0 1rem", textTransform: "uppercase" };
+const h2: React.CSSProperties = { fontFamily: "var(--font-orbitron)", fontSize: "4rem", color: "var(--cyan)", letterSpacing: "0.15em", margin: "0 0 1rem", textTransform: "uppercase" };
 const grid: React.CSSProperties = { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "1rem" };
-const th: React.CSSProperties = { padding: "0.5rem 0.5rem", fontSize: "0.7rem", letterSpacing: "0.15em", fontWeight: 500 };
+const th: React.CSSProperties = { padding: "0.5rem 0.5rem", fontSize: "2.8rem", letterSpacing: "0.15em", fontWeight: 500 };
 const td: React.CSSProperties = { padding: "0.5rem 0.5rem", verticalAlign: "top" };
-const pre: React.CSSProperties = { background: "var(--bg-deep)", border: "1px solid var(--border)", borderRadius: 4, padding: "0.75rem", fontSize: "0.75rem", color: "var(--text-primary)", overflowX: "auto", marginBottom: "0.5rem" };
-const linkBtn: React.CSSProperties = { color: "var(--cyan)", textDecoration: "none", fontSize: "0.8rem", padding: "0.4rem 0.75rem", border: "1px solid var(--border-glow)", borderRadius: 4 };
+const pre: React.CSSProperties = { background: "var(--bg-deep)", border: "1px solid var(--border)", borderRadius: 4, padding: "0.75rem", fontSize: "3rem", color: "var(--text-primary)", overflowX: "auto", marginBottom: "0.5rem" };
+const linkBtn: React.CSSProperties = { color: "var(--cyan)", textDecoration: "none", fontSize: "3.2rem", padding: "0.4rem 0.75rem", border: "1px solid var(--border-glow)", borderRadius: 4 };
 const btnPrimary: React.CSSProperties = { ...linkBtn, background: "var(--cyan-glow)", color: "var(--cyan)", borderColor: "var(--cyan-dim)" };
 const btnSecondary: React.CSSProperties = { ...linkBtn };
 const inlineLink: React.CSSProperties = { color: "var(--cyan)", textDecoration: "none" };

@@ -367,7 +367,7 @@ PROVUS ships in two coordinated deployments. Same wallet, same code, two network
 
 ---
 
-## Honest Failure Modes
+## Known Limitations
 
 PROVUS does not fake liveness. Every degraded path is surfaced, never papered over — and the 75,000+ TX trail is the proof these recovery paths work in production, not in theory.
 
