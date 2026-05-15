@@ -379,8 +379,6 @@ PROVUS does not fake liveness. Every degraded path is surfaced, never papered ov
 - **If inference fails entirely** → the cycle is skipped. There is no fallback "simulated" signal — nothing is written rather than something fake.
 - **If the agent process crashes** → Railway restarts it. The agent reads the current nonce from chain and resumes.
 
-This is the difference between *"we claim 10 layers work"* and *"every layer either works or tells you exactly how it doesn't."*
-
 ---
 
 ## Local Deployment (Reproduction Steps)
