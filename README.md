@@ -365,8 +365,6 @@ PROVUS ships in two coordinated deployments. Same wallet, same code, two network
 | **0G Compute** (TEE inference) | ⚙ Mainnet inference contract has no Qwen provider registered yet — agent reports `computeStatus: mainnet-not-configured` instead of faking it. One env-var swap moves Compute to mainnet the moment a provider lists. | ✅ Live · Qwen-2.5-7B via `0xa48f01…7836` (dstack-verified TEE provider). Sample `chatcmpl-5884c4f`, `chatcmpl-e1f51ee`. |
 | **0G Storage** (decision archive) | ⚙ Indexer endpoint not on mainnet yet — same one-line migration path | ✅ Live · `ArchiveRegistry.archiveBatch()` writing Merkle roots every 50 cycles. TXs `0xaf325832`, `0x570caec7`, `0xc04a9913`, `0x878bdd96`. |
 
-The hackathon rule is *"at least one 0G core component integrated"* — PROVUS clears that bar with 0G Chain mainnet (75k+ TXs) and exercises **all three** components end-to-end on testnet.
-
 ---
 
 ## Honest Failure Modes
