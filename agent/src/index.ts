@@ -111,6 +111,10 @@ interface AgentStatus {
   zgStorageSdkReady: boolean;
 }
 
+// Last values actually written on-chain — used for change detection
+let lastOnChainVolBps = -1;
+let lastOnChainRegime = "";
+
 const state: AgentStatus = {
   running: false,
   iteration: 0,
@@ -245,8 +249,12 @@ async function runLoop(
     `${CONFIG.symbol} $${vol.latestPrice.toFixed(2)} | vol=${(vol.realizedVolBps / 100).toFixed(1)}% | regime=${vol.regime}`
   );
 
-  // -- Step 2: recordVolatility() — fires EVERY iteration --------------------
-  if (verifier && !CONFIG.demoMode) {
+  // -- Step 2: recordVolatility() — fires only when vol changes >50 bps OR regime changes
+  const volChangedEnough =
+    Math.abs(vol.realizedVolBps - lastOnChainVolBps) > 50 ||
+    vol.regime !== lastOnChainRegime;
+
+  if (verifier && !CONFIG.demoMode && volChangedEnough) {
     try {
       const tx = await verifier.recordVolatility(
         CONFIG.strategyId,
@@ -257,6 +265,8 @@ async function runLoop(
       const receipt = await tx.wait();
       state.lastVolTxHash = receipt.hash;
       state.totalVolTx++;
+      lastOnChainVolBps = vol.realizedVolBps;
+      lastOnChainRegime = vol.regime;
       addLog(`[VOL-TX] vol=${(vol.realizedVolBps / 100).toFixed(1)}% tx=${receipt.hash.slice(0, 16)}...`);
       logger.info(`recordVolatility() ? ${receipt.hash.slice(0, 18)}...`);
     } catch (err) {
