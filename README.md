@@ -54,16 +54,14 @@ Result: a verifiable signal feed any vault, agent, or human can subscribe to —
 > Concrete, verifiable signals — every number below is independently checkable on-chain or in the public dashboard.
 
 - **80,790 mainnet attestations** on 0G Chain (chainId 16661) — agent wallet [`0x94A4365E6B7E79791258A3Fa071824BC2b75a394`](https://chainscan.0g.ai/address/0x94A4365E6B7E79791258A3Fa071824BC2b75a394). Live count: `curl -X POST https://evmrpc.0g.ai -H 'content-type: application/json' -d '{"jsonrpc":"2.0","id":1,"method":"eth_getTransactionCount","params":["0x94A4365E6B7E79791258A3Fa071824BC2b75a394","latest"]}'`
-- **Autonomous since April 28, 2026** — 60-second cadence, persistent nonce across restarts, ~1,440 attestations / day
+- **Autonomous since April 28, 2026** — 60-second cadence, persistent nonce across restarts; signal-driven writes since May 15 (~20–50 TXs/day in stable markets, see cadence history below)
   > **Cadence history:** Launched at 15s (Apr 28 – May 13, 2026) to observe raw signal behavior, validate the pipeline end-to-end, and let the data tell us what a meaningful write interval actually looks like.
   >
   > **Finding 1 (sub-minute signal analysis):** Reviewing the 15s on-chain record showed regime transitions averaging 8–15 minutes in practice. Sub-minute readings introduced high noise variance with no additional regime information — consecutive attestations were overwhelmingly identical. This confirmed the signal operates on a minute-level timescale, not seconds. **→ Tuned to 60s on May 14, 2026.**
   >
   > **Finding 2 (intra-regime stability):** At 60s cadence, on-chain TX patterns revealed the agent was writing *identical* readings for extended stretches — e.g. ETH held at $2,221 / 47.7% vol for 8+ consecutive hours with no regime change. The signal was proving itself stable: the same volatility classification holding for hundreds of blocks is itself a strong on-chain fact, but recording it 1,440× per day adds no new information. **→ Switched to signal-driven writes on May 15, 2026:** a TX is submitted only when `realizedVolBps` shifts by **>50 bps** or `regime` changes — preserving full fidelity of every meaningful transition while reducing gas burn ~96%.
-- **Signal-driven write optimization shipped May 15, 2026** — On-chain gas analysis revealed `recordVolatility()` was firing on every loop iteration regardless of market state. Querying live TX costs from 0G RPC (gas: 30,674 · gasPrice: 4 Gwei · ~0.000123 0G/TX) and cross-referencing `/status` signals showed the agent was writing identical volatility readings for extended periods — e.g. ETH held at $2,221 / 47.7% vol for 8+ consecutive hours. The fix: a change-detection gate that only submits a TX when `realizedVolBps` shifts by **>50 bps** or `regime` changes. Result: TX rate dropped from ~1,440/day to **~20–50/day** in normal market conditions while preserving full on-chain fidelity of every meaningful regime transition. The 80,790 TX history was built before this optimization; future attestations are higher signal-to-noise.
-- **99.7% uptime** on Railway (production, 24/7)
+- **Continuous on Railway** (production, 24/7) — persistent nonce survives restarts, verifiable in incrementing TX feed
 - **200 decisions archived to 0G Storage** across 4 Merkle batches on testnet — roots `0xaf325832bd0e17f6`, `0x570caec7b2b238d0`, `0xc04a99133df4e168`, `0x878bdd96fd9ab333`
-- **ELO 847** computed on-chain by `ReputationEngine`
 - **All 3 0G components live in production**: Chain (mainnet, 80k+ TXs) · Compute (Qwen-2.5-7B in dstack TEE) · Storage (`archiveBatch` Merkle roots)
 - **Audited** by ChainGPT AI Security (see [AUDIT.md](./AUDIT.md))
 - **Live dashboard**: [provus-protocol-frontend.vercel.app](https://provus-protocol-frontend.vercel.app) — real-time TX decoder, every attestation publicly verifiable
@@ -227,7 +225,7 @@ Every 60 seconds, the PROVUS agent runs this cycle autonomously:
                      │ GET /status
 ┌────────────────────▼────────────────────────────┐
 │      AGENT SERVICE  (Node.js · Railway)         │
-│      Autonomous 15-second loop                  │
+│      Autonomous 60-second loop (signal-driven)  │
 │                                                 │
 │  1. Binance API → OHLCV data                    │
 │  2. Yang-Zhang volatility calculation           │
