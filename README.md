@@ -49,7 +49,7 @@ Result: a verifiable signal feed any vault, agent, or human can subscribe to —
 
 ---
 
-## Traction (as of May 13, 2026)
+## Traction (as of May 15, 2026)
 
 > Concrete, verifiable signals — every number below is independently checkable on-chain or in the public dashboard.
 
