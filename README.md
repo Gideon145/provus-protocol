@@ -28,50 +28,6 @@
 | 1 | Open **[`/judge`](https://provus-protocol-frontend.vercel.app/judge)** | Live lifetime nonce on the agent wallet, read directly from 0G RPC. Cannot be fabricated. |
 | 2 | Click the agent wallet link → ChainScan | A fresh `recordVolatility()` TX has landed in the last 60 seconds. |
 | 3 | Curl the agent: `curl https://provus-protocol-production.up.railway.app/status` | Live iteration counter, current regime, last TX hash, `demoMode: false`. |
-| 4 | Skim the *What's Live* table below | Honest split: mainnet anchors the autonomy claim, testnet exercises the full Compute+Storage stack. |
-| 5 | Read *Honest Failure Modes* below | Every degraded path is surfaced, never faked. |
-
----
-
-## What's live on which network
-
-| Component | Mainnet (16661) | Testnet (16602) |
-|---|---|---|
-| **0G Chain** | ✅ Live · 75,000+ confirmed TXs (lifetime nonce on agent wallet) | ✅ Live · `recordVolatility()` + `attest()` every 60s |
-| **0G Compute** (TEE inference) | ⚠ Mainnet inference contract has no Qwen provider registered — agent reports `computeStatus: mainnet-not-configured` instead of faking it | ✅ Live · Qwen-2.5-7B via `0xa48f01…7836` (dstack-verified TEE provider). Sample `chatcmpl-5884c4f`, `chatcmpl-e1f51ee`. |
-| **0G Storage** (decision archive) | ⚠ Indexer endpoint not on mainnet | ✅ Live · `ArchiveRegistry.archiveBatch()` writing Merkle roots every 50 cycles. TXs `0xaf325832`, `0x570caec7`, `0xc04a9913`, `0x878bdd96`. |
-
-Same wallet, same code, two networks — switched by environment variable. The hackathon rule is *"at least one 0G core component integrated"* — PROVUS clears that bar with **0G Chain mainnet** and exercises **all three** components end-to-end on testnet.
-
----
-
-## Real-Time Signals
-
-> Every number below is independently verifiable from a public endpoint. No marketing.
-
-| Signal | Value | How to verify |
-|---|---|---|
-| Lifetime mainnet TXs | 75,000+ | `curl -X POST https://evmrpc.0g.ai -H 'content-type: application/json' -d '{"jsonrpc":"2.0","id":1,"method":"eth_getTransactionCount","params":["0x94A4365E6B7E79791258A3Fa071824BC2b75a394","latest"]}'` |
-| Current iteration | live | `curl https://provus-protocol-production.up.railway.app/status \| jq .iteration` |
-| Last TX hash | live | `curl …/status \| jq .lastVolTxHash` → open on ChainScan |
-| Loop interval | 60,000 ms | `curl …/status \| jq .loopIntervalMs` |
-| Compute status | `mainnet-not-configured` | `curl …/status \| jq .computeStatus` (honest — agent does not fake TEE attestation when provider is unregistered) |
-| Demo mode | `false` | `curl …/status \| jq .demoMode` |
-| ELO score | computed on-chain | `cast call 0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e "getScore(uint256)" 1 --rpc-url https://evmrpc.0g.ai` |
-
----
-
-## Honest Failure Modes
-
-PROVUS does not fake liveness. Every degraded path is surfaced, never papered over.
-
-- **If 0G Compute mainnet provider isn't registered** → agent detects `AccountNotExists` on the inference contract, sets `computeStatus: mainnet-not-configured` once, stops spamming errors, and continues writing `recordVolatility()`. No fake TEE attestation is ever signed.
-- **If 0G Storage indexer is overloaded** → the on-chain Merkle root still lands via `ArchiveRegistry.archiveBatch()` (that's what makes archives verifiable). The off-chain blob upload retries with backoff. If it ultimately fails, the cycle is logged as `archive: indexer-degraded` — the chain proof is unaffected.
-- **If RPC drops mid-cycle** → persistent nonce manager retries with exponential backoff and re-reads the nonce from chain on restart. The lifetime nonce never gets out of sequence.
-- **If inference fails entirely** → the cycle is skipped. There is no fallback "simulated" signal — nothing is written rather than something fake.
-- **If the agent process crashes** → Railway restarts it. The agent reads the current nonce from chain and resumes. The 75,000+ TX trail is the proof this restart-recovery path actually works in production.
-
-This is the difference between "we claim 10 layers work" and "every layer either works or tells you exactly how it doesn't."
 
 ---
 
@@ -381,6 +337,49 @@ https://provus-protocol-frontend.vercel.app — iteration counter, volatility ga
 **Additional docs:**
 - [JUDGE_GUIDE.md](JUDGE_GUIDE.md) — extended verification walkthrough
 - [ENGINEERING_DEBUG_LOG.md](ENGINEERING_DEBUG_LOG.md) — 5 production problems solved with root cause analysis
+
+---
+
+## Real-Time Signals
+
+> Every number below is independently verifiable from a public endpoint. No marketing — just curl.
+
+| Signal | Value | How to verify |
+|---|---|---|
+| Lifetime mainnet TXs | 75,000+ | `curl -X POST https://evmrpc.0g.ai -H 'content-type: application/json' -d '{"jsonrpc":"2.0","id":1,"method":"eth_getTransactionCount","params":["0x94A4365E6B7E79791258A3Fa071824BC2b75a394","latest"]}'` |
+| Current iteration | live | `curl https://provus-protocol-production.up.railway.app/status \| jq .iteration` |
+| Last TX hash | live | `curl …/status \| jq .lastVolTxHash` → open on ChainScan |
+| Loop interval | 60,000 ms | `curl …/status \| jq .loopIntervalMs` |
+| Demo mode | `false` | `curl …/status \| jq .demoMode` |
+| ELO score | computed on-chain | `cast call 0x57C7f2F3051928E2cc7C871Bac590bF1d4BF4c8e "getScore(uint256)" 1 --rpc-url https://evmrpc.0g.ai` |
+
+---
+
+## What's live on which network
+
+PROVUS ships in two coordinated deployments. Same wallet, same code, two networks — switched by environment variable.
+
+| Component | Mainnet (16661) | Testnet (16602) |
+|---|---|---|
+| **0G Chain** | ✅ Live · 75,000+ confirmed TXs (lifetime nonce on agent wallet) | ✅ Live · `recordVolatility()` + `attest()` every 60s |
+| **0G Compute** (TEE inference) | ⚙ Mainnet inference contract has no Qwen provider registered yet — agent reports `computeStatus: mainnet-not-configured` instead of faking it. One env-var swap moves Compute to mainnet the moment a provider lists. | ✅ Live · Qwen-2.5-7B via `0xa48f01…7836` (dstack-verified TEE provider). Sample `chatcmpl-5884c4f`, `chatcmpl-e1f51ee`. |
+| **0G Storage** (decision archive) | ⚙ Indexer endpoint not on mainnet yet — same one-line migration path | ✅ Live · `ArchiveRegistry.archiveBatch()` writing Merkle roots every 50 cycles. TXs `0xaf325832`, `0x570caec7`, `0xc04a9913`, `0x878bdd96`. |
+
+The hackathon rule is *"at least one 0G core component integrated"* — PROVUS clears that bar with 0G Chain mainnet (75k+ TXs) and exercises **all three** components end-to-end on testnet.
+
+---
+
+## Honest Failure Modes
+
+PROVUS does not fake liveness. Every degraded path is surfaced, never papered over — and the 75,000+ TX trail is the proof these recovery paths work in production, not in theory.
+
+- **If 0G Compute mainnet provider isn't registered** → agent detects `AccountNotExists` on the inference contract, sets `computeStatus: mainnet-not-configured` once, stops spamming errors, and continues writing `recordVolatility()`. No fake TEE attestation is ever signed.
+- **If 0G Storage indexer is overloaded** → the on-chain Merkle root still lands via `ArchiveRegistry.archiveBatch()` (that's what makes archives verifiable). The off-chain blob upload retries with backoff. If it ultimately fails, the cycle is logged as `archive: indexer-degraded` — the chain proof is unaffected.
+- **If RPC drops mid-cycle** → persistent nonce manager retries with exponential backoff and re-reads the nonce from chain on restart. The lifetime nonce never gets out of sequence.
+- **If inference fails entirely** → the cycle is skipped. There is no fallback "simulated" signal — nothing is written rather than something fake.
+- **If the agent process crashes** → Railway restarts it. The agent reads the current nonce from chain and resumes.
+
+This is the difference between *"we claim 10 layers work"* and *"every layer either works or tells you exactly how it doesn't."*
 
 ---
 
